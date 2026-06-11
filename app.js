@@ -9,6 +9,7 @@
   let curId = null;      // 현재 테스트 id
   let TEST = null;       // 현재 테스트 객체
   let answers = [];
+  let justCompleted = false;  // 방금 테스트를 정상 완료했는지 (링크 직접접근 구분용)
   let qIndex = 0;
 
   const SITE = (location.origin.startsWith('http') && !location.origin.includes('localhost') && !location.origin.includes('127.0.0.1'))
@@ -124,7 +125,7 @@
   // ---- 화면: 퀴즈 ----
   function renderQuiz(){
     const qs=TEST.questions[lang]||TEST.questions.ko;
-    if(qIndex>=qs.length){const rt=calcType();track('test_complete',{test_id:curId,result_type:rt});location.hash='result/'+curId+'/'+rt;return;}
+    if(qIndex>=qs.length){const rt=calcType();track('test_complete',{test_id:curId,result_type:rt});justCompleted=true;location.hash='result/'+curId+'/'+rt;return;}
     const q=qs[qIndex];
     const pct=Math.round(qIndex/qs.length*100);
     const app=document.getElementById('app');
@@ -149,9 +150,12 @@
     const m=TEST.meta[ty], d=TEST.types[ty][lang];
     const bestD=TEST.types[d.best][lang], worstD=TEST.types[d.worst][lang];
     const meta=getTestMeta(curId);
+    const fromLink = !justCompleted;   // 플래그 없으면 공유링크/직접 접근
+    justCompleted = false;             // 플래그 소비 (새로고침 시 다시 링크접근 취급)
     const app=document.getElementById('app');
     app.innerHTML=`
       <section class="result">
+        ${fromLink?`<a class="friend-banner" href="#test/${curId}">${t('friend_result')}<span class="friend-cta">${t('try_too')} →</span></a>`:''}
         <p class="result-label">${L(TEST.resultLabel)}</p>
         <div class="result-card" style="--c:${m.color};--ink:${m.ink}">
           <img class="result-img" src="${m.img}" alt="${d.name}">
