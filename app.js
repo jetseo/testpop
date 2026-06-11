@@ -33,6 +33,11 @@
   function track(event, params){
     try{ if(window.gtag) window.gtag('event', event, params||{}); }catch(e){}
   }
+  // 배열 셔플 (Fisher–Yates)
+  function shuffle(arr){
+    for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+    return arr;
+  }
 
   // ---- 라우팅 ----
   function route(){
@@ -82,7 +87,7 @@
         <p class="hub-sub">${t('hub_sub')}</p>
       </section>
       <section class="test-list">
-        ${TESTS.map(m=>`
+        ${shuffle(TESTS.slice()).map(m=>`
           <a class="test-card" href="#test/${m.id}">
             <div class="test-thumb"><img src="${m.thumb}" alt="" loading="lazy"></div>
             <div class="test-info">
@@ -258,7 +263,15 @@
       ctx.fillText('testpop.app', W/2, H-pad-36);
 
       cv.style.display='block';
-      if(download){const a=document.createElement('a');a.download='testpop-result.png';a.href=cv.toDataURL('image/png');a.click();}
+      if(download){
+        const a=document.createElement('a');
+        // 파일명: testpop_유형명_닉네임_시각 (특수문자/공백 정리, 이모지 제거)
+        const clean=(s)=>(s||'').replace(/[^\p{L}\p{N}]+/gu,'').slice(0,20);
+        const stamp=new Date().toISOString().slice(0,19).replace(/[-:T]/g,'');
+        const parts=['testpop', clean(d.name), nick&&clean(nick), stamp].filter(Boolean);
+        a.download=parts.join('_')+'.png';
+        a.href=cv.toDataURL('image/png'); a.click();
+      }
     };
     img.onerror=()=>toast('image load failed');
     img.src=m.img;
