@@ -49,6 +49,29 @@ body{
 /* ---- 레이아웃 ---- */
 #app{max-width:var(--maxw);margin:0 auto;padding:22px 18px 60px}
 
+/* ---- 허브(홈) ---- */
+.hub-hero{text-align:center;padding:18px 0 26px}
+.hub-title{font-family:'Jua',sans-serif;font-size:2.6rem;letter-spacing:-1px;color:var(--ink)}
+.hub-sub{font-size:1rem;color:var(--ink-soft);margin-top:6px}
+.test-list{display:flex;flex-direction:column;gap:16px}
+.test-card{
+  display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;
+  background:var(--bubble);border:2px solid var(--line);border-radius:var(--radius);
+  padding:14px;box-shadow:var(--shadow);transition:.15s;position:relative;overflow:hidden;
+}
+.test-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.test-thumb{flex:0 0 96px;width:96px;height:96px;border-radius:16px;overflow:hidden;background:#fff}
+.test-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.test-info{flex:1;min-width:0}
+.test-emoji{font-size:1.1rem}
+.test-name{font-family:'Jua',sans-serif;font-size:1.2rem;line-height:1.3;margin:2px 0;color:var(--ink)}
+.test-desc{font-size:.86rem;color:var(--ink-soft);line-height:1.4}
+.test-go{flex:0 0 auto;font-size:.82rem;font-weight:700;color:var(--accent-deep);align-self:flex-end}
+
+/* ---- 뒤로가기 ---- */
+.back-link{display:inline-block;color:var(--ink-soft);text-decoration:none;font-size:.9rem;font-weight:700;margin-bottom:14px}
+.back-link:hover{color:var(--ink)}
+
 /* ---- 히어로 ---- */
 .hero{text-align:center}
 .hero-art{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-bottom:22px;background:#fff}
