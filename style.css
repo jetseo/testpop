@@ -51,6 +51,8 @@ body{
 
 /* ---- 허브(홈) ---- */
 .hub-hero{text-align:center;padding:18px 0 26px}
+.hub-banner{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-bottom:14px;background:#fff}
+.hub-banner img{width:100%;height:auto;display:block}
 .hub-title{font-family:'Jua',sans-serif;font-size:2.6rem;letter-spacing:-1px;color:var(--ink)}
 .hub-sub{font-size:1rem;color:var(--ink-soft);margin-top:6px}
 .test-list{display:flex;flex-direction:column;gap:16px}
@@ -139,6 +141,24 @@ body{
 .match-item span:last-child{font-weight:700;font-size:.92rem}
 .match-item.best{border-color:#FFB3C7}
 .match-item.worst{border-color:#9DC3E6}
+
+.card-maker{
+  background:#fff;border:1.5px solid var(--line);border-radius:18px;
+  padding:18px;margin-bottom:18px;box-shadow:var(--shadow);text-align:center;
+}
+.card-maker-label{font-size:.9rem;color:var(--ink-soft);margin-bottom:12px}
+.card-maker #nick{
+  width:100%;border:2px solid var(--line);border-radius:14px;
+  padding:13px 16px;font-size:1rem;font-family:inherit;text-align:center;margin-bottom:10px;
+}
+.card-maker #nick:focus{outline:none;border-color:var(--accent)}
+.btn-make{
+  width:100%;font-family:'Jua',sans-serif;font-size:1.05rem;
+  background:var(--accent);color:#5A4500;border:none;
+  padding:14px;border-radius:14px;cursor:pointer;
+  box-shadow:0 4px 0 var(--accent-deep);transition:.1s;
+}
+.btn-make:active{transform:translateY(3px);box-shadow:0 1px 0 var(--accent-deep)}
 
 .nick-row{display:flex;gap:8px;margin-bottom:14px}
 #nick{flex:1;border:2px solid var(--line);border-radius:14px;padding:13px 16px;font-size:1rem;font-family:inherit}
