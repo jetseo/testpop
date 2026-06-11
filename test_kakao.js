@@ -5,6 +5,18 @@
 const TEST_KAKAO = {
   id: 'kakao-reply',
   emoji: '💬',
+  // 유형 순서 + 유형별 이미지/색상
+  typeList: ['instant','ghost_read','tmi','emoji','short','fairy','night','diver'],
+  meta: {
+    instant:    { img:'images/instant.jpg',    color:'#FFD54A', ink:'#7A5A00' },
+    ghost_read: { img:'images/ghost_read.jpg', color:'#9DC3E6', ink:'#27486B' },
+    tmi:        { img:'images/tmi.jpg',         color:'#FFB877', ink:'#8A4B12' },
+    emoji:      { img:'images/emoji.jpg',       color:'#FFAFC9', ink:'#9B2C57' },
+    short:      { img:'images/short.jpg',       color:'#B8BEC6', ink:'#3D4650' },
+    fairy:      { img:'images/fairy.jpg',       color:'#C9B6E4', ink:'#5B3F86' },
+    night:      { img:'images/night.jpg',       color:'#6E6A9E', ink:'#FFFFFF' },
+    diver:      { img:'images/diver.jpg',       color:'#5FC9C9', ink:'#0E5252' }
+  },
   // 결과 유형 이름 + 설명 (4개 언어)
   types: {
     instant: {
