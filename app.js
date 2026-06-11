@@ -48,6 +48,15 @@
     if(!obj)return false;
     curId=id; TEST=obj; return true;
   }
+  // 탭 제목 동적 설정
+  function setTitle(testId){
+    if(testId){
+      const m=getTestMeta(testId);
+      document.title = L(m.title) + ' | testpop';
+    } else {
+      document.title = t('page_title');
+    }
+  }
 
   // ---- 점수 계산 ----
   function calcType(){
@@ -60,7 +69,7 @@
 
   // ---- 화면: 허브(홈) ----
   function renderHub(){
-    curId=null; TEST=null;
+    curId=null; TEST=null; setTitle(null);
     const app=document.getElementById('app');
     app.innerHTML=`
       <section class="hub-hero">
@@ -86,6 +95,7 @@
 
   // ---- 화면: 테스트 인트로 ----
   function renderIntro(){
+    setTitle(curId);
     const m=getTestMeta(curId);
     const app=document.getElementById('app');
     app.innerHTML=`
@@ -126,6 +136,7 @@
 
   // ---- 화면: 결과 ----
   function renderResult(ty){
+    setTitle(curId);
     const m=TEST.meta[ty], d=TEST.types[ty][lang];
     const bestD=TEST.types[d.best][lang], worstD=TEST.types[d.worst][lang];
     const meta=getTestMeta(curId);
