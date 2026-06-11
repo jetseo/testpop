@@ -206,29 +206,40 @@
       roundRect(ctx,ix,iy,iw,ih,32); ctx.save(); ctx.clip();
       const ratio=Math.max(iw/img.width,ih/img.height),dw=img.width*ratio,dh=img.height*ratio;
       ctx.drawImage(img,ix+(iw-dw)/2,iy+(ih-dh)/2,dw,dh);
-      const grad=ctx.createLinearGradient(0,iy+ih-210,0,iy+ih);
+      // 닉네임 유무에 따라 흰 띠 높이 조절 (닉네임 있으면 더 높게)
+      const bandH = nick ? 280 : 210;
+      const grad=ctx.createLinearGradient(0,iy+ih-bandH,0,iy+ih);
       grad.addColorStop(0,'rgba(255,255,255,0)');
       grad.addColorStop(1,'rgba(255,255,255,0.94)');
-      ctx.fillStyle=grad; ctx.fillRect(ix,iy+ih-210,iw,210);
+      ctx.fillStyle=grad; ctx.fillRect(ix,iy+ih-bandH,iw,bandH);
       ctx.restore();
 
       ctx.textAlign='center';
-      // 이름 — 폭에 맞게 폰트 자동 축소
-      let nameSize=60;
+      // 유형명 — 폭에 맞게 폰트 자동 축소
+      let nameSize=58;
       do { ctx.font='bold '+nameSize+'px "Noto Sans KR",sans-serif';
            if(ctx.measureText(d.name).width<=iw-40) break; nameSize-=3;
-      } while(nameSize>34);
-      ctx.fillStyle=m.ink; ctx.fillText(d.name, W/2, iy+ih-72);
-      // 태그
-      ctx.fillStyle='#666'; ctx.font='34px "Noto Sans KR",sans-serif';
-      ctx.fillText(d.tag, W/2, iy+ih-28);
+      } while(nameSize>32);
 
-      // 닉네임 배지 (우상단)
       if(nick){
-        ctx.font='bold 36px "Noto Sans KR",sans-serif';
-        const tw=ctx.measureText(nick).width, bw=tw+56, bh=64, bx=ix+iw-bw-16, by=iy+16;
-        roundRect(ctx,bx,by,bw,bh,32); ctx.fillStyle=m.color; ctx.fill();
-        ctx.fillStyle=m.ink; ctx.textAlign='center'; ctx.fillText(nick, bx+bw/2, by+43);
+        // 1줄: 유형명 / 2줄: 닉네임 칩 (하나의 타이틀로 묶음)
+        ctx.fillStyle=m.ink;
+        ctx.font='bold '+nameSize+'px "Noto Sans KR",sans-serif';
+        ctx.fillText(d.name, W/2, iy+ih-150);
+        // 태그
+        ctx.fillStyle='#666'; ctx.font='32px "Noto Sans KR",sans-serif';
+        ctx.fillText(d.tag, W/2, iy+ih-108);
+        // 닉네임 칩 (색 배경, 유형명 아래)
+        ctx.font='bold 46px "Noto Sans KR",sans-serif';
+        const tw=ctx.measureText(nick).width, bw=Math.min(tw+72, iw-40), bh=72;
+        const bx=(W-bw)/2, by=iy+ih-78;
+        roundRect(ctx,bx,by,bw,bh,36); ctx.fillStyle=m.color; ctx.fill();
+        ctx.fillStyle=m.ink; ctx.textAlign='center'; ctx.fillText(nick, W/2, by+50);
+      } else {
+        // 닉네임 없으면 기존처럼 유형명+태그만
+        ctx.fillStyle=m.ink; ctx.fillText(d.name, W/2, iy+ih-72);
+        ctx.fillStyle='#666'; ctx.font='34px "Noto Sans KR",sans-serif';
+        ctx.fillText(d.tag, W/2, iy+ih-28);
       }
 
       // 설명
