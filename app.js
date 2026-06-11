@@ -193,7 +193,7 @@
       // 동적 높이 계산: 상단여백+이미지+이름영역+설명+워터마크+하단여백
       const descTop = iy+ih+54;
       const descH = descLines.length*lineH;
-      const wmH = 96; // 워터마크 영역
+      const wmH = 130; // 워터마크 영역 (2줄 + 하단 여백 확보)
       const H = descTop + descH + wmH + pad;
       cv.width=W; cv.height=H;
 
@@ -246,11 +246,11 @@
       ctx.textAlign='center'; ctx.fillStyle='#444'; ctx.font='32px "Noto Sans KR",sans-serif';
       descLines.forEach((ln,i)=>ctx.fillText(ln, W/2, descTop+i*lineH));
 
-      // 워터마크
+      // 워터마크 (둥근 모서리에 안 걸리게 위로)
       ctx.fillStyle='#aaa'; ctx.font='30px "Noto Sans KR",sans-serif';
-      ctx.fillText(L(getTestMeta(curId).title), W/2, H-pad-50);
-      ctx.fillStyle=m.ink; ctx.font='bold 34px sans-serif';
-      ctx.fillText('testpop.app', W/2, H-pad-12);
+      ctx.fillText(L(getTestMeta(curId).title), W/2, H-pad-78);
+      ctx.fillStyle=m.ink; ctx.font='bold 36px sans-serif';
+      ctx.fillText('testpop.app', W/2, H-pad-36);
 
       cv.style.display='block';
       if(download){const a=document.createElement('a');a.download='testpop-result.png';a.href=cv.toDataURL('image/png');a.click();}
