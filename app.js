@@ -124,7 +124,7 @@
         </div>
         <canvas id="cardCanvas" width="720" height="1280" style="display:none"></canvas>
         <div class="share-row">
-          <button class="btn-share kakao" id="shareBtn">${t('share_kakao')}</button>
+          <button class="btn-share share" id="shareBtn">${t('share')}</button>
           <button class="btn-share link" id="linkBtn">${t('share_link')}</button>
           <button class="btn-share save" id="saveBtn">${t('save_image')}</button>
         </div>
@@ -221,22 +221,20 @@
   function shareSocial(ty,d){
     const url=resultUrl(ty);
     const text=`${t('your_type')}: ${d.name}`;
-    // Web Share API 우선 (모바일에서 카톡 포함 네이티브 공유)
+    // Web Share API: 모바일에서 OS 공유 시트(카톡/인스타/라인 등 전부) 표시
     if(navigator.share){
       navigator.share({title:t('site_title'),text,url}).catch(()=>{});
       return;
     }
-    // 카카오 SDK 있으면 사용
-    if(window.Kakao && Kakao.Share){
-      Kakao.Share.sendDefault({
-        objectType:'feed',
-        content:{title:t('site_title'),description:text,
-          imageUrl:location.origin+location.pathname+TYPE_META[ty].img,
-          link:{mobileWebUrl:url,webUrl:url}}
-      });
-      return;
-    }
+    // Web Share 미지원(주로 데스크톱) → 링크 복사로 대체
     copyLink();
+    // ── 추후 카카오 전용 공유를 붙이려면 (도메인 등록 + JS키 필요) ──
+    // if(window.Kakao && Kakao.Share){
+    //   Kakao.Share.sendDefault({objectType:'feed',content:{
+    //     title:t('site_title'),description:text,
+    //     imageUrl:'https://testpop.app/'+TYPE_META[ty].img,
+    //     link:{mobileWebUrl:url,webUrl:url}}});
+    // }
   }
 
   function toast(msg){
