@@ -6,6 +6,7 @@ const TEST_WALLET = {
   id: 'wallet-voice',
   emoji: '🐷',
   typeList: ['empty','guardian','yolo','turtle','impulse','thrifty','investor','balance'],
+  resultLabel: { ko:'내 통장의 한마디', en:'Your wallet says', ja:'貯金箱の本音は', zh:'你的钱包说' },
   meta: {
     empty:    { img:'images/money_empty.jpg',    color:'#C8E6D4', ink:'#3A6B52' },
     guardian: { img:'images/money_guardian.jpg', color:'#A8D8D8', ink:'#1E5A5A' },
