@@ -159,7 +159,7 @@
           <input id="nick" type="text" maxlength="12" placeholder="${t('nickname_ph')}">
           <button class="btn-make" id="cardBtn">${t('make_card')}</button>
         </div>
-        <canvas id="cardCanvas" width="720" height="1280" style="display:none"></canvas>
+        <canvas id="cardCanvas" width="720" height="1500" style="display:none"></canvas>
         <div class="share-row">
           <button class="btn-share share" id="shareBtn">${t('share')}</button>
           <button class="btn-share save" id="saveBtn">${t('save_image')}</button>
@@ -181,35 +181,91 @@
   function drawCard(ty,d,download){
     const m=TEST.meta[ty];
     const cv=document.getElementById('cardCanvas'), ctx=cv.getContext('2d');
-    const W=cv.width,H=cv.height;
     const nick=(document.getElementById('nick').value||'').trim();
     const img=new Image(); img.crossOrigin='anonymous';
     img.onload=()=>{
+      const W=720, pad=36;
+      const ix=pad+16, iy=pad+16, iw=W-pad*2-32, ih=Math.round(iw*1.05);
+      // 설명 줄 나누기 (높이 계산 먼저)
+      ctx.font='32px "Noto Sans KR",sans-serif';
+      const maxW=W-pad*2-40, lineH=46;
+      const descLines=splitLines(ctx, d.desc, maxW);
+      // 동적 높이 계산: 상단여백+이미지+이름영역+설명+워터마크+하단여백
+      const descTop = iy+ih+54;
+      const descH = descLines.length*lineH;
+      const wmH = 96; // 워터마크 영역
+      const H = descTop + descH + wmH + pad;
+      cv.width=W; cv.height=H;
+
+      // 배경
       ctx.fillStyle=m.color; ctx.fillRect(0,0,W,H);
-      const pad=40,r=48;
+      const r=44;
       roundRect(ctx,pad,pad,W-pad*2,H-pad*2,r); ctx.fillStyle='#fff'; ctx.fill();
-      const iw=W-pad*2-40,ih=iw*0.92,ix=pad+20,iy=pad+20;
+
+      // 이미지
       roundRect(ctx,ix,iy,iw,ih,32); ctx.save(); ctx.clip();
       const ratio=Math.max(iw/img.width,ih/img.height),dw=img.width*ratio,dh=img.height*ratio;
-      ctx.drawImage(img,ix+(iw-dw)/2,iy+(ih-dh)/2,dw,dh); ctx.restore();
-      ctx.textAlign='center'; ctx.fillStyle=m.ink;
-      ctx.font='bold 64px "Noto Sans KR",sans-serif'; ctx.fillText(d.name,W/2,iy+ih+108);
-      ctx.fillStyle='#555'; ctx.font='38px "Noto Sans KR",sans-serif'; ctx.fillText(d.tag,W/2,iy+ih+170);
+      ctx.drawImage(img,ix+(iw-dw)/2,iy+(ih-dh)/2,dw,dh);
+      const grad=ctx.createLinearGradient(0,iy+ih-210,0,iy+ih);
+      grad.addColorStop(0,'rgba(255,255,255,0)');
+      grad.addColorStop(1,'rgba(255,255,255,0.94)');
+      ctx.fillStyle=grad; ctx.fillRect(ix,iy+ih-210,iw,210);
+      ctx.restore();
+
+      ctx.textAlign='center';
+      // 이름 — 폭에 맞게 폰트 자동 축소
+      let nameSize=60;
+      do { ctx.font='bold '+nameSize+'px "Noto Sans KR",sans-serif';
+           if(ctx.measureText(d.name).width<=iw-40) break; nameSize-=3;
+      } while(nameSize>34);
+      ctx.fillStyle=m.ink; ctx.fillText(d.name, W/2, iy+ih-72);
+      // 태그
+      ctx.fillStyle='#666'; ctx.font='34px "Noto Sans KR",sans-serif';
+      ctx.fillText(d.tag, W/2, iy+ih-28);
+
+      // 닉네임 배지 (우상단)
       if(nick){
-        ctx.font='bold 44px "Noto Sans KR",sans-serif';
-        const tw=ctx.measureText(nick).width,bw=tw+80,bx=(W-bw)/2,by=iy+ih+210;
-        roundRect(ctx,bx,by,bw,76,38); ctx.fillStyle=m.color; ctx.fill();
-        ctx.fillStyle=m.ink; ctx.fillText(nick,W/2,by+52);
+        ctx.font='bold 36px "Noto Sans KR",sans-serif';
+        const tw=ctx.measureText(nick).width, bw=tw+56, bh=64, bx=ix+iw-bw-16, by=iy+16;
+        roundRect(ctx,bx,by,bw,bh,32); ctx.fillStyle=m.color; ctx.fill();
+        ctx.fillStyle=m.ink; ctx.textAlign='center'; ctx.fillText(nick, bx+bw/2, by+43);
       }
-      ctx.fillStyle='#999'; ctx.font='34px "Noto Sans KR",sans-serif';
-      ctx.fillText(L(getTestMeta(curId).title),W/2,H-pad-58);
-      ctx.fillStyle=m.ink; ctx.font='bold 38px sans-serif';
-      ctx.fillText('testpop.app',W/2,H-pad-12);
+
+      // 설명
+      ctx.textAlign='center'; ctx.fillStyle='#444'; ctx.font='32px "Noto Sans KR",sans-serif';
+      descLines.forEach((ln,i)=>ctx.fillText(ln, W/2, descTop+i*lineH));
+
+      // 워터마크
+      ctx.fillStyle='#aaa'; ctx.font='30px "Noto Sans KR",sans-serif';
+      ctx.fillText(L(getTestMeta(curId).title), W/2, H-pad-50);
+      ctx.fillStyle=m.ink; ctx.font='bold 34px sans-serif';
+      ctx.fillText('testpop.app', W/2, H-pad-12);
+
       cv.style.display='block';
       if(download){const a=document.createElement('a');a.download='testpop-result.png';a.href=cv.toDataURL('image/png');a.click();}
     };
     img.onerror=()=>toast('image load failed');
     img.src=m.img;
+  }
+  // 텍스트를 maxW에 맞춰 줄 배열로 분리 (영어=단어단위, CJK=글자단위)
+  function splitLines(ctx,text,maxW){
+    // 공백 기준 토큰화하되, 토큰 자체가 너무 길면 글자단위로 쪼갬
+    const tokens=text.split(/(\s+)/); // 공백도 토큰으로 보존
+    let line='', lines=[];
+    const pushChar=(str)=>{ // 토큰이 maxW보다 길 때 글자단위 처리
+      for(const ch of str){
+        if(ctx.measureText(line+ch).width>maxW && line){lines.push(line);line=ch;}
+        else line+=ch;
+      }
+    };
+    for(const tk of tokens){
+      if(ctx.measureText(line+tk).width<=maxW){ line+=tk; }
+      else if(ctx.measureText(tk).width>maxW){ pushChar(tk); }
+      else { if(line.trim())lines.push(line.trimEnd()); line=tk.trimStart(); }
+    }
+    if(line.trim())lines.push(line.trimEnd());
+    if(lines.length>7){lines=lines.slice(0,7); lines[6]=lines[6].replace(/.$/,'')+'…';}
+    return lines;
   }
   function roundRect(ctx,x,y,w,h,r){
     ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);
