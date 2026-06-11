@@ -29,6 +29,11 @@
   const t=(k)=>(UI[lang]&&UI[lang][k])||UI.ko[k]||k;
   const L=(obj)=>obj?(obj[lang]||obj.ko):''; // 다국어 객체에서 현재 언어 추출
 
+  // ---- GA4 이벤트 추적 (gtag 없으면 조용히 무시) ----
+  function track(event, params){
+    try{ if(window.gtag) window.gtag('event', event, params||{}); }catch(e){}
+  }
+
   // ---- 라우팅 ----
   function route(){
     const h=location.hash.slice(1);
@@ -109,13 +114,13 @@
       </section>
       <div class="ad-slot" aria-hidden="true"></div>
     `;
-    document.getElementById('startBtn').onclick=()=>{answers=[];qIndex=0;location.hash='quiz';};
+    document.getElementById('startBtn').onclick=()=>{answers=[];qIndex=0;track('test_start',{test_id:curId});location.hash='quiz';};
   }
 
   // ---- 화면: 퀴즈 ----
   function renderQuiz(){
     const qs=TEST.questions[lang]||TEST.questions.ko;
-    if(qIndex>=qs.length){location.hash='result/'+curId+'/'+calcType();return;}
+    if(qIndex>=qs.length){const rt=calcType();track('test_complete',{test_id:curId,result_type:rt});location.hash='result/'+curId+'/'+rt;return;}
     const q=qs[qIndex];
     const pct=Math.round(qIndex/qs.length*100);
     const app=document.getElementById('app');
@@ -172,9 +177,9 @@
       </section>
     `;
     document.getElementById('retryBtn').onclick=()=>{answers=[];qIndex=0;location.hash='quiz';};
-    document.getElementById('shareBtn').onclick=()=>shareSocial(ty,d);
+    document.getElementById('shareBtn').onclick=()=>{track('result_share',{test_id:curId,result_type:ty});shareSocial(ty,d);};
     document.getElementById('cardBtn').onclick=()=>drawCard(ty,d,false);
-    document.getElementById('saveBtn').onclick=()=>drawCard(ty,d,true);
+    document.getElementById('saveBtn').onclick=()=>{track('card_save',{test_id:curId,result_type:ty});drawCard(ty,d,true);};
   }
 
   // ---- 결과 카드 Canvas ----
