@@ -126,7 +126,7 @@ body{
 .share-row{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
 .btn-share{font-family:'Jua',sans-serif;font-size:1.08rem;border:none;padding:15px;border-radius:14px;cursor:pointer;transition:.15s;color:#fff}
 .btn-share:active{transform:scale(.98)}
-.btn-share.kakao{background:#FAE100;color:#3A1D1D}
+.btn-share.share{background:#5B8DEF}
 .btn-share.link{background:#7C8AED}
 .btn-share.save{background:#5BC4A8}
 
