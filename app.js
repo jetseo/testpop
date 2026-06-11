@@ -222,19 +222,19 @@
       } while(nameSize>32);
 
       if(nick){
-        // 1줄: 유형명 / 2줄: 닉네임 칩 (하나의 타이틀로 묶음)
+        // 1줄: 유형명 → 2줄: 닉네임 칩 (붙여서 하나의 타이틀) → 3줄: 태그
         ctx.fillStyle=m.ink;
         ctx.font='bold '+nameSize+'px "Noto Sans KR",sans-serif';
-        ctx.fillText(d.name, W/2, iy+ih-150);
-        // 태그
-        ctx.fillStyle='#666'; ctx.font='32px "Noto Sans KR",sans-serif';
-        ctx.fillText(d.tag, W/2, iy+ih-108);
-        // 닉네임 칩 (색 배경, 유형명 아래)
+        ctx.fillText(d.name, W/2, iy+ih-160);
+        // 닉네임 칩 (유형명 바로 아래)
         ctx.font='bold 46px "Noto Sans KR",sans-serif';
         const tw=ctx.measureText(nick).width, bw=Math.min(tw+72, iw-40), bh=72;
-        const bx=(W-bw)/2, by=iy+ih-78;
+        const bx=(W-bw)/2, by=iy+ih-138;
         roundRect(ctx,bx,by,bw,bh,36); ctx.fillStyle=m.color; ctx.fill();
         ctx.fillStyle=m.ink; ctx.textAlign='center'; ctx.fillText(nick, W/2, by+50);
+        // 태그 (닉네임 아래)
+        ctx.fillStyle='#666'; ctx.font='32px "Noto Sans KR",sans-serif';
+        ctx.fillText(d.tag, W/2, iy+ih-30);
       } else {
         // 닉네임 없으면 기존처럼 유형명+태그만
         ctx.fillStyle=m.ink; ctx.fillText(d.name, W/2, iy+ih-72);
