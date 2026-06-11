@@ -143,7 +143,7 @@
     const app=document.getElementById('app');
     app.innerHTML=`
       <section class="result">
-        <p class="result-label">${t('your_type')}</p>
+        <p class="result-label">${L(TEST.resultLabel)}</p>
         <div class="result-card" style="--c:${m.color};--ink:${m.ink}">
           <img class="result-img" src="${m.img}" alt="${d.name}">
           <h2 class="result-name">${d.name}</h2>
@@ -232,7 +232,7 @@
     ta.remove(); if(ok)toast(t('copied'));
   }
   function shareSocial(ty,d){
-    const url=resultUrl(ty),text=`${t('your_type')}: ${d.name}`;
+    const url=resultUrl(ty),text=`${L(TEST.resultLabel)}: ${d.name}`;
     if(navigator.share){navigator.share({title:t('site_title'),text,url}).catch(()=>{});return;}
     copyLink(ty);
   }
