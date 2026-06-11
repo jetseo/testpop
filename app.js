@@ -94,7 +94,7 @@
           </a>
         `).join('')}
       </section>
-      <div class="ad-slot" aria-hidden="true"></div>
+      <div class="ad-slot" data-slot="hub-bottom" aria-hidden="true"></div>
     `;
   }
 
@@ -112,7 +112,6 @@
         <p class="hero-sub">${t('hero_sub')}</p>
         <button class="btn-primary" id="startBtn">${t('start')}</button>
       </section>
-      <div class="ad-slot" aria-hidden="true"></div>
     `;
     document.getElementById('startBtn').onclick=()=>{answers=[];qIndex=0;track('test_start',{test_id:curId});location.hash='quiz';};
   }
@@ -155,6 +154,7 @@
           <p class="result-tag">${d.tag}</p>
         </div>
         <p class="result-desc">${d.desc}</p>
+        <div class="ad-slot" data-slot="result-mid" aria-hidden="true"></div>
         <div class="match">
           <div class="match-item best"><span class="match-label">💕 ${t('match_best')}</span><span>${bestD.name}</span></div>
           <div class="match-item worst"><span class="match-label">⚡ ${t('match_worst')}</span><span>${worstD.name}</span></div>
@@ -173,7 +173,7 @@
           <button class="btn-ghost" id="retryBtn">${t('retry')}</button>
           <a class="btn-ghost" href="#home" style="text-decoration:none">${t('other_tests')}</a>
         </div>
-        <div class="ad-slot" aria-hidden="true"></div>
+        <div class="ad-slot" data-slot="result-bottom" aria-hidden="true"></div>
       </section>
     `;
     document.getElementById('retryBtn').onclick=()=>{answers=[];qIndex=0;location.hash='quiz';};
