@@ -64,7 +64,7 @@
     const app=document.getElementById('app');
     app.innerHTML=`
       <section class="hub-hero">
-        <h1 class="hub-title">testpop</h1>
+        <div class="hub-banner"><img src="images/og.jpg" alt="testpop" loading="eager"></div>
         <p class="hub-sub">${t('hub_sub')}</p>
       </section>
       <section class="test-list">
@@ -143,14 +143,14 @@
           <div class="match-item best"><span class="match-label">💕 ${t('match_best')}</span><span>${bestD.name}</span></div>
           <div class="match-item worst"><span class="match-label">⚡ ${t('match_worst')}</span><span>${worstD.name}</span></div>
         </div>
-        <div class="nick-row">
+        <div class="card-maker">
+          <p class="card-maker-label">${t('card_hint')}</p>
           <input id="nick" type="text" maxlength="12" placeholder="${t('nickname_ph')}">
-          <button class="btn-ghost" id="cardBtn">${t('make_card')}</button>
+          <button class="btn-make" id="cardBtn">${t('make_card')}</button>
         </div>
         <canvas id="cardCanvas" width="720" height="1280" style="display:none"></canvas>
         <div class="share-row">
           <button class="btn-share share" id="shareBtn">${t('share')}</button>
-          <button class="btn-share link" id="linkBtn">${t('share_link')}</button>
           <button class="btn-share save" id="saveBtn">${t('save_image')}</button>
         </div>
         <div class="result-actions">
@@ -161,7 +161,6 @@
       </section>
     `;
     document.getElementById('retryBtn').onclick=()=>{answers=[];qIndex=0;location.hash='quiz';};
-    document.getElementById('linkBtn').onclick=()=>copyLink(ty);
     document.getElementById('shareBtn').onclick=()=>shareSocial(ty,d);
     document.getElementById('cardBtn').onclick=()=>drawCard(ty,d,false);
     document.getElementById('saveBtn').onclick=()=>drawCard(ty,d,true);
@@ -239,6 +238,7 @@
     document.getElementById('f-about').textContent=t('footer_about');
     document.getElementById('f-privacy').textContent=t('footer_privacy');
     document.getElementById('f-contact').textContent=t('footer_contact');
+    const fn=document.getElementById('f-note'); if(fn)fn.textContent=t('footer_note');
     route();
   }
   window.addEventListener('hashchange',route);
