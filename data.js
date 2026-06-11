@@ -1,24 +1,40 @@
 /* ===========================================================
-   테스트 데이터 + 다국어 언어팩 (단일 파일 관리)
-   새 테스트 추가 시 이 파일만 수정하면 됩니다.
+   testpop 공통 데이터 + 테스트 레지스트리
+   새 테스트 추가 시: test_XXX.js 만들고 TESTS 배열에 등록
    =========================================================== */
 
-// 지원 언어
 const LANGS = ['ko', 'en', 'ja', 'zh'];
 
-// 결과 유형 8종 (이미지 파일명과 1:1 매칭)
-const TYPES = ['instant','ghost_read','tmi','emoji','short','fairy','night','diver'];
+// 테스트 레지스트리 — 허브에 노출되는 순서대로
+// id는 라우팅/이미지 식별자, thumb는 허브 카드 썸네일(히어로 재활용)
+const TESTS = [
+  {
+    id: 'kakao-reply',
+    obj: () => TEST_KAKAO,
+    emoji: '💬',
+    thumb: 'images/hero.jpg',
+    title: { ko:'카톡 답장 유형 테스트', en:'Chat Reply Type Test',
+             ja:'トーク返信タイプ診断', zh:'聊天回复类型测试' },
+    desc:  { ko:'내 메신저 답장 스타일은?', en:'What kind of texter are you?',
+             ja:'あなたの返信スタイルは？', zh:'你的回复风格是哪种？' }
+  },
+  {
+    id: 'wallet-voice',
+    obj: () => TEST_WALLET,
+    emoji: '🐷',
+    thumb: 'images/money_hero.jpg',
+    title: { ko:'내 통장이 하고 싶은 말', en:'What Your Wallet Wants to Say',
+             ja:'あなたの貯金箱の本音', zh:'你的钱包想对你说' },
+    desc:  { ko:'소비 습관으로 보는 내 통장의 속마음', en:'Your spending habits, voiced by your wallet',
+             ja:'消費習慣でわかる貯金箱の本音', zh:'从消费习惯看你钱包的心声' }
+  }
+];
 
-// 유형별 메타: 색상 테마(카드 배경), 이미지
-const TYPE_META = {
-  instant:    { img:'images/instant.jpg',    color:'#FFD54A', ink:'#7A5A00' },
-  ghost_read: { img:'images/ghost_read.jpg', color:'#9DC3E6', ink:'#27486B' },
-  tmi:        { img:'images/tmi.jpg',         color:'#FFB877', ink:'#8A4B12' },
-  emoji:      { img:'images/emoji.jpg',       color:'#FFAFC9', ink:'#9B2C57' },
-  short:      { img:'images/short.jpg',       color:'#B8BEC6', ink:'#3D4650' },
-  fairy:      { img:'images/fairy.jpg',       color:'#C9B6E4', ink:'#5B3F86' },
-  night:      { img:'images/night.jpg',       color:'#6E6A9E', ink:'#FFFFFF' },
-  diver:      { img:'images/diver.jpg',       color:'#5FC9C9', ink:'#0E5252' }
-};
+// id로 테스트 객체 찾기
+function getTest(id){
+  const t = TESTS.find(x=>x.id===id);
+  return t ? t.obj() : null;
+}
+function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded');
+console.log('data.js loaded — tests:', TESTS.length);
