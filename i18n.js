@@ -4,6 +4,8 @@
 const UI = {
   ko: {
     site_title: '카톡 답장 유형 테스트',
+    hub_sub: '재미로 보는 심리테스트 모음. 하나 골라보세요!',
+    do_test: '테스트하기',
     site_tagline: '내 메신저 답장 스타일은 어떤 유형일까?',
     hero_sub: '10초 만에 알아보는 나의 답장 본능. 결과를 친구에게 공유해보세요!',
     start: '테스트 시작하기',
@@ -29,6 +31,8 @@ const UI = {
   },
   en: {
     site_title: 'Chat Reply Type Test',
+    hub_sub: 'A collection of fun personality tests. Pick one!',
+    do_test: 'Take test',
     site_tagline: 'What kind of texter are you?',
     hero_sub: 'Discover your messaging instinct in 10 seconds. Share your result with friends!',
     start: 'Start Test',
@@ -54,6 +58,8 @@ const UI = {
   },
   ja: {
     site_title: 'トーク返信タイプ診断',
+    hub_sub: '楽しい心理テスト集。一つ選んでね！',
+    do_test: '診断する',
     site_tagline: 'あなたの返信スタイルはどのタイプ？',
     hero_sub: '10秒でわかる返信の本能。結果を友達にシェアしよう！',
     start: '診断スタート',
@@ -79,6 +85,8 @@ const UI = {
   },
   zh: {
     site_title: '聊天回复类型测试',
+    hub_sub: '有趣的心理测试合集，挑一个吧！',
+    do_test: '开始测试',
     site_tagline: '你的消息回复风格是哪一种？',
     hero_sub: '10秒测出你的回复本能。把结果分享给朋友吧！',
     start: '开始测试',
