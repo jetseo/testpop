@@ -37,6 +37,16 @@ const TESTS = [
              ja:'私の中のもう一人 — 裏キャラ診断', zh:'我内心的另一个我 — 副人格测试' },
     desc:  { ko:'숨은 성향을 동물 부캐로 알려드려요', en:'Your hidden side, revealed as an animal',
              ja:'隠れた性格を動物の裏キャラで', zh:'用动物副人格揭示你的隐藏性格' }
+  },
+  {
+    id: 'love-cell',
+    obj: () => TEST_LOVE,
+    emoji: '💘',
+    thumb: 'images/love_hero.jpg',
+    title: { ko:'나의 연애 세포 테스트', en:'Your Love Cell Test',
+             ja:'私の恋愛細胞診断', zh:'我的恋爱细胞测试' },
+    desc:  { ko:'연애할 때 나는 어떤 하트일까?', en:'What kind of heart are you in love?',
+             ja:'恋する時、私はどんなハート？', zh:'恋爱时我是哪种心？' }
   }
 ];
 
