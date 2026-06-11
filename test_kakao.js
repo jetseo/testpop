@@ -7,6 +7,7 @@ const TEST_KAKAO = {
   emoji: '💬',
   // 유형 순서 + 유형별 이미지/색상
   typeList: ['instant','ghost_read','tmi','emoji','short','fairy','night','diver'],
+  resultLabel: { ko:'나의 답장 유형은', en:'Your reply type is', ja:'あなたの返信タイプは', zh:'你的回复类型是' },
   meta: {
     instant:    { img:'images/instant.jpg',    color:'#FFD54A', ink:'#7A5A00' },
     ghost_read: { img:'images/ghost_read.jpg', color:'#9DC3E6', ink:'#27486B' },
