@@ -102,11 +102,6 @@ function render(l) {
   document.getElementById('content').innerHTML =
     `<h1 style="font-family:Jua,sans-serif;font-size:1.6rem;margin-bottom:16px">${t.title}</h1>
      <p style="margin-bottom:14px">${t.intro}</p>
-     <div class="contact-box">
-       <img src="images/kakao_qr.png" alt="KakaoTalk QR">
-       <div class="qr-label">${t.qrLabel}</div>
-       <div class="qr-sub">${t.qrSub}</div>
-     </div>
      <p style="margin-bottom:14px">${t.outro}</p>`;
   document.getElementById('footerNav').innerHTML =
     t.footer.map((name,i) => `<a href="${footerLinks[i]}">${name}</a>`).join('');
