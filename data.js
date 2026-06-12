@@ -67,5 +67,16 @@ function getTest(id){
 }
 function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded — tests:', TESTS.length); // 5
+  ,{
+    id: 'guardian-animal',
+    obj: () => TEST_GUARDIAN,
+    emoji: '🐾',
+    thumb: 'images/guardian_hero.jpg',
+    title: { ko:'나의 수호동물 테스트', en:'Your Guardian Animal Test',
+             ja:'私の守護動物診断', zh:'我的守护动物测试' },
+    desc:  { ko:'내 곁을 지키는 수호동물은?', en:'What animal guards your soul?',
+             ja:'私を守る守護動物は？', zh:'守护我的动物是什么？' }
+  }
+];
+console.log('data.js loaded — tests:', TESTS.length); // 6
 
