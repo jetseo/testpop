@@ -5,15 +5,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>문의 | testpop</title>
-<meta name="description" content="testpop 문의 안내. 오류 제보, 새 테스트 제안, 제휴 및 광고 문의를 받습니다.">
+<meta name="description" content="testpop 문의 안내.">
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-.contact-kakao{margin:28px 0}
-.contact-kakao .qr-wrap{display:block;width:220px;margin:0 auto;background:#fee500;border-radius:20px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,.10);text-align:center}
-.contact-kakao .qr-wrap img{width:180px;height:180px;display:block;margin:0 auto;border-radius:8px}
-.contact-kakao .qr-label{margin-top:12px;font-size:.95rem;color:#3a1d00;font-weight:700}
-.contact-kakao .qr-sub{font-size:.82rem;color:#7a5a00;margin-top:4px}
+.contact-box {
+  border: 1.5px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px 0;
+  text-align: center;
+}
+.contact-box img {
+  width: 180px;
+  height: 180px;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto 12px;
+}
+.contact-box .qr-label {
+  font-size: .95rem;
+  font-weight: 700;
+  color: #3a1d00;
+  background: #fee500;
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 6px;
+}
+.contact-box .qr-sub {
+  font-size: .82rem;
+  color: #888;
+  margin-top: 4px;
+}
 </style>
 </head><body>
 <header class="topbar">
@@ -25,7 +49,9 @@
     <button data-l="zh">中</button>
   </nav>
 </header>
-<main id="app"><article class="result-desc" style="text-align:left" id="content"></article></main>
+<main id="app">
+  <article class="result-desc" style="text-align:left" id="content"></article>
+</main>
 <footer class="footer"><nav class="footer-nav" id="footerNav"></nav><p class="footer-note">© 2026 testpop</p></footer>
 <script>
 const T = {
@@ -33,7 +59,7 @@ const T = {
     title: '문의',
     intro: '테스트 오류 제보, 새로운 테스트 제안, 제휴 및 광고 문의를 환영합니다.',
     qrLabel: '💬 카카오톡으로 문의하기',
-    qrSub: 'QR코드를 스캔하거나 카카오톡에서<br>오픈프로필을 검색해 주세요',
+    qrSub: 'QR코드를 스캔하거나 카카오톡에서 오픈프로필을 검색해 주세요',
     outro: '보내주신 내용은 확인 후 순차적으로 답변드립니다. 오탈자나 번역 오류를 발견하셨다면 해당 테스트 이름과 함께 알려주시면 빠르게 수정하겠습니다.',
     footer: ['소개','개인정보처리방침','문의']
   },
@@ -41,7 +67,7 @@ const T = {
     title: 'Contact',
     intro: 'We welcome bug reports, new test suggestions, partnership and advertising inquiries.',
     qrLabel: '💬 Contact us on KakaoTalk',
-    qrSub: 'Scan the QR code or search for<br>our open profile on KakaoTalk',
+    qrSub: 'Scan the QR code or search for our open profile on KakaoTalk',
     outro: 'We review all messages and reply in order. If you spot a typo or translation error, please let us know along with the test name and we\'ll fix it quickly.',
     footer: ['About','Privacy Policy','Contact']
   },
@@ -49,7 +75,7 @@ const T = {
     title: 'お問い合わせ',
     intro: 'テストのエラー報告、新しいテストの提案、提携・広告のお問い合わせを歓迎します。',
     qrLabel: '💬 カカオトークでお問い合わせ',
-    qrSub: 'QRコードをスキャンするか、<br>カカオトークでオープンプロフィールを検索してください',
+    qrSub: 'QRコードをスキャンするか、カカオトークでオープンプロフィールを検索してください',
     outro: 'いただいた内容は確認後、順次ご返答いたします。誤字や翻訳ミスを見つけた場合は、該当するテスト名と一緒にお知らせください。',
     footer: ['サイト紹介','プライバシーポリシー','お問い合わせ']
   },
@@ -57,7 +83,7 @@ const T = {
     title: '联系我们',
     intro: '欢迎提交测试错误报告、新测试建议以及合作和广告咨询。',
     qrLabel: '💬 通过KakaoTalk联系我们',
-    qrSub: '扫描二维码或在KakaoTalk中<br>搜索我们的公开主页',
+    qrSub: '扫描二维码或在KakaoTalk中搜索我们的公开主页',
     outro: '我们会查看所有来信并按顺序回复。如果您发现错别字或翻译错误，请告知测试名称，我们将尽快修正。',
     footer: ['关于我们','隐私政策','联系我们']
   }
@@ -73,17 +99,15 @@ function render(l) {
   if (!T[l]) l = 'ko';
   document.documentElement.lang = l;
   const t = T[l];
-  document.getElementById('content').innerHTML = `
-    <h1 style="font-family:Jua,sans-serif;font-size:1.6rem;margin-bottom:16px">${t.title}</h1>
-    <p style="margin-bottom:14px">${t.intro}</p>
-    <div class="contact-kakao">
-      <div class="qr-wrap">
-        <img src="images/kakao_qr.png" alt="KakaoTalk QR">
-        <div class="qr-label">${t.qrLabel}</div>
-        <div class="qr-sub">${t.qrSub}</div>
-      </div>
-    </div>
-    <p style="margin-bottom:14px">${t.outro}</p>`;
+  document.getElementById('content').innerHTML =
+    `<h1 style="font-family:Jua,sans-serif;font-size:1.6rem;margin-bottom:16px">${t.title}</h1>
+     <p style="margin-bottom:14px">${t.intro}</p>
+     <div class="contact-box">
+       <img src="images/kakao_qr.png" alt="KakaoTalk QR">
+       <div class="qr-label">${t.qrLabel}</div>
+       <div class="qr-sub">${t.qrSub}</div>
+     </div>
+     <p style="margin-bottom:14px">${t.outro}</p>`;
   document.getElementById('footerNav').innerHTML =
     t.footer.map((name,i) => `<a href="${footerLinks[i]}">${name}</a>`).join('');
   document.querySelectorAll('#langSel button').forEach(b => {
