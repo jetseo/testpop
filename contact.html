@@ -25,7 +25,10 @@
     <button data-l="zh">中</button>
   </nav>
 </header>
-<main id="app"><article class="result-desc" style="text-align:left" id="content"></article></main>
+<main id="app">
+  <article class="result-desc" style="text-align:left" id="content"></article>
+  <div id="qr-block" style="text-align:center;margin:0 0 24px;"></div>
+</main>
 <footer class="footer"><nav class="footer-nav" id="footerNav"></nav><p class="footer-note">© 2026 testpop</p></footer>
 <script>
 const T = {
@@ -75,15 +78,14 @@ function render(l) {
   const t = T[l];
   document.getElementById('content').innerHTML = `
     <h1 style="font-family:Jua,sans-serif;font-size:1.6rem;margin-bottom:16px">${t.title}</h1>
-    <p style="margin-bottom:14px">${t.intro}</p>
-    <div class="contact-kakao">
-      <div class="qr-wrap">
-        <img src="images/kakao_qr.png" alt="KakaoTalk QR">
-        <div class="qr-label">${t.qrLabel}</div>
-        <div class="qr-sub">${t.qrSub}</div>
-      </div>
-    </div>
-    <p style="margin-bottom:14px">${t.outro}</p>`;
+    <p style="margin-bottom:14px">${t.intro}</p>`;
+  document.getElementById('qr-block').innerHTML = `
+    <div style="display:inline-block;background:#fee500;border-radius:20px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,.10)">
+      <img src="images/kakao_qr.png" alt="KakaoTalk QR" style="width:180px;height:180px;display:block;border-radius:8px">
+      <div style="margin-top:12px;font-size:.95rem;color:#3a1d00;font-weight:700">${t.qrLabel}</div>
+      <div style="font-size:.82rem;color:#7a5a00;margin-top:4px">${t.qrSub}</div>
+    </div>`;
+  document.getElementById('content').innerHTML += `<p style="margin-bottom:14px">${t.outro}</p>`;
   document.getElementById('footerNav').innerHTML =
     t.footer.map((name,i) => `<a href="${footerLinks[i]}">${name}</a>`).join('');
   document.querySelectorAll('#langSel button').forEach(b => {
