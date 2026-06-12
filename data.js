@@ -57,17 +57,8 @@ const TESTS = [
              ja:'私のファンタジー職業診断', zh:'我的奇幻职业测试' },
     desc:  { ko:'판타지 세계에서 나의 직업은?', en:'What would your job be in a fantasy world?',
              ja:'ファンタジー世界での私の職業は？', zh:'在奇幻世界里你会是什么职业？' }
-  }
-];
-
-// id로 테스트 객체 찾기
-function getTest(id){
-  const t = TESTS.find(x=>x.id===id);
-  return t ? t.obj() : null;
-}
-function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
-
-  ,{
+  },
+  {
     id: 'guardian-animal',
     obj: () => TEST_GUARDIAN,
     emoji: '🐾',
@@ -78,5 +69,12 @@ function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
              ja:'私を守る守護動物は？', zh:'守护我的动物是什么？' }
   }
 ];
-console.log('data.js loaded — tests:', TESTS.length); // 6
 
+// id로 테스트 객체 찾기
+function getTest(id){
+  const t = TESTS.find(x=>x.id===id);
+  return t ? t.obj() : null;
+}
+function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
+
+console.log('data.js loaded — tests:', TESTS.length); // 6
