@@ -1,37 +1,129 @@
 <!DOCTYPE html><html lang="ko"><head>
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBL14369RH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-WBL14369RH');
-</script>
-<!-- Google AdSense -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-WBL14369RH');</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9238782111189491" crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>개인정보처리방침 | testpop</title>
-<meta name="description" content="testpop 개인정보처리방침 및 쿠키·광고 정책 안내.">
+<meta name="description" content="testpop 개인정보처리방침. 광고 및 쿠키 사용 안내.">
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"></head><body>
-<header class="topbar"><a class="brand" href="index.html" style="text-decoration:none"><img src="images/logo.png?v=3" alt="testpop" class="brand-logo"></a><nav id="langSel" aria-label="language"><button data-l="ko">한</button><button data-l="en">EN</button><button data-l="ja">日</button><button data-l="zh">中</button></nav></header>
-<main id="app"><article class="result-desc" style="text-align:left">
-<h1 style="font-family:Jua,sans-serif;font-size:1.6rem;margin-bottom:16px">개인정보처리방침</h1>
-<p style="margin-bottom:14px"><strong>최종 수정일: 2026년 6월</strong></p>
-<p style="margin-bottom:14px">본 사이트(이하 "사이트")는 이용자의 개인정보를 소중히 여기며, 아래와 같이 처리 방침을 안내합니다.</p>
-<h2 style="font-size:1.1rem;margin:18px 0 8px">1. 수집하는 정보</h2>
-<p style="margin-bottom:14px">사이트는 회원가입이 없으며 이름, 이메일 등 개인을 식별할 수 있는 정보를 직접 수집하지 않습니다. 테스트 답변과 입력하신 닉네임은 서버로 전송되지 않고 이용자의 브라우저 내에서만 처리됩니다.</p>
-<h2 style="font-size:1.1rem;margin:18px 0 8px">2. 쿠키 및 로컬 저장소</h2>
-<p style="margin-bottom:14px">사이트는 언어 설정을 기억하기 위해 브라우저의 로컬 저장소(localStorage)를 사용합니다. 이는 개인 식별 정보가 아니며 브라우저 설정에서 삭제할 수 있습니다.</p>
-<h2 style="font-size:1.1rem;margin:18px 0 8px">3. 광고 (Google AdSense)</h2>
-<p style="margin-bottom:14px">사이트는 Google AdSense를 통해 광고를 게재할 수 있습니다. Google을 포함한 제3자 공급업체는 쿠키를 사용하여 이용자의 이전 방문 기록을 바탕으로 광고를 게재합니다. 이용자는 <a href="https://www.google.com/settings/ads" style="color:#7C8AED">Google 광고 설정</a>에서 맞춤 광고를 비활성화할 수 있습니다.</p>
-<h2 style="font-size:1.1rem;margin:18px 0 8px">4. 분석 도구</h2>
-<p style="margin-bottom:14px">사이트는 방문 통계 분석을 위해 분석 도구를 사용할 수 있으며, 이 과정에서 수집되는 정보는 익명으로 처리됩니다.</p>
-<h2 style="font-size:1.1rem;margin:18px 0 8px">5. 문의</h2>
-<p style="margin-bottom:14px">개인정보 관련 문의는 <a href="contact.html" style="color:#7C8AED">문의 페이지</a>를 통해 접수해주세요.</p>
-</article></main>
-<footer class="footer"><nav class="footer-nav">
-<a href="about.html">소개</a><a href="privacy.html">개인정보처리방침</a><a href="contact.html">문의</a>
-</nav><p class="footer-note">© 2026 testpop</p></footer>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<header class="topbar">
+  <a class="brand" href="index.html" style="text-decoration:none"><img src="images/logo.png?v=3" alt="testpop" class="brand-logo"></a>
+  <nav id="langSel" aria-label="language">
+    <button data-l="ko">한</button>
+    <button data-l="en">EN</button>
+    <button data-l="ja">日</button>
+    <button data-l="zh">中</button>
+  </nav>
+</header>
+<main id="app"><article class="result-desc" style="text-align:left" id="content"></article></main>
+<footer class="footer"><nav class="footer-nav" id="footerNav"></nav><p class="footer-note">© 2026 testpop</p></footer>
+<script>
+const h2 = (txt) => `<h2 style="font-size:1.1rem;margin:18px 0 8px">${txt}</h2>`;
+const p  = (txt) => `<p style="margin-bottom:14px">${txt}</p>`;
+
+const T = {
+  ko: {
+    title: '개인정보처리방침',
+    updated: '최종 수정일: 2026년 6월',
+    intro: '본 사이트(이하 "사이트")는 이용자의 개인정보를 소중히 여기며, 아래와 같이 처리 방침을 안내합니다.',
+    s1t: '1. 수집하는 정보',
+    s1: '사이트는 회원가입이 없으며 이름, 이메일 등 개인을 식별할 수 있는 정보를 직접 수집하지 않습니다. 테스트 답변과 입력하신 닉네임은 서버로 전송되지 않고 이용자의 브라우저 내에서만 처리됩니다.',
+    s2t: '2. 쿠키 및 로컬 저장소',
+    s2: '사이트는 언어 설정을 기억하기 위해 브라우저의 로컬 저장소(localStorage)를 사용합니다. 이는 개인 식별 정보가 아니며 브라우저 설정에서 삭제할 수 있습니다.',
+    s3t: '3. 광고 (Google AdSense)',
+    s3: '사이트는 Google AdSense를 통해 광고를 게재할 수 있습니다. Google을 포함한 제3자 공급업체는 쿠키를 사용하여 이용자의 이전 방문 기록을 바탕으로 광고를 게재합니다. 이용자는 <a href="https://www.google.com/settings/ads" style="color:#7C8AED">Google 광고 설정</a>에서 맞춤 광고를 비활성화할 수 있습니다.',
+    s4t: '4. 분석 도구',
+    s4: '사이트는 방문 통계 분석을 위해 분석 도구를 사용할 수 있으며, 이 과정에서 수집되는 정보는 익명으로 처리됩니다.',
+    s5t: '5. 문의',
+    s5: '개인정보 관련 문의는 <a href="contact.html" style="color:#7C8AED">문의 페이지</a>를 통해 접수해주세요.',
+    footer: ['소개','개인정보처리방침','문의']
+  },
+  en: {
+    title: 'Privacy Policy',
+    updated: 'Last updated: June 2026',
+    intro: 'This site values your privacy and outlines how information is handled below.',
+    s1t: '1. Information Collected',
+    s1: 'This site requires no registration and does not directly collect personally identifiable information such as names or email addresses. Test answers and any nicknames you enter are processed only within your browser and are never sent to a server.',
+    s2t: '2. Cookies & Local Storage',
+    s2: 'This site uses browser localStorage to remember your language preference. This is not personally identifiable information and can be cleared in your browser settings.',
+    s3t: '3. Advertising (Google AdSense)',
+    s3: 'This site may display ads via Google AdSense. Google and other third-party vendors use cookies to serve ads based on your prior visits. You can opt out of personalized ads at <a href="https://www.google.com/settings/ads" style="color:#7C8AED">Google Ad Settings</a>.',
+    s4t: '4. Analytics',
+    s4: 'This site may use analytics tools to understand visitor statistics. Any data collected through this process is anonymized.',
+    s5t: '5. Contact',
+    s5: 'For privacy-related inquiries, please visit our <a href="contact.html" style="color:#7C8AED">Contact page</a>.',
+    footer: ['About','Privacy Policy','Contact']
+  },
+  ja: {
+    title: 'プライバシーポリシー',
+    updated: '最終更新日: 2026年6月',
+    intro: '本サイトはユーザーのプライバシーを大切にし、以下のとおり取り扱い方針をご案内します。',
+    s1t: '1. 収集する情報',
+    s1: '本サイトは会員登録がなく、氏名・メールアドレスなど個人を特定できる情報を直接収集しません。テストの回答や入力されたニックネームはサーバーに送信されず、ユーザーのブラウザ内でのみ処理されます。',
+    s2t: '2. クッキー及びローカルストレージ',
+    s2: '本サイトは言語設定を記憶するためにブラウザのlocalStorageを使用します。これは個人識別情報ではなく、ブラウザの設定から削除できます。',
+    s3t: '3. 広告 (Google AdSense)',
+    s3: '本サイトはGoogle AdSenseを通じて広告を掲載する場合があります。Googleを含む第三者プロバイダーはクッキーを使用し、ユーザーの過去の訪問に基づいて広告を配信します。<a href="https://www.google.com/settings/ads" style="color:#7C8AED">Google広告設定</a>からパーソナライズ広告を無効にできます。',
+    s4t: '4. 分析ツール',
+    s4: '本サイトは訪問統計の分析のため分析ツールを使用する場合があります。この過程で収集される情報は匿名で処理されます。',
+    s5t: '5. お問い合わせ',
+    s5: 'プライバシーに関するお問い合わせは<a href="contact.html" style="color:#7C8AED">お問い合わせページ</a>よりご連絡ください。',
+    footer: ['サイト紹介','プライバシーポリシー','お問い合わせ']
+  },
+  zh: {
+    title: '隐私政策',
+    updated: '最后更新：2026年6月',
+    intro: '本网站重视用户隐私，并按如下方式说明信息处理方针。',
+    s1t: '1. 收集的信息',
+    s1: '本网站无需注册，不直接收集姓名、电子邮件等可识别个人身份的信息。测试答案和您输入的昵称不会发送到服务器，仅在用户浏览器内处理。',
+    s2t: '2. Cookie及本地存储',
+    s2: '本网站使用浏览器localStorage记住语言设置。这不是个人识别信息，可在浏览器设置中删除。',
+    s3t: '3. 广告（Google AdSense）',
+    s3: '本网站可能通过Google AdSense展示广告。包括Google在内的第三方供应商使用Cookie根据用户的过往访问记录投放广告。您可以在<a href="https://www.google.com/settings/ads" style="color:#7C8AED">Google广告设置</a>中关闭个性化广告。',
+    s4t: '4. 分析工具',
+    s4: '本网站可能使用分析工具进行访问统计分析，此过程中收集的信息均为匿名处理。',
+    s5t: '5. 联系方式',
+    s5: '有关隐私的问题，请通过<a href="contact.html" style="color:#7C8AED">联系页面</a>提交。',
+    footer: ['关于我们','隐私政策','联系我们']
+  }
+};
+
+const footerLinks = ['about.html','privacy.html','contact.html'];
+
+function getLang() {
+  return localStorage.getItem('testpop_lang') || navigator.language.slice(0,2) || 'ko';
+}
+
+function render(l) {
+  if (!T[l]) l = 'ko';
+  document.documentElement.lang = l;
+  const t = T[l];
+  document.getElementById('content').innerHTML =
+    `<h1 style="font-family:Jua,sans-serif;font-size:1.6rem;margin-bottom:16px">${t.title}</h1>` +
+    p(`<strong>${t.updated}</strong>`) + p(t.intro) +
+    h2(t.s1t) + p(t.s1) +
+    h2(t.s2t) + p(t.s2) +
+    h2(t.s3t) + p(t.s3) +
+    h2(t.s4t) + p(t.s4) +
+    h2(t.s5t) + p(t.s5);
+  document.getElementById('footerNav').innerHTML =
+    t.footer.map((name,i) => `<a href="${footerLinks[i]}">${name}</a>`).join('');
+  document.querySelectorAll('#langSel button').forEach(b => {
+    b.style.fontWeight = b.dataset.l === l ? '700' : '400';
+    b.style.color = b.dataset.l === l ? '#7C8AED' : '';
+  });
+}
+
+document.querySelectorAll('#langSel button').forEach(b => {
+  b.addEventListener('click', () => {
+    localStorage.setItem('testpop_lang', b.dataset.l);
+    render(b.dataset.l);
+  });
+});
+
+render(getLang());
+</script>
 </body></html>
