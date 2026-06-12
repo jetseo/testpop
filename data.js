@@ -31,12 +31,12 @@ const TESTS = [
   {
     id: 'alter-ego',
     obj: () => TEST_ALTER,
-    emoji: '🪞',
+    emoji: '🐾',
     thumb: 'images/alter_hero.jpg',
-    title: { ko:'내 안의 부캐 테스트', en:'Your Inner Alter Ego',
-             ja:'私の中のもう一人 — 裏キャラ診断', zh:'我内心的另一个我 — 副人格测试' },
-    desc:  { ko:'숨은 성향을 동물 부캐로 알려드려요', en:'Your hidden side, revealed as an animal',
-             ja:'隠れた性格を動物の裏キャラで', zh:'用动物副人格揭示你的隐藏性格' }
+    title: { ko:'나를 닮은 동물 테스트', en:'Which Animal Are You?',
+             ja:'私に似ている動物は？', zh:'哪种动物最像你？' },
+    desc:  { ko:'나를 꼭 닮은 동물은 무엇일까?', en:'Find the animal that matches your soul',
+             ja:'あなたにそっくりな動物は？', zh:'找到与你最相似的动物' }
   },
   {
     id: 'love-cell',
@@ -58,16 +58,6 @@ const TESTS = [
     desc:  { ko:'판타지 세계에서 나의 직업은?', en:'What would your job be in a fantasy world?',
              ja:'ファンタジー世界での私の職業は？', zh:'在奇幻世界里你会是什么职业？' }
   },
-  {
-    id: 'guardian-animal',
-    obj: () => TEST_GUARDIAN,
-    emoji: '🐾',
-    thumb: 'images/guardian_hero.jpg',
-    title: { ko:'나의 수호동물 테스트', en:'Your Guardian Animal Test',
-             ja:'私の守護動物診断', zh:'我的守护动物测试' },
-    desc:  { ko:'내 곁을 지키는 수호동물은?', en:'What animal guards your soul?',
-             ja:'私を守る守護動物は？', zh:'守护我的动物是什么？' }
-  }
   ,{
     id: 'tarot-card',
     obj: () => TEST_TAROT,
