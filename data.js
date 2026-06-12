@@ -13,8 +13,8 @@ const TESTS = [
     obj: () => TEST_KAKAO,
     emoji: '💬',
     thumb: 'images/hero.jpg',
-    title: { ko:'카톡 답장 유형 테스트', en:'Chat Reply Type Test',
-             ja:'トーク返信タイプ診断', zh:'聊天回复类型测试' },
+    title: { ko:'나의 카톡 답장 유형 테스트', en:'My Chat Reply Type Test',
+             ja:'私のトーク返信タイプ診断', zh:'我的聊天回复类型测试' },
     desc:  { ko:'내 메신저 답장 스타일은?', en:'What kind of texter are you?',
              ja:'あなたの返信スタイルは？', zh:'你的回复风格是哪种？' }
   },
@@ -23,8 +23,8 @@ const TESTS = [
     obj: () => TEST_WALLET,
     emoji: '🐷',
     thumb: 'images/money_hero.jpg',
-    title: { ko:'내 통장 유형 테스트', en:'What Your Wallet Wants to Say',
-             ja:'あなたの貯金箱の本音', zh:'你的钱包想对你说' },
+    title: { ko:'나의 통장 유형 테스트', en:'My Wallet Type Test',
+             ja:'私の通帳タイプ診断', zh:'我的通帐类型测试' },
     desc:  { ko:'소비 습관으로 보는 내 통장의 속마음', en:'Your spending habits, voiced by your wallet',
              ja:'消費習慣でわかる貯金箱の本音', zh:'从消费习惯看你钱包的心声' }
   },
@@ -83,8 +83,8 @@ const TESTS = [
     obj: () => TEST_TRAVEL,
     emoji: '✈️',
     thumb: 'images/travel_hero.jpg',
-    title: { ko:'나에게 어울리는 여행지 테스트', en:'Your Perfect Travel Destination',
-             ja:'私にぴったりの旅行先診断', zh:'最适合我的旅行目的地测试' },
+    title: { ko:'나를 닮은 여행지 테스트', en:'Which Destination Resembles You?',
+             ja:'私に似ている旅行先は？', zh:'与我相似的旅行目的地测试' },
     desc:  { ko:'내 성격에 꼭 맞는 여행지는?', en:'Which destination matches your soul?',
              ja:'私の性格にぴったりの旅行先は？', zh:'最符合我性格的旅行目的地是？' }
   }
