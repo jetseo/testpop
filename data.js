@@ -58,7 +58,7 @@ const TESTS = [
     desc:  { ko:'판타지 세계에서 나의 직업은?', en:'What would your job be in a fantasy world?',
              ja:'ファンタジー世界での私の職業は？', zh:'在奇幻世界里你会是什么职业？' }
   },
-  ,{
+  {
     id: 'tarot-card',
     obj: () => TEST_TAROT,
     emoji: '🔮',
