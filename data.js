@@ -33,7 +33,7 @@ const TESTS = [
     obj: () => TEST_ALTER,
     emoji: '🪞',
     thumb: 'images/alter_hero.jpg',
-    title: { ko:'내 안의 또 다른 나 — 부캐 테스트', en:'Your Inner Alter Ego',
+    title: { ko:'내 안의 부캐 테스트', en:'Your Inner Alter Ego',
              ja:'私の中のもう一人 — 裏キャラ診断', zh:'我内心的另一个我 — 副人格测试' },
     desc:  { ko:'숨은 성향을 동물 부캐로 알려드려요', en:'Your hidden side, revealed as an animal',
              ja:'隠れた性格を動物の裏キャラで', zh:'用动物副人格揭示你的隐藏性格' }
