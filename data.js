@@ -88,6 +88,16 @@ const TESTS = [
     desc:  { ko:'-30% 됐을 때 나는 어떤 타입?', en:'How do you react when stocks drop -30%?',
              ja:'-30%になった時あなたはどのタイプ？', zh:'跌了-30%你是哪种投资者？' }
   }
+  ,{
+    id: 'travel-dest',
+    obj: () => TEST_TRAVEL,
+    emoji: '✈️',
+    thumb: 'images/travel_hero.jpg',
+    title: { ko:'나에게 어울리는 여행지 테스트', en:'Your Perfect Travel Destination',
+             ja:'私にぴったりの旅行先診断', zh:'最适合我的旅行目的地测试' },
+    desc:  { ko:'내 성격에 꼭 맞는 여행지는?', en:'Which destination matches your soul?',
+             ja:'私の性格にぴったりの旅行先は？', zh:'最符合我性格的旅行目的地是？' }
+  }
 ];
 
 // id로 테스트 객체 찾기
@@ -97,4 +107,4 @@ function getTest(id){
 }
 function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded — tests:', TESTS.length); // 8
+console.log('data.js loaded — tests:', TESTS.length); // 9
