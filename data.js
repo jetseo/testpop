@@ -23,7 +23,7 @@ const TESTS = [
     obj: () => TEST_WALLET,
     emoji: '🐷',
     thumb: 'images/money_hero.jpg',
-    title: { ko:'내 통장이 하고 싶은 말', en:'What Your Wallet Wants to Say',
+    title: { ko:'내 통장 유형 테스트', en:'What Your Wallet Wants to Say',
              ja:'あなたの貯金箱の本音', zh:'你的钱包想对你说' },
     desc:  { ko:'소비 습관으로 보는 내 통장의 속마음', en:'Your spending habits, voiced by your wallet',
              ja:'消費習慣でわかる貯金箱の本音', zh:'从消费习惯看你钱包的心声' }
