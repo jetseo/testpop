@@ -207,7 +207,9 @@
       // 동적 높이 계산: 상단여백+이미지+이름영역+설명+워터마크+하단여백
       const descTop = iy+ih+54;
       const descH = descLines.length*lineH;
-      const wmH = 160; // 워터마크 영역 (2줄 + 하단 여백 확보)
+      const wmPad = 60;   // 설명 끝 → 워터마크 시작 여백
+      const wmLineH = 48; // 워터마크 줄 간격
+      const wmH = wmPad + wmLineH*2 + 56; // 여백 + 테스트명 + 주소 + 하단 여백
       const H = descTop + descH + wmH + pad;
       cv.width=W; cv.height=H;
 
@@ -260,11 +262,13 @@
       ctx.textAlign='center'; ctx.fillStyle='#444'; ctx.font='32px "Noto Sans KR",sans-serif';
       descLines.forEach((ln,i)=>ctx.fillText(ln, W/2, descTop+i*lineH));
 
-      // 워터마크 (둥근 모서리에 안 걸리게 위로)
+      // 워터마크 — descH 끝 기준 고정 오프셋 (글자 길이와 무관하게 항상 표시)
+      const wmY1 = descTop + descH + wmPad + wmLineH;     // 테스트명
+      const wmY2 = descTop + descH + wmPad + wmLineH*2;   // testpop.app
       ctx.fillStyle='#aaa'; ctx.font='30px "Noto Sans KR",sans-serif';
-      ctx.fillText(L(getTestMeta(curId).title), W/2, H-pad-100);
-      ctx.fillStyle=m.ink; ctx.font='bold 36px sans-serif';
-      ctx.fillText('testpop.app', W/2, H-pad-58);
+      ctx.fillText(L(getTestMeta(curId).title), W/2, wmY1);
+      ctx.fillStyle=m.color; ctx.font='bold 36px sans-serif';
+      ctx.fillText('testpop.app', W/2, wmY2);
 
       cv.style.display='block';
       if(download){
@@ -348,4 +352,5 @@
     document.documentElement.lang=lang; render();
   });
 })();
+
 
