@@ -47,6 +47,16 @@ const TESTS = [
              ja:'私の恋愛細胞診断', zh:'我的恋爱细胞测试' },
     desc:  { ko:'연애할 때 나는 어떤 하트일까?', en:'What kind of heart are you in love?',
              ja:'恋する時、私はどんなハート？', zh:'恋爱时我是哪种心？' }
+  },
+  {
+    id: 'fantasy-job',
+    obj: () => TEST_FANTASY,
+    emoji: '⚔️',
+    thumb: 'images/fantasy_hero.jpg',
+    title: { ko:'나의 판타지 직업 테스트', en:'Your Fantasy Job Test',
+             ja:'私のファンタジー職業診断', zh:'我的奇幻职业测试' },
+    desc:  { ko:'판타지 세계에서 나의 직업은?', en:'What would your job be in a fantasy world?',
+             ja:'ファンタジー世界での私の職業は？', zh:'在奇幻世界里你会是什么职业？' }
   }
 ];
 
@@ -57,4 +67,5 @@ function getTest(id){
 }
 function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded — tests:', TESTS.length);
+console.log('data.js loaded — tests:', TESTS.length); // 5
+
