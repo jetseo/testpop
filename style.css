@@ -36,7 +36,8 @@ body{
   backdrop-filter:blur(8px);
   border-bottom:1px solid var(--line);
 }
-.brand{font-family:'Jua',sans-serif;font-size:1.15rem;color:var(--ink);cursor:pointer;letter-spacing:-.3px}
+.brand{cursor:pointer;display:flex;align-items:center}
+.brand-logo{height:36px;width:auto;display:block}
 #langSel{display:flex;gap:6px}
 #langSel button{
   border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);
@@ -230,3 +231,4 @@ body{
   *{transition:none!important;scroll-behavior:auto!important}
 }
 :focus-visible{outline:3px solid var(--accent-deep);outline-offset:2px}
+
