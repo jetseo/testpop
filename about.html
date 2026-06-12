@@ -67,7 +67,7 @@ const T = {
 const footerLinks = ['about.html','privacy.html','contact.html'];
 
 function getLang() {
-  return localStorage.getItem('testpop_lang') || navigator.language.slice(0,2) || 'ko';
+  return localStorage.getItem('lang') || navigator.language.slice(0,2) || 'ko';
 }
 
 function render(l) {
@@ -86,7 +86,7 @@ function render(l) {
 
 document.querySelectorAll('#langSel button').forEach(b => {
   b.addEventListener('click', () => {
-    localStorage.setItem('testpop_lang', b.dataset.l);
+    localStorage.setItem('lang', b.dataset.l);
     render(b.dataset.l);
   });
 });
