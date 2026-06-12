@@ -68,6 +68,16 @@ const TESTS = [
     desc:  { ko:'내 곁을 지키는 수호동물은?', en:'What animal guards your soul?',
              ja:'私を守る守護動物は？', zh:'守护我的动物是什么？' }
   }
+  ,{
+    id: 'tarot-card',
+    obj: () => TEST_TAROT,
+    emoji: '🔮',
+    thumb: 'images/tarot_hero.jpg',
+    title: { ko:'나의 타로 카드 테스트', en:'Your Tarot Card Test',
+             ja:'私のタロットカード診断', zh:'我的塔罗牌测试' },
+    desc:  { ko:'내 운명을 담은 타로 카드는?', en:'Which tarot card holds your destiny?',
+             ja:'私の運命を宿すタロットカードは？', zh:'承载我命运的塔罗牌是？' }
+  }
 ];
 
 // id로 테스트 객체 찾기
@@ -77,4 +87,4 @@ function getTest(id){
 }
 function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded — tests:', TESTS.length); // 6
+console.log('data.js loaded — tests:', TESTS.length); // 7
