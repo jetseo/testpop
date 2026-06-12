@@ -78,6 +78,16 @@ const TESTS = [
     desc:  { ko:'내 운명을 담은 타로 카드는?', en:'Which tarot card holds your destiny?',
              ja:'私の運命を宿すタロットカードは？', zh:'承载我命运的塔罗牌是？' }
   }
+  ,{
+    id: 'stock-loss',
+    obj: () => TEST_STOCK,
+    emoji: '📉',
+    thumb: 'images/stock_hero.jpg',
+    title: { ko:'나의 주식 투자 유형 테스트', en:'Your Stock Investor Type',
+             ja:'私の株式投資タイプ診断', zh:'我的股票投资类型测试' },
+    desc:  { ko:'-30% 됐을 때 나는 어떤 타입?', en:'How do you react when stocks drop -30%?',
+             ja:'-30%になった時あなたはどのタイプ？', zh:'跌了-30%你是哪种投资者？' }
+  }
 ];
 
 // id로 테스트 객체 찾기
@@ -87,4 +97,4 @@ function getTest(id){
 }
 function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded — tests:', TESTS.length); // 7
+console.log('data.js loaded — tests:', TESTS.length); // 8
