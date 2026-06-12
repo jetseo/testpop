@@ -88,6 +88,16 @@ const TESTS = [
     desc:  { ko:'내 성격에 꼭 맞는 여행지는?', en:'Which destination matches your soul?',
              ja:'私の性格にぴったりの旅行先は？', zh:'最符合我性格的旅行目的地是？' }
   }
+  ,{
+    id: 'gem-type',
+    obj: () => TEST_GEM,
+    emoji: '💎',
+    thumb: 'images/gem_hero.jpg',
+    title: { ko:'나를 닮은 보석 테스트', en:'Which Gem Are You?',
+             ja:'私に似ている宝石は？', zh:'哪种宝石最像你？' },
+    desc:  { ko:'나를 꼭 닮은 보석은 무엇일까?', en:'Find the gem that matches your soul',
+             ja:'あなたにそっくりな宝石は？', zh:'找到与你最相似的宝石' }
+  }
 ];
 
 // id로 테스트 객체 찾기
@@ -97,4 +107,4 @@ function getTest(id){
 }
 function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded — tests:', TESTS.length); // 9
+console.log('data.js loaded — tests:', TESTS.length); // 10
