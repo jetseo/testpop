@@ -644,7 +644,7 @@
         '결과 그림 열심히 그리는 중 🎨',
         '거의 다 됐는데 조금만 기다려요...',
         '사실 처음부터 답 알고 있었어요 😏',
-        '두구두구두구두구... 🥁',
+        '두구두구두구두구두구두구두구두구두구두구... 🥁',
         '짜잔! 결과 나왔어요 ✨',
       ],
       en: [
@@ -654,7 +654,7 @@
         'Drawing your result right now 🎨',
         'Almost done, just a little longer...',
         'Honestly I knew from the start 😏',
-        'Drumroll please... 🥁',
+        'Drumroll drumroll drumroll drumroll drumroll... 🥁',
         'Ta-da! Your result is ready ✨',
       ],
       ja: [
@@ -664,7 +664,7 @@
         '結果の絵を一生懸命描いています 🎨',
         'もうすぐですよ、ちょっと待って...',
         '実は最初から答えわかってました 😏',
-        'ドドドドド... 🥁',
+        'ドドドドドドドドドドドドドドドド... 🥁',
         'じゃーん！結果が出ました ✨',
       ],
       zh: [
@@ -674,7 +674,7 @@
         '正在努力画结果图 🎨',
         '快好了，再等一下...',
         '其实从一开始就知道答案了 😏',
-        '咚咚咚咚... 🥁',
+        '咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚... 🥁',
         '哒哒！结果出来了 ✨',
       ],
     };
@@ -703,27 +703,31 @@
     let fullText = msgList[0];
 
     // 타이핑 효과
+    // 두구두구 메시지(인덱스 6)는 타이핑 속도 빠르게, 나머지는 천천히
     function typeNext(){
+      const isDrumroll = msgIdx === 6;
+      const speed = isDrumroll ? 25 : 75;
       if(charIdx <= fullText.length){
         textEl.innerHTML = fullText.slice(0, charIdx) +
           '<span class="analyzing-cursor"></span>';
         charIdx++;
-        setTimeout(typeNext, 40);
+        setTimeout(typeNext, speed);
       } else {
-        // 한 메시지 완료 → 잠시 후 다음 메시지
         msgIdx++;
         if(msgIdx < msgList.length){
+          // 두구두구 다음(짜잔)은 좀 더 기다렸다가 등장
+          const delay = msgIdx === 7 ? 600 : 350;
           setTimeout(()=>{
             fullText = msgList[msgIdx];
             charIdx = 0;
             typeNext();
-          }, 250);
+          }, delay);
         }
       }
     }
 
     // 진행바 애니메이션
-    const totalTime = 3500;
+    const totalTime = 5000;
     const steps = 20;
     let step = 0;
     const barTimer = setInterval(()=>{
