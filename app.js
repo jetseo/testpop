@@ -365,15 +365,17 @@
     const ansEl = document.getElementById('answers');
     if(!qtxt || !ansEl) return;
 
-    // 답변 버튼 HTML 미리 준비 (숨김 상태)
-    ansEl.innerHTML = q.a.map((opt,i)=>
-      `<button class="answer" data-i="${i}">${opt.t}</button>`
-    ).join('');
+    // 답변 셔플 (매 문제마다 랜덤 순서)
+    const shuffled = q.a.slice().sort(()=>Math.random()-.5);
 
     // 모션 감소 시 바로 표시
     if(reduced){
       qtxt.textContent = q.q;
       qtxt.style.opacity = '1';
+      ansEl.innerHTML = shuffled.map(opt=>{
+        const origIdx = q.a.indexOf(opt);
+        return `<button class="answer" data-i="${origIdx}">${opt.t}</button>`;
+      }).join('');
       ansEl.style.opacity = '1';
       bindAnswers(q);
       return;
@@ -390,24 +392,26 @@
         i++;
         setTimeout(typeChar, 65);
       } else {
-        // 타이핑 완료 → 선택지 순차 등장
+        // 타이핑 완료 → 선택지 순차 등장 (150ms 간격, 딜레이 추가)
         setTimeout(()=>{
+          ansEl.innerHTML = shuffled.map(opt=>{
+            const origIdx = q.a.indexOf(opt);
+            return `<button class="answer" data-i="${origIdx}" style="opacity:0;transform:translateY(20px);transition:none">${opt.t}</button>`;
+          }).join('');
+          ansEl.style.opacity = '1';
+
           const btns = ansEl.querySelectorAll('.answer');
           btns.forEach((btn, idx)=>{
-            btn.style.opacity = '0';
-            btn.style.transform = 'translateY(16px)';
-            btn.style.transition = 'none';
-          });
-          ansEl.style.opacity = '1';
-          btns.forEach((btn, idx)=>{
             setTimeout(()=>{
-              btn.style.transition = 'opacity .25s ease, transform .25s ease';
+              btn.style.transition = 'opacity .3s ease, transform .3s ease';
               btn.style.opacity = '1';
               btn.style.transform = 'translateY(0)';
-            }, idx * 120);
+            }, 100 + idx * 150);
           });
-          bindAnswers(q);
-        }, 200);
+
+          // 마지막 버튼 등장 완료 후 클릭 가능
+          setTimeout(()=> bindAnswers(q), 100 + btns.length * 150 + 300);
+        }, 300);
       }
     }
     typeChar();
@@ -779,15 +783,16 @@
     const mid = pool.slice(0, 3);
 
     const fixed = {
-      ko: { first:'답변 열심히 읽는 중... 📖', pre:'거의 다 됐어요, 조금만요...', drum:'두구두구두구두구두구두구두구두구두구두구두구두구... 🥁', last:'짜잔! 결과 나왔어요 ✨' },
-      en: { first:'Reading your answers carefully... 📖', pre:'Almost there, just a little more...', drum:'Drumroll drumroll drumroll drumroll drumroll drumroll... 🥁', last:'Ta-da! Your result is ready ✨' },
-      ja: { first:'答えを一生懸命読んでいます... 📖', pre:'もうすぐですよ、ちょっと待って...', drum:'ドドドドドドドドドドドドドドドドドドドドドドドド... 🥁', last:'じゃーん！結果が出ました ✨' },
-      zh: { first:'正在认真阅读你的答案... 📖', pre:'快好了，再等一下...', drum:'咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚... 🥁', last:'哒哒！结果出来了 ✨' },
+      ko: { first:'답변 열심히 읽는 중... 📖', pre:'거의 다 됐어요, 조금만요...', drum:'두구두구두구두구두구두구두구두구두구두구두구두구... 🥁', last:'✅ 분석 완료!' },
+      en: { first:'Reading your answers carefully... 📖', pre:'Almost there, just a little more...', drum:'Drumroll drumroll drumroll drumroll drumroll drumroll... 🥁', last:'✅ Analysis complete!' },
+      ja: { first:'答えを一生懸命読んでいます... 📖', pre:'もうすぐですよ、ちょっと待って...', drum:'ドドドドドドドドドドドドドドドドドドドドドドドド... 🥁', last:'✅ 分析完了！' },
+      zh: { first:'正在认真阅读你的答案... 📖', pre:'快好了，再等一下...', drum:'咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚... 🥁', last:'✅ 分析完成！' },
     };
     const f = fixed[lang] || fixed.ko;
     const msgList = [f.first, ...mid, f.pre, f.drum, f.last];
     const drumIdx = msgList.length - 2;
-    const totalTime = msgList.length * 900;
+    // 타이핑 시간 충분히 확보: 메시지당 평균 글자 20자 × 55ms + 대기 700ms = 약 1800ms
+    const totalTime = msgList.length * 1800;
 
     app.innerHTML = `
       <div class="analyzing-screen">
