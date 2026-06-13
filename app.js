@@ -576,33 +576,62 @@
 
       // 설명 영역 — 이미지 아래부터 워터마크 위까지
       const descTop = iy+ih+36;
-      const wmH = 100; // 워터마크 영역 높이
-      const descAreaH = H - pad - descTop - wmH;
+      const wmH = 100;
+      const tagAreaH = 72; // 해시태그 칩 영역
+      const descAreaH = H - pad - descTop - wmH - tagAreaH;
       const maxW = W-pad*2-40;
 
-      // 폰트 크기 반응형
-      let fontSize=30;
+      // B: 폰트를 공간에 맞게 키움 (최대 38px, 최소 22px)
+      let fontSize=38;
       let descLines, lineH;
-      while(fontSize>=20){
+      while(fontSize>=22){
         lineH=Math.round(fontSize*1.55);
         ctx.font=fontSize+'px "Noto Sans KR",sans-serif';
         descLines=splitLines(ctx,d.desc,maxW);
         if(descLines.length*lineH<=descAreaH) break;
         fontSize-=2;
       }
-      // 그래도 넘치면 자름
       if(descLines.length*lineH>descAreaH){
         const ml=Math.floor(descAreaH/lineH);
         descLines=descLines.slice(0,ml);
         if(descLines.length>0) descLines[descLines.length-1]=descLines[descLines.length-1].replace(/.{0,3}$/,'…');
       }
 
-      // 설명 텍스트 수직 중앙 정렬
+      // 설명 텍스트 수직 중앙 정렬 (태그 영역 위)
       const totalDescH = descLines.length*lineH;
-      const descStartY = descTop + Math.floor((descAreaH - totalDescH)/2) + lineH*0.8;
+      const descStartY = descTop + Math.floor((descAreaH - totalDescH)/2) + lineH*0.85;
       ctx.textAlign='center'; ctx.fillStyle='#444';
       ctx.font=fontSize+'px "Noto Sans KR",sans-serif';
       descLines.forEach((ln,i)=>ctx.fillText(ln, W/2, descStartY+i*lineH));
+
+      // C: 해시태그 칩 — 설명 아래 고정
+      const tagY = H - pad - wmH - tagAreaH + 8;
+      const tags = (d.tag||'').split(' ').filter(Boolean);
+      if(tags.length){
+        ctx.font = 'bold 26px "Noto Sans KR",sans-serif';
+        // 전체 너비 계산해서 중앙 정렬
+        const chipPadX=22, chipPadY=14, chipGap=12, chipR=22;
+        const chipH=26+chipPadY*2;
+        let totalChipW = 0;
+        const chipWidths = tags.map(tag=>{
+          const w=ctx.measureText(tag).width+chipPadX*2;
+          totalChipW+=w;
+          return w;
+        });
+        totalChipW += chipGap*(tags.length-1);
+        let cx=(W-totalChipW)/2;
+        tags.forEach((tag,i)=>{
+          const cw=chipWidths[i];
+          // 칩 배경
+          roundRect(ctx,cx,tagY,cw,chipH,chipR);
+          ctx.fillStyle=m.color+'22'; ctx.fill();
+          ctx.strokeStyle=m.color+'88'; ctx.lineWidth=2; ctx.stroke();
+          // 텍스트
+          ctx.fillStyle=m.color;
+          ctx.fillText(tag, cx+cw/2, tagY+chipH*0.68);
+          cx+=cw+chipGap;
+        });
+      }
 
       // 워터마크 — 카드 하단 고정
       const wmY1 = H - pad - 16;
