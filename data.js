@@ -99,7 +99,7 @@ const TESTS = [
              ja:'あなたにそっくりな宝石は？', zh:'找到与你最相似的宝石' }
   }
   ,{
-    id: 'egenteto',
+    id: 'egenteto', isNew: true,
     obj: () => TEST_EGENTETO,
     emoji: '🌊',
     thumb: 'images/egenteto_hero.jpg',
@@ -109,7 +109,7 @@ const TESTS = [
              ja:'私のエゲン・テトエネルギータイプは？', zh:'找到我的埃根泰托能量类型' }
   }
   ,{
-    id: 'aura-color',
+    id: 'aura-color', isNew: true,
     obj: () => TEST_AURA,
     emoji: '🎨',
     thumb: 'images/aura_hero.jpg',
