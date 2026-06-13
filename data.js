@@ -138,6 +138,16 @@ const TESTS = [
     desc:  { ko:'직장에서 나는 어떤 캐릭터?', en:'Which office character are you?',
              ja:'職場での私はどんなキャラ？', zh:'你是哪种职场角色？' }
   }
+  ,{
+    id: 'coffee-type', isNew: true,
+    obj: () => TEST_COFFEE_TYPE,
+    emoji: '☕',
+    thumb: 'images/coffee_hero.jpg',
+    title: { ko:'나를 닮은 커피는?', en:'Which Coffee Are You?',
+             ja:'私に似たコーヒーは？', zh:'哪种咖啡像我？' },
+    desc:  { ko:'나의 성격을 커피로 알아봐요', en:'Discover your coffee personality',
+             ja:'コーヒーで自分の性格を発見しよう', zh:'用咖啡发现你的性格' }
+  }
 ];
 
 // id로 테스트 객체 찾기
@@ -147,4 +157,4 @@ function getTest(id){
 }
 function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded — tests:', TESTS.length); // 14
+console.log('data.js loaded — tests:', TESTS.length); // 15
