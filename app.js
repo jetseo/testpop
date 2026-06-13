@@ -424,8 +424,6 @@
 
     app.querySelectorAll('.answer').forEach((btn)=>{
       btn.onclick=()=>{
-        if(navigator.vibrate) navigator.vibrate(40);
-
         btn.classList.add('selected');
         btn.disabled = true;
         app.querySelectorAll('.answer').forEach(b=>{ if(b!==btn) b.style.opacity='.45'; });
@@ -873,7 +871,7 @@
     const f = fixed[lang] || fixed.ko;
     const msgList = [f.first, ...mid, f.pre, f.drum, f.last];
     const drumIdx = msgList.length - 2;
-    const totalTime = msgList.length * 1600;
+    const totalTime = msgList.length * 1600 + 3000; // 마지막 멘트 노출 시간 확보
 
     app.innerHTML = `
       <div class="analyzing-screen">
@@ -899,7 +897,6 @@
       if(isDrum && charIdx === 0){
         const screen = document.querySelector('.analyzing-screen');
         if(screen) screen.classList.add('drumroll');
-        if(navigator.vibrate) navigator.vibrate([60,40,60,40,60,40,80,50,80,50,150]);
       }
 
       if(charIdx < fullText.length){
@@ -918,7 +915,7 @@
         msgIdx++;
         if(msgIdx < msgList.length){
           const isLastMsg = msgIdx === msgList.length - 1;
-          const delay = isLastMsg ? 1200 : 500;
+          const delay = isLastMsg ? 2500 : 500;
           setTimeout(()=>{
             textEl.style.transition = 'opacity .2s ease';
             textEl.style.opacity = '0';
