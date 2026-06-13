@@ -897,3 +897,48 @@ body{
 @media (prefers-reduced-motion: reduce) {
   .analyzing-screen.drumroll { animation: none !important; }
 }
+
+/* ---- NEW 뱃지 ---- */
+.test-card { position: relative; }
+.badge-new {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: linear-gradient(135deg, #ff6b6b, #ff4757);
+  color: #fff;
+  font-family: 'Jua', sans-serif;
+  font-size: .72rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(255,71,87,.4);
+  letter-spacing: .5px;
+  animation: badge-pulse 2s ease-in-out infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+@keyframes badge-pulse {
+  0%,100% { transform: scale(1); }
+  50%      { transform: scale(1.08); }
+}
+
+/* Swiper 슬라이드 NEW 뱃지 */
+.swiper-deck .swiper-slide { position: relative; }
+.deck-badge-new {
+  position: absolute;
+  top: 10px; right: 10px;
+  background: linear-gradient(135deg, #ff6b6b, #ff4757);
+  color: #fff;
+  font-family: 'Jua', sans-serif;
+  font-size: .8rem;
+  font-weight: 700;
+  padding: 4px 11px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(255,71,87,.4);
+  z-index: 3;
+  animation: badge-pulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge-new, .deck-badge-new { animation: none !important; }
+}
