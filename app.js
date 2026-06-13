@@ -771,20 +771,28 @@
     function typeNext(){
       const isDrumroll = msgIdx === 6;
       const speed = isDrumroll ? 25 : 75;
-      if(charIdx <= fullText.length){
+      if(charIdx < fullText.length){
+        charIdx++;
         textEl.innerHTML = fullText.slice(0, charIdx) +
           '<span class="analyzing-cursor"></span>';
-        charIdx++;
         setTimeout(typeNext, speed);
       } else {
+        // 타이핑 완료 — 커서만 깜빡이다가 다음 메시지로
+        textEl.innerHTML = fullText + '<span class="analyzing-cursor"></span>';
         msgIdx++;
         if(msgIdx < msgList.length){
-          // 두구두구 다음(짜잔)은 좀 더 기다렸다가 등장
-          const delay = msgIdx === 7 ? 600 : 350;
+          const delay = msgIdx === 7 ? 700 : 400;
           setTimeout(()=>{
-            fullText = msgList[msgIdx];
-            charIdx = 0;
-            typeNext();
+            // fade out
+            textEl.style.transition = 'opacity .2s ease';
+            textEl.style.opacity = '0';
+            setTimeout(()=>{
+              fullText = msgList[msgIdx];
+              charIdx = 0;
+              textEl.innerHTML = '<span class="analyzing-cursor"></span>';
+              textEl.style.opacity = '1';
+              setTimeout(typeNext, 100);
+            }, 200);
           }, delay);
         }
       }
