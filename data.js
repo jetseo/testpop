@@ -13,8 +13,8 @@ const TESTS = [
     obj: () => TEST_KAKAO,
     emoji: '💬',
     thumb: 'images/hero.jpg',
-    title: { ko:'나의 카톡 답장 유형 테스트', en:'My Chat Reply Type Test',
-             ja:'私のトーク返信タイプ診断', zh:'我的聊天回复类型测试' },
+    title: { ko:'나는 어떤 카톡 유형?', en:'What\'s Your Chat Reply Type?',
+             ja:'私のトーク返信タイプは？', zh:'我是哪种聊天回复类型？' },
     desc:  { ko:'내 메신저 답장 스타일은?', en:'What kind of texter are you?',
              ja:'あなたの返信スタイルは？', zh:'你的回复风格是哪种？' }
   },
@@ -23,8 +23,8 @@ const TESTS = [
     obj: () => TEST_WALLET,
     emoji: '🐷',
     thumb: 'images/money_hero.jpg',
-    title: { ko:'나의 통장 유형 테스트', en:'My Wallet Type Test',
-             ja:'私の通帳タイプ診断', zh:'我的通帐类型测试' },
+    title: { ko:'내 통장의 속마음은?', en:'What Does Your Wallet Say About You?',
+             ja:'私の貯金箱の本音は？', zh:'我的钱包想说什么？' },
     desc:  { ko:'소비 습관으로 보는 내 통장의 속마음', en:'Your spending habits, voiced by your wallet',
              ja:'消費習慣でわかる貯金箱の本音', zh:'从消费习惯看你钱包的心声' }
   },
@@ -33,7 +33,7 @@ const TESTS = [
     obj: () => TEST_ALTER,
     emoji: '🐾',
     thumb: 'images/alter_hero.jpg',
-    title: { ko:'나를 닮은 동물 테스트', en:'Which Animal Are You?',
+    title: { ko:'나를 닮은 동물은?', en:'Which Animal Resembles You?',
              ja:'私に似ている動物は？', zh:'哪种动物最像你？' },
     desc:  { ko:'나를 꼭 닮은 동물은 무엇일까?', en:'Find the animal that matches your soul',
              ja:'あなたにそっくりな動物は？', zh:'找到与你最相似的动物' }
@@ -43,8 +43,8 @@ const TESTS = [
     obj: () => TEST_LOVE,
     emoji: '💘',
     thumb: 'images/love_hero.jpg',
-    title: { ko:'나의 연애 세포 테스트', en:'Your Love Cell Test',
-             ja:'私の恋愛細胞診断', zh:'我的恋爱细胞测试' },
+    title: { ko:'내 연애 세포 유형은?', en:'What\'s Your Love Cell Type?',
+             ja:'私の恋愛細胞タイプは？', zh:'我的恋爱细胞是哪种？' },
     desc:  { ko:'연애할 때 나는 어떤 하트일까?', en:'What kind of heart are you in love?',
              ja:'恋する時、私はどんなハート？', zh:'恋爱时我是哪种心？' }
   },
@@ -53,8 +53,8 @@ const TESTS = [
     obj: () => TEST_FANTASY,
     emoji: '⚔️',
     thumb: 'images/fantasy_hero.jpg',
-    title: { ko:'나의 판타지 직업 테스트', en:'Your Fantasy Job Test',
-             ja:'私のファンタジー職業診断', zh:'我的奇幻职业测试' },
+    title: { ko:'판타지 세계의 내 직업은?', en:'What\'s Your Fantasy World Job?',
+             ja:'ファンタジー世界での私の職業は？', zh:'我在奇幻世界的职业是？' },
     desc:  { ko:'판타지 세계에서 나의 직업은?', en:'What would your job be in a fantasy world?',
              ja:'ファンタジー世界での私の職業は？', zh:'在奇幻世界里你会是什么职业？' }
   },
@@ -63,8 +63,8 @@ const TESTS = [
     obj: () => TEST_TAROT,
     emoji: '🔮',
     thumb: 'images/tarot_hero.jpg',
-    title: { ko:'나의 타로 카드 테스트', en:'Your Tarot Card Test',
-             ja:'私のタロットカード診断', zh:'我的塔罗牌测试' },
+    title: { ko:'내 운명의 타로 카드는?', en:'Which Tarot Card Is Your Destiny?',
+             ja:'私の運命のタロットカードは？', zh:'哪张塔罗牌是我的命运？' },
     desc:  { ko:'내 운명을 담은 타로 카드는?', en:'Which tarot card holds your destiny?',
              ja:'私の運命を宿すタロットカードは？', zh:'承载我命运的塔罗牌是？' }
   }
@@ -73,8 +73,8 @@ const TESTS = [
     obj: () => TEST_STOCK,
     emoji: '📉',
     thumb: 'images/stock_hero.jpg',
-    title: { ko:'나의 주식 투자 유형 테스트', en:'Your Stock Investor Type',
-             ja:'私の株式投資タイプ診断', zh:'我的股票投资类型测试' },
+    title: { ko:'나는 어떤 투자자?', en:'What Kind of Investor Are You?',
+             ja:'私はどんな投資家？', zh:'我是哪种投资者？' },
     desc:  { ko:'-30% 됐을 때 나는 어떤 타입?', en:'How do you react when stocks drop -30%?',
              ja:'-30%になった時あなたはどのタイプ？', zh:'跌了-30%你是哪种投资者？' }
   }
@@ -83,8 +83,8 @@ const TESTS = [
     obj: () => TEST_TRAVEL,
     emoji: '✈️',
     thumb: 'images/travel_hero.jpg',
-    title: { ko:'나에게 어울리는 여행지 테스트', en:'Your Perfect Travel Destination',
-             ja:'私にぴったりの旅行先は？', zh:'最适合我的旅行目的地测试' },
+    title: { ko:'나에게 어울리는 여행지는?', en:'Which Destination Suits You?',
+             ja:'私にぴったりの旅行先は？', zh:'最适合我的旅行目的地是？' },
     desc:  { ko:'내 성격에 꼭 맞는 여행지는?', en:'Which destination matches your soul?',
              ja:'私の性格にぴったりの旅行先は？', zh:'最符合我性格的旅行目的地是？' }
   }
@@ -93,7 +93,7 @@ const TESTS = [
     obj: () => TEST_GEM,
     emoji: '💎',
     thumb: 'images/gem_hero.jpg',
-    title: { ko:'나를 닮은 보석 테스트', en:'Which Gem Are You?',
+    title: { ko:'나를 닮은 보석은?', en:'Which Gem Resembles You?',
              ja:'私に似ている宝石は？', zh:'哪种宝石最像你？' },
     desc:  { ko:'나를 꼭 닮은 보석은 무엇일까?', en:'Find the gem that matches your soul',
              ja:'あなたにそっくりな宝石は？', zh:'找到与你最相似的宝石' }
