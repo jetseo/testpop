@@ -598,55 +598,42 @@
       ctx.font=fontSize+'px "Noto Sans KR",sans-serif';
       descLines.forEach((ln,i)=>ctx.fillText(ln, W/2, descStartY+i*lineH));
 
-      // C: 해시태그 칩 or 텍스트 — 설명 아래 고정
-      const tagY = H - pad - wmH - tagAreaH + 8;
+      // C: 태그 영역 — 해시태그/닉네임 모두 칩으로 표시
+      const tagY = H - pad - wmH - tagAreaH + 10;
       const tagStr = d.tag || '';
+      // #으로 시작하면 공백으로 분리, 아니면 단어 단위로 분리 (최대 3개)
       const isHashTag = tagStr.trim().startsWith('#');
+      const tags = isHashTag
+        ? tagStr.split(' ').filter(t => t.startsWith('#'))
+        : tagStr.split(/[\s,]+/).filter(Boolean).slice(0, 4);
 
-      if(isHashTag){
-        // #으로 시작하면 칩으로 분리
-        const tags = tagStr.split(' ').filter(t=>t.startsWith('#'));
-        ctx.font = 'bold 26px "Noto Sans KR",sans-serif';
-        const chipPadX=22, chipGap=12, chipR=22;
-        const chipH=26+14*2;
-        let totalChipW=0;
-        const chipWidths=tags.map(tag=>{
-          const w=ctx.measureText(tag).width+chipPadX*2;
-          totalChipW+=w; return w;
-        });
-        totalChipW+=chipGap*(tags.length-1);
-        // 너무 넓으면 두 줄로
+      if(tags.length){
+        ctx.font = 'bold 24px "Noto Sans KR",sans-serif';
+        const chipPadX=20, chipGap=10, chipR=20, chipH=52;
+        let totalChipW = tags.reduce((s,t,i)=>s+ctx.measureText(t).width+chipPadX*2+(i?chipGap:0), 0);
+
+        const drawChips = (tagArr, startY) => {
+          let rw = tagArr.reduce((s,t,i)=>s+ctx.measureText(t).width+chipPadX*2+(i?chipGap:0),0);
+          let cx = (W - rw) / 2;
+          tagArr.forEach(tag=>{
+            const cw = ctx.measureText(tag).width + chipPadX*2;
+            roundRect(ctx, cx, startY, cw, chipH, chipR);
+            ctx.fillStyle = m.color+'22'; ctx.fill();
+            ctx.strokeStyle = m.color+'88'; ctx.lineWidth = 1.5; ctx.stroke();
+            ctx.fillStyle = m.color;
+            ctx.fillText(tag, cx + cw/2, startY + chipH*0.66);
+            cx += cw + chipGap;
+          });
+        };
+
         if(totalChipW > maxW){
-          const mid=Math.ceil(tags.length/2);
-          [tags.slice(0,mid), tags.slice(mid)].forEach((row,ri)=>{
-            let rw=row.reduce((s,t,i)=>s+ctx.measureText(t).width+chipPadX*2+(i?chipGap:0),0);
-            let cx=(W-rw)/2;
-            row.forEach(tag=>{
-              const cw=ctx.measureText(tag).width+chipPadX*2;
-              roundRect(ctx,cx,tagY+ri*(chipH+8),cw,chipH,chipR);
-              ctx.fillStyle=m.color+'22'; ctx.fill();
-              ctx.strokeStyle=m.color+'88'; ctx.lineWidth=2; ctx.stroke();
-              ctx.fillStyle=m.color; ctx.fillText(tag, cx+cw/2, tagY+ri*(chipH+8)+chipH*0.68);
-              cx+=cw+chipGap;
-            });
-          });
+          // 두 줄로 분리
+          const mid = Math.ceil(tags.length/2);
+          drawChips(tags.slice(0, mid), tagY);
+          drawChips(tags.slice(mid), tagY + chipH + 8);
         } else {
-          let cx=(W-totalChipW)/2;
-          tags.forEach((tag,i)=>{
-            const cw=chipWidths[i];
-            roundRect(ctx,cx,tagY,cw,chipH,chipR);
-            ctx.fillStyle=m.color+'22'; ctx.fill();
-            ctx.strokeStyle=m.color+'88'; ctx.lineWidth=2; ctx.stroke();
-            ctx.fillStyle=m.color; ctx.fillText(tag, cx+cw/2, tagY+chipH*0.68);
-            cx+=cw+chipGap;
-          });
+          drawChips(tags, tagY + (chipH/2 - chipH/2)); // 수직 중앙
         }
-      } else if(tagStr){
-        // 문장형 태그는 한 줄 텍스트로
-        ctx.font='italic 28px "Noto Sans KR",sans-serif';
-        ctx.fillStyle='#888';
-        ctx.textAlign='center';
-        ctx.fillText(tagStr, W/2, tagY+28);
       }
 
       // 워터마크 — 카드 하단 고정
