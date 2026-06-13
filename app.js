@@ -82,14 +82,57 @@
   function renderHub(){
     curId=null; TEST=null; setTitle(null);
     const app=document.getElementById('app');
+
+    // 추천 카드덱용: 랜덤 5개 선택
+    const featured = shuffle(TESTS.slice()).slice(0, 5);
+    const shuffled = shuffle(TESTS.slice());
+
     app.innerHTML=`
+      <!-- 플로팅 장식 -->
+      <div class="floating-deco" aria-hidden="true">
+        <span class="deco-item">✨</span>
+        <span class="deco-item">💎</span>
+        <span class="deco-item">⭐</span>
+        <span class="deco-item">🌟</span>
+        <span class="deco-item">✦</span>
+        <span class="deco-item">💫</span>
+        <span class="deco-item">🔮</span>
+        <span class="deco-item">✧</span>
+      </div>
+
+      <!-- 메인 배너 -->
       <section class="hub-hero">
         <div class="hub-banner"><img src="images/og.jpg" alt="testpop" loading="eager"></div>
         <p class="hub-sub">${t('hub_sub')}</p>
       </section>
+
+      <!-- 추천 카드 덱 (Swiper) -->
+      <section class="featured-deck">
+        <p class="deck-title">✦ ${t('featured_deck')||'추천 테스트'} ✦</p>
+        <div class="swiper swiper-deck">
+          <div class="swiper-wrapper">
+            ${featured.map(m=>`
+              <div class="swiper-slide" role="button" tabindex="0"
+                   aria-label="${L(m.title)}"
+                   data-href="#test/${m.id}">
+                <img class="deck-card-img" src="${m.thumb}" alt="${L(m.title)}" loading="lazy">
+                <div class="deck-card-info">
+                  <div class="deck-card-name">${m.emoji} ${L(m.title)}</div>
+                  <div class="deck-card-desc">${L(m.desc)}</div>
+                  <span class="deck-card-btn">${t('do_test')} →</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </section>
+
+      <!-- 전체 테스트 리스트 -->
+      <p class="list-title">${t('all_tests')||'전체 테스트'}</p>
       <section class="test-list">
-        ${shuffle(TESTS.slice()).map(m=>`
-          <a class="test-card" href="#test/${m.id}">
+        ${shuffled.map(m=>`
+          <a class="test-card" href="#test/${m.id}" aria-label="${L(m.title)}">
             <div class="test-thumb"><img src="${m.thumb}" alt="" loading="lazy"></div>
             <div class="test-info">
               <span class="test-emoji">${m.emoji}</span>
@@ -102,6 +145,62 @@
       </section>
       <div class="ad-slot" data-slot="hub-bottom" aria-hidden="true"></div>
     `;
+
+    // Swiper 초기화
+    initSwiper();
+
+    // 카드 등장 애니메이션 (IntersectionObserver)
+    initCardAnimation();
+
+    // 스와이프 카드 클릭
+    document.querySelectorAll('.swiper-slide[data-href]').forEach(el=>{
+      el.addEventListener('click', ()=>{ location.hash=el.dataset.href.slice(1); });
+      el.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' ') location.hash=el.dataset.href.slice(1); });
+    });
+  }
+
+  // ---- Swiper 초기화 ----
+  function initSwiper(){
+    if(typeof Swiper === 'undefined') return;
+    try {
+      new Swiper('.swiper-deck', {
+        effect: 'cards',
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        cardsEffect: {
+          perSlideOffset: 10,
+          perSlideRotate: 4,
+          rotate: true,
+          slideShadows: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+      });
+    } catch(e) {
+      // Swiper 로드 실패 시 fallback — 일반 스크롤로 표시
+      const deck = document.querySelector('.swiper-deck');
+      if(deck){ deck.style.display='flex'; deck.style.overflowX='auto'; deck.style.gap='12px'; deck.style.padding='0 18px'; }
+    }
+  }
+
+  // ---- 카드 등장 애니메이션 ----
+  function initCardAnimation(){
+    // prefers-reduced-motion 체크
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.test-card').forEach(el=>el.classList.add('visible'));
+      return;
+    }
+    if(!('IntersectionObserver' in window)){
+      document.querySelectorAll('.test-card').forEach(el=>el.classList.add('visible'));
+      return;
+    }
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.test-card').forEach(el=>obs.observe(el));
   }
 
   // ---- 화면: 테스트 인트로 ----
