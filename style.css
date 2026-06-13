@@ -867,3 +867,8 @@ body{
 @media (prefers-reduced-motion: reduce) {
   .result-card-spin { animation: none !important; }
 }
+
+/* 카드 미리보기 이미지 하단 여백 */
+#cardPreview {
+  margin-bottom: 28px;
+}
