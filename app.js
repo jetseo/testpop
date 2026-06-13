@@ -532,9 +532,10 @@
 
       cv.style.display='block';
 
-      // 생성된 이미지 상단으로 부드럽게 스크롤
+      // 생성된 이미지 상단이 화면 상단에 딱 맞게 스크롤
       setTimeout(()=>{
-        cv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const top = cv.getBoundingClientRect().top + window.scrollY - 8;
+        window.scrollTo({ top, behavior: 'smooth' });
       }, 50);
 
       if(download){
