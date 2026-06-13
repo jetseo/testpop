@@ -108,7 +108,7 @@
     const featured = [...newTests, ...oldTests].slice(0, 5);
     // 전체 그리드: 최근 3개(배열 뒤에서 3개) 상단 고정 + 나머지 랜덤
     const recentCount = 3;
-    const pinned = TESTS.slice(-recentCount);
+    const pinned = TESTS.slice(-recentCount).reverse();
     const shuffled = [...pinned, ...shuffle(TESTS.slice(0, TESTS.length - recentCount))];
 
     app.innerHTML=`
