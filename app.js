@@ -532,9 +532,11 @@
 
       cv.style.display='block';
 
-      // 생성된 이미지 상단이 화면 상단에 딱 맞게 스크롤
+      // 생성된 이미지 상단이 topbar 바로 아래에 딱 맞게 스크롤
       setTimeout(()=>{
-        const top = cv.getBoundingClientRect().top + window.scrollY - 8;
+        const topbar = document.querySelector('.topbar');
+        const topbarH = topbar ? topbar.offsetHeight : 0;
+        const top = cv.getBoundingClientRect().top + window.scrollY - topbarH;
         window.scrollTo({ top, behavior: 'smooth' });
       }, 50);
 
