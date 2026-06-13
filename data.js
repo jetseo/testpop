@@ -148,6 +148,16 @@ const TESTS = [
     desc:  { ko:'나의 성격을 커피로 알아봐요', en:'Discover your coffee personality',
              ja:'コーヒーで自分の性格を発見しよう', zh:'用咖啡发现你的性格' }
   }
+  ,{
+    id: 'drinking-type', isNew: true,
+    obj: () => TEST_DRINKING_TYPE,
+    emoji: '🍻',
+    thumb: 'images/drink_hero.jpg',
+    title: { ko:'나는 어떤 술자리 유형?', en:"What's My Drinking Party Type?",
+             ja:'私はどんな飲み会タイプ？', zh:'我是哪种聚餐类型？' },
+    desc:  { ko:'술자리에서 나는 어떤 캐릭터?', en:'Which party character are you?',
+             ja:'飲み会での私はどんなキャラ？', zh:'聚餐时你是哪种角色？' }
+  }
 ];
 
 // id로 테스트 객체 찾기
@@ -157,4 +167,4 @@ function getTest(id){
 }
 function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded — tests:', TESTS.length); // 15
+console.log('data.js loaded — tests:', TESTS.length); // 16
