@@ -390,10 +390,22 @@
         i++;
         setTimeout(typeChar, 65);
       } else {
-        // 타이핑 완료 → 선택지 등장
+        // 타이핑 완료 → 선택지 순차 등장
         setTimeout(()=>{
-          ansEl.style.transition = 'opacity .35s ease';
+          const btns = ansEl.querySelectorAll('.answer');
+          btns.forEach((btn, idx)=>{
+            btn.style.opacity = '0';
+            btn.style.transform = 'translateY(16px)';
+            btn.style.transition = 'none';
+          });
           ansEl.style.opacity = '1';
+          btns.forEach((btn, idx)=>{
+            setTimeout(()=>{
+              btn.style.transition = 'opacity .25s ease, transform .25s ease';
+              btn.style.opacity = '1';
+              btn.style.transform = 'translateY(0)';
+            }, idx * 120);
+          });
           bindAnswers(q);
         }, 200);
       }
