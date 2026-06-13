@@ -229,6 +229,12 @@
     setTitle(curId);
     const m=getTestMeta(curId);
     const app=document.getElementById('app');
+
+    // 페이지 전환 fade
+    app.style.opacity='0';
+    app.style.transform='translateY(12px)';
+    app.style.transition='opacity .25s ease, transform .25s ease';
+
     app.innerHTML=`
       <section class="hero">
         <a class="back-link" href="#home">← testpop</a>
@@ -239,29 +245,113 @@
         <button class="btn-primary" id="startBtn">${t('start')}</button>
       </section>
     `;
-    document.getElementById('startBtn').onclick=()=>{answers=[];qIndex=0;track('test_start',{test_id:curId});location.hash='quiz';};
+
+    // 등장 애니메이션
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{
+        app.style.opacity='1';
+        app.style.transform='translateY(0)';
+        setTimeout(()=>{ app.style.transition=''; }, 300);
+      });
+    });
+
+    document.getElementById('startBtn').onclick=()=>{
+      // 버튼 눌렸을 때 sparkle
+      const btn = document.getElementById('startBtn');
+      if(btn){
+        const r = btn.getBoundingClientRect();
+        spawnSparkle(r.left + r.width/2, r.top + r.height/2);
+      }
+      answers=[];qIndex=0;
+      track('test_start',{test_id:curId});
+      location.hash='quiz';
+    };
   }
 
   // ---- 화면: 퀴즈 ----
-  function renderQuiz(){
+  function renderQuiz(slideOut){
     const qs=TEST.questions[lang]||TEST.questions.ko;
-    if(qIndex>=qs.length){const rt=calcType();track('test_complete',{test_id:curId,result_type:rt});justCompleted=true;location.hash='result/'+curId+'/'+rt;return;}
+    if(qIndex>=qs.length){
+      const rt=calcType();
+      track('test_complete',{test_id:curId,result_type:rt});
+      justCompleted=true;
+
+      // 결과로 넘어갈 때 fade out
+      const app=document.getElementById('app');
+      app.style.transition='opacity .2s ease';
+      app.style.opacity='0';
+      setTimeout(()=>{
+        app.style.transition='';
+        app.style.opacity='1';
+        location.hash='result/'+curId+'/'+rt;
+      }, 200);
+      return;
+    }
+
     const q=qs[qIndex];
     const pct=Math.round(qIndex/qs.length*100);
     const app=document.getElementById('app');
-    app.innerHTML=`
-      <section class="quiz">
-        <div class="qbar"><div class="qbar-fill" style="width:${pct}%"></div></div>
-        <div class="qcount">${t('q_progress')} ${qIndex+1} / ${qs.length}</div>
-        <h2 class="qtext">${q.q}</h2>
-        <div class="answers">
-          ${q.a.map((opt,i)=>`<button class="answer" data-i="${i}">${opt.t}</button>`).join('')}
-        </div>
-      </section>
-    `;
-    app.querySelectorAll('.answer').forEach(btn=>{
-      btn.onclick=()=>{answers.push(q.a[+btn.dataset.i].s);qIndex++;window.scrollTo(0,0);renderQuiz();};
-    });
+    const existing=app.querySelector('.quiz');
+
+    const doRender=()=>{
+      app.innerHTML=`
+        <section class="quiz">
+          <div class="qbar"><div class="qbar-fill" style="width:${pct}%"></div></div>
+          <div class="qcount">${qIndex+1} / ${qs.length}</div>
+          <h2 class="qtext">${q.q}</h2>
+          <div class="answers">
+            ${q.a.map((opt,i)=>`<button class="answer" data-i="${i}">${opt.t}</button>`).join('')}
+          </div>
+        </section>
+      `;
+
+      // 답변 버튼 순차 등장
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      app.querySelectorAll('.answer').forEach((btn, idx)=>{
+        if(!reduced) {
+          setTimeout(()=> btn.classList.add('visible'), idx * 60);
+        } else {
+          btn.classList.add('visible');
+        }
+
+        btn.onclick=()=>{
+          // 선택 피드백 — 색 변환 후 다음으로
+          btn.classList.add('selected');
+          btn.disabled = true;
+          app.querySelectorAll('.answer').forEach(b=>{ if(b!==btn) b.style.opacity='.45'; });
+
+          // sparkle 효과
+          const r=btn.getBoundingClientRect();
+          spawnSparkle(r.left+r.width/2, r.top+r.height/2);
+
+          setTimeout(()=>{
+            // slide-out 후 다음 문제
+            const quiz=app.querySelector('.quiz');
+            if(quiz && !reduced){
+              quiz.classList.add('slide-out');
+              setTimeout(()=>{
+                answers.push(q.a[+btn.dataset.i].s);
+                qIndex++;
+                window.scrollTo({top:0, behavior:'smooth'});
+                renderQuiz(true);
+              }, 180);
+            } else {
+              answers.push(q.a[+btn.dataset.i].s);
+              qIndex++;
+              window.scrollTo(0,0);
+              renderQuiz(false);
+            }
+          }, 150);
+        };
+      });
+    };
+
+    // 첫 문제 또는 slide-out 없이 바로 렌더
+    if(!existing || !slideOut){
+      doRender();
+    } else {
+      doRender();
+    }
   }
 
   // ---- 화면: 결과 ----
