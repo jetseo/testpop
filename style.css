@@ -232,3 +232,223 @@ body{
 }
 :focus-visible{outline:3px solid var(--accent-deep);outline-offset:2px}
 
+
+/* ============================================================
+   ✨ 다이나믹 UI 개선 (2순위 포함)
+   ============================================================ */
+
+/* ---- 1. 플로팅 장식 요소 ---- */
+.floating-deco {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.deco-item {
+  position: absolute;
+  font-size: 1.1rem;
+  opacity: 0;
+  animation: deco-float 6s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+.deco-item:nth-child(1)  { left:8%;  top:12%; animation-delay:0s;    animation-duration:7s; }
+.deco-item:nth-child(2)  { left:88%; top:18%; animation-delay:1.2s;  animation-duration:6s; }
+.deco-item:nth-child(3)  { left:22%; top:72%; animation-delay:2.4s;  animation-duration:8s; }
+.deco-item:nth-child(4)  { left:75%; top:60%; animation-delay:0.6s;  animation-duration:5.5s; }
+.deco-item:nth-child(5)  { left:50%; top:8%;  animation-delay:3s;    animation-duration:7.5s; }
+.deco-item:nth-child(6)  { left:15%; top:45%; animation-delay:1.8s;  animation-duration:6.5s; }
+.deco-item:nth-child(7)  { left:92%; top:80%; animation-delay:4s;    animation-duration:9s; }
+.deco-item:nth-child(8)  { left:40%; top:88%; animation-delay:2s;    animation-duration:7s; }
+@keyframes deco-float {
+  0%   { transform: translateY(0px) rotate(0deg);   opacity: 0; }
+  15%  { opacity: 0.35; }
+  50%  { transform: translateY(-18px) rotate(12deg); opacity: 0.25; }
+  85%  { opacity: 0.35; }
+  100% { transform: translateY(0px) rotate(0deg);   opacity: 0; }
+}
+
+/* ---- 2. 허브 배너 반짝이 효과 ---- */
+.hub-banner { position: relative; }
+.hub-banner::after {
+  content: '✦ ✧ ✦';
+  position: absolute; bottom: 12px; right: 16px;
+  font-size: .8rem; color: rgba(255,213,74,.7);
+  animation: sparkle-pulse 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes sparkle-pulse {
+  0%, 100% { opacity: .4; transform: scale(1); }
+  50%       { opacity: 1;  transform: scale(1.15); }
+}
+
+/* ---- 3. Swiper 카드 덱 섹션 ---- */
+.featured-deck {
+  margin: 0 -18px 28px;
+  padding: 8px 0 20px;
+  position: relative; z-index: 1;
+}
+.deck-title {
+  font-family: 'Jua', sans-serif;
+  font-size: 1rem; color: var(--ink-soft);
+  text-align: center; margin-bottom: 14px;
+  letter-spacing: .5px;
+}
+.swiper-deck {
+  width: 100%;
+  padding: 16px 0 32px !important;
+}
+.swiper-deck .swiper-slide {
+  width: 260px !important;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(80,70,40,.18);
+  background: #fff;
+  cursor: pointer;
+  transition: box-shadow .2s;
+}
+.swiper-deck .swiper-slide:active {
+  box-shadow: 0 4px 16px rgba(80,70,40,.15);
+}
+.deck-card-img {
+  width: 100%; aspect-ratio: 1/1;
+  object-fit: cover; display: block;
+}
+.deck-card-info {
+  padding: 14px 16px;
+  background: #fff;
+}
+.deck-card-name {
+  font-family: 'Jua', sans-serif;
+  font-size: 1.05rem; color: var(--ink);
+  margin-bottom: 4px; line-height: 1.3;
+}
+.deck-card-desc {
+  font-size: .8rem; color: var(--ink-soft);
+  line-height: 1.4;
+}
+.deck-card-btn {
+  display: inline-block;
+  margin-top: 10px;
+  background: var(--accent);
+  color: #5A4500;
+  font-family: 'Jua', sans-serif;
+  font-size: .85rem;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+/* Swiper 페이지네이션 */
+.swiper-deck .swiper-pagination-bullet {
+  background: var(--accent-deep) !important;
+  opacity: .4;
+}
+.swiper-deck .swiper-pagination-bullet-active {
+  opacity: 1 !important;
+}
+
+/* ---- 4. 카드 등장 애니메이션 ---- */
+.test-card {
+  animation: card-rise 0.45s ease both;
+  animation-play-state: paused;
+}
+.test-card.visible {
+  animation-play-state: running;
+}
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* 순차 딜레이 */
+.test-card:nth-child(1)  { animation-delay: .05s; }
+.test-card:nth-child(2)  { animation-delay: .10s; }
+.test-card:nth-child(3)  { animation-delay: .15s; }
+.test-card:nth-child(4)  { animation-delay: .20s; }
+.test-card:nth-child(5)  { animation-delay: .25s; }
+.test-card:nth-child(6)  { animation-delay: .30s; }
+.test-card:nth-child(7)  { animation-delay: .35s; }
+.test-card:nth-child(8)  { animation-delay: .40s; }
+.test-card:nth-child(9)  { animation-delay: .45s; }
+.test-card:nth-child(10) { animation-delay: .50s; }
+
+/* 카드 탭/호버 효과 */
+.test-card:active { transform: scale(0.97) translateY(0) !important; transition: transform .1s !important; }
+
+/* 이모지 플로팅 */
+.test-emoji {
+  display: inline-block;
+  animation: emoji-bounce 2.8s ease-in-out infinite;
+}
+@keyframes emoji-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-3px); }
+}
+
+/* 테스트하기 버튼 shimmer */
+.test-go {
+  position: relative; overflow: hidden;
+}
+.test-go::after {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent);
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%   { left: -100%; }
+  60%, 100% { left: 160%; }
+}
+
+/* ---- 5. 이미지 shimmer 로딩 ---- */
+.test-thumb img {
+  transition: opacity .3s;
+}
+.test-thumb img.loading { opacity: 0; }
+
+/* ---- 6. View Transition API ---- */
+@supports (view-transition-name: none) {
+  ::view-transition-old(root) {
+    animation: vt-fade-out .2s ease;
+  }
+  ::view-transition-new(root) {
+    animation: vt-fade-in .25s ease;
+  }
+  @keyframes vt-fade-out {
+    from { opacity: 1; } to { opacity: 0; }
+  }
+  @keyframes vt-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ---- 접근성: 키보드 포커스 ---- */
+.test-card:focus-visible,
+.swiper-deck .swiper-slide:focus-visible {
+  outline: 3px solid var(--accent-deep);
+  outline-offset: 3px;
+}
+
+/* ---- 모션 감소 대응 ---- */
+@media (prefers-reduced-motion: reduce) {
+  .deco-item,
+  .hub-banner::after,
+  .test-card,
+  .test-emoji,
+  .test-go::after { animation: none !important; }
+  .test-card { opacity: 1 !important; transform: none !important; }
+}
+
+/* ---- 섹션 타이틀 구분선 ---- */
+.list-title {
+  font-family: 'Jua', sans-serif;
+  font-size: 1rem; color: var(--ink-soft);
+  text-align: center;
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+  justify-content: center;
+}
+.list-title::before,
+.list-title::after {
+  content: ''; flex: 1; max-width: 60px;
+  height: 1px; background: var(--line);
+}
