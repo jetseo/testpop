@@ -294,73 +294,143 @@
       const rt=calcType();
       track('test_complete',{test_id:curId,result_type:rt});
       markCompleted(curId, rt);
-
-      // 분석 화면 표시 후 결과로 전환
       showAnalyzing(rt);
       return;
     }
 
     const q=qs[qIndex];
-    const pct=Math.round(qIndex/qs.length*100);
+    const pct=Math.round((qIndex)/qs.length*100);
     const app=document.getElementById('app');
-    const existing=app.querySelector('.quiz');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const doRender=()=>{
+    // 첫 문제: 전체 HTML 렌더링
+    if(!app.querySelector('.quiz')){
       app.innerHTML=`
         <section class="quiz">
-          <div class="qbar"><div class="qbar-fill" style="width:${pct}%"></div></div>
-          <div class="qcount">${qIndex+1} / ${qs.length}</div>
-          <h2 class="qtext">${q.q}</h2>
-          <div class="answers">
-            ${q.a.map((opt,i)=>`<button class="answer" data-i="${i}">${opt.t}</button>`).join('')}
-          </div>
+          <div class="qbar"><div class="qbar-fill" style="width:0%"></div></div>
+          <div class="qcount" id="qcount">${qIndex+1} / ${qs.length}</div>
+          <h2 class="qtext" id="qtext"></h2>
+          <div class="answers" id="answers" style="opacity:0"></div>
         </section>
       `;
-
-      // 답변 버튼 이벤트 연결
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      app.querySelectorAll('.answer').forEach((btn)=>{
-        btn.onclick=()=>{
-          // 햅틱 피드백 (모바일)
-          if(navigator.vibrate) navigator.vibrate(40);
-
-          // 선택 피드백 — 색 변환 후 다음으로
-          btn.classList.add('selected');
-          btn.disabled = true;
-          app.querySelectorAll('.answer').forEach(b=>{ if(b!==btn) b.style.opacity='.45'; });
-
-          // sparkle 효과
-          const r=btn.getBoundingClientRect();
-          spawnSparkle(r.left+r.width/2, r.top+r.height/2);
-
-          setTimeout(()=>{
-            // slide-out 후 다음 문제
-            const quiz=app.querySelector('.quiz');
-            if(quiz && !reduced){
-              quiz.classList.add('slide-out');
-              setTimeout(()=>{
-                answers.push(q.a[+btn.dataset.i].s);
-                qIndex++;
-                window.scrollTo({top:0, behavior:'smooth'});
-                renderQuiz(true);
-              }, 180);
-            } else {
-              answers.push(q.a[+btn.dataset.i].s);
-              qIndex++;
-              window.scrollTo(0,0);
-              renderQuiz(false);
-            }
-          }, 150);
-        };
+      // 첫 문제 프로그레스바
+      requestAnimationFrame(()=>{
+        const bar = app.querySelector('.qbar-fill');
+        if(bar) bar.style.width = pct + '%';
       });
+      typeQuestion(q, qs.length, reduced);
+      return;
+    }
+
+    // 2번째~ 문제: 프로그레스바 + 카운트만 업데이트, 질문/선택지는 교체
+    const quiz = app.querySelector('.quiz');
+
+    const doUpdate = () => {
+      // 프로그레스바 & 카운트 부드럽게 업데이트 (재렌더링 없이)
+      const bar = app.querySelector('.qbar-fill');
+      const cnt = document.getElementById('qcount');
+      const qtxt = document.getElementById('qtext');
+      const ansEl = document.getElementById('answers');
+
+      if(bar) bar.style.width = pct + '%';
+      if(cnt) cnt.textContent = (qIndex+1) + ' / ' + qs.length;
+
+      // 질문 초기화 후 타이핑
+      if(qtxt){
+        qtxt.style.opacity = '0';
+        qtxt.textContent = '';
+      }
+      if(ansEl){
+        ansEl.style.opacity = '0';
+        ansEl.innerHTML = '';
+      }
+
+      // 슬라이드 인 애니메이션
+      if(!reduced){
+        quiz.style.animation = 'none';
+        requestAnimationFrame(()=>{
+          quiz.style.animation = '';
+          quiz.classList.remove('slide-out');
+        });
+      }
+
+      typeQuestion(q, qs.length, reduced);
     };
 
-    // 첫 문제 또는 slide-out 없이 바로 렌더
-    if(!existing || !slideOut){
-      doRender();
+    if(slideOut && !reduced){
+      quiz.classList.add('slide-out');
+      setTimeout(doUpdate, 180);
     } else {
-      doRender();
+      doUpdate();
     }
+  }
+
+  // ---- 질문 타이핑 효과 ----
+  function typeQuestion(q, total, reduced){
+    const qtxt = document.getElementById('qtext');
+    const ansEl = document.getElementById('answers');
+    if(!qtxt || !ansEl) return;
+
+    // 답변 버튼 HTML 미리 준비 (숨김 상태)
+    ansEl.innerHTML = q.a.map((opt,i)=>
+      `<button class="answer" data-i="${i}">${opt.t}</button>`
+    ).join('');
+
+    // 모션 감소 시 바로 표시
+    if(reduced){
+      qtxt.textContent = q.q;
+      qtxt.style.opacity = '1';
+      ansEl.style.opacity = '1';
+      bindAnswers(q);
+      return;
+    }
+
+    // 질문 타이핑
+    const text = q.q;
+    let i = 0;
+    qtxt.style.opacity = '1';
+
+    function typeChar(){
+      if(i <= text.length){
+        qtxt.textContent = text.slice(0, i);
+        i++;
+        setTimeout(typeChar, 35);
+      } else {
+        // 타이핑 완료 → 선택지 등장
+        setTimeout(()=>{
+          ansEl.style.transition = 'opacity .35s ease';
+          ansEl.style.opacity = '1';
+          bindAnswers(q);
+        }, 200);
+      }
+    }
+    typeChar();
+  }
+
+  // ---- 답변 버튼 이벤트 연결 ----
+  function bindAnswers(q){
+    const app = document.getElementById('app');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    app.querySelectorAll('.answer').forEach((btn)=>{
+      btn.onclick=()=>{
+        if(navigator.vibrate) navigator.vibrate(40);
+
+        btn.classList.add('selected');
+        btn.disabled = true;
+        app.querySelectorAll('.answer').forEach(b=>{ if(b!==btn) b.style.opacity='.45'; });
+
+        const r=btn.getBoundingClientRect();
+        spawnSparkle(r.left+r.width/2, r.top+r.height/2);
+
+        setTimeout(()=>{
+          answers.push(q.a[+btn.dataset.i].s);
+          qIndex++;
+          window.scrollTo({top:0, behavior:'smooth'});
+          renderQuiz(true);
+        }, 150);
+      };
+    });
   }
 
   // ---- 화면: 결과 ----
