@@ -284,6 +284,7 @@ body{
   margin: 0 -18px 28px;
   padding: 8px 0 20px;
   position: relative; z-index: 1;
+  overflow: hidden;
 }
 .deck-title {
   font-family: 'Jua', sans-serif;
@@ -293,19 +294,28 @@ body{
 }
 .swiper-deck {
   width: 100%;
-  padding: 16px 0 32px !important;
+  padding: 16px 0 36px !important;
+  overflow: visible !important;
+}
+.swiper-deck .swiper-wrapper {
+  align-items: center;
 }
 .swiper-deck .swiper-slide {
-  width: 260px !important;
+  width: 72vw !important;
+  max-width: 280px !important;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 12px 36px rgba(80,70,40,.18);
+  box-shadow: 0 8px 28px rgba(80,70,40,.15);
   background: #fff;
   cursor: pointer;
-  transition: box-shadow .2s;
+  transition: box-shadow .2s, transform .2s;
+}
+.swiper-deck .swiper-slide-active {
+  box-shadow: 0 14px 40px rgba(80,70,40,.22);
+  transform: scale(1.03);
 }
 .swiper-deck .swiper-slide:active {
-  box-shadow: 0 4px 16px rgba(80,70,40,.15);
+  transform: scale(0.97) !important;
 }
 .deck-card-img {
   width: 100%; aspect-ratio: 1/1;
