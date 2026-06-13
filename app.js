@@ -554,23 +554,17 @@
       if(nick){
         setShadow(ctx,true);
         ctx.fillStyle='#fff'; ctx.font='bold '+nameSize+'px "Noto Sans KR",sans-serif';
-        ctx.fillText(d.name, W/2, iy+ih-150);
+        ctx.fillText(d.name, W/2, iy+ih-100);
         clearShadow(ctx);
         ctx.font='bold 44px "Noto Sans KR",sans-serif';
         const tw=ctx.measureText(nick).width, bw=Math.min(tw+68,iw-40), bh=68;
-        const bx=(W-bw)/2, by=iy+ih-128;
+        const bx=(W-bw)/2, by=iy+ih-80;
         roundRect(ctx,bx,by,bw,bh,34); ctx.fillStyle='rgba(255,255,255,0.95)'; ctx.fill();
         ctx.fillStyle=m.color; ctx.fillText(nick, W/2, by+47);
-        setShadow(ctx,false);
-        ctx.fillStyle='#fff'; ctx.font='30px "Noto Sans KR",sans-serif';
-        ctx.fillText(d.tag, W/2, iy+ih-26);
         clearShadow(ctx);
       } else {
         setShadow(ctx,true);
-        ctx.fillStyle='#fff'; ctx.fillText(d.name, W/2, iy+ih-62);
-        setShadow(ctx,false);
-        ctx.fillStyle='#fff'; ctx.font='30px "Noto Sans KR",sans-serif';
-        ctx.fillText(d.tag, W/2, iy+ih-24);
+        ctx.fillStyle='#fff'; ctx.fillText(d.name, W/2, iy+ih-40);
         clearShadow(ctx);
       }
 
