@@ -98,6 +98,16 @@ const TESTS = [
     desc:  { ko:'나를 꼭 닮은 보석은 무엇일까?', en:'Find the gem that matches your soul',
              ja:'あなたにそっくりな宝石は？', zh:'找到与你最相似的宝石' }
   }
+  ,{
+    id: 'egenteto',
+    obj: () => TEST_EGENTETO,
+    emoji: '🌊',
+    thumb: 'images/egenteto_hero.jpg',
+    title: { ko:'나는 에겐일까 테토일까?', en:'Am I Egen or Teto?',
+             ja:'私はエゲン？テト？', zh:'我是埃根还是泰托？' },
+    desc:  { ko:'나의 에겐·테토 에너지 유형은?', en:'Find your Egen·Teto energy type',
+             ja:'私のエゲン・テトエネルギータイプは？', zh:'找到我的埃根泰托能量类型' }
+  }
 ];
 
 // id로 테스트 객체 찾기
@@ -107,4 +117,4 @@ function getTest(id){
 }
 function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded — tests:', TESTS.length); // 10
+console.log('data.js loaded — tests:', TESTS.length); // 11
