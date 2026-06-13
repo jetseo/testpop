@@ -438,9 +438,24 @@
       const cr=parseInt(hex.slice(0,2),16), cg=parseInt(hex.slice(2,4),16), cb=parseInt(hex.slice(4,6),16);
       const grad=ctx.createLinearGradient(0,iy+ih-bandH,0,iy+ih);
       grad.addColorStop(0,`rgba(${cr},${cg},${cb},0)`);
-      grad.addColorStop(1,`rgba(${cr},${cg},${cb},0.88)`);
+      grad.addColorStop(0.4,`rgba(${cr},${cg},${cb},0.55)`);
+      grad.addColorStop(1,`rgba(${cr},${cg},${cb},0.95)`);
       ctx.fillStyle=grad; ctx.fillRect(ix,iy+ih-bandH,iw,bandH);
       ctx.restore();
+
+      // 텍스트 공통 그림자 설정 (어떤 배경색이든 가독성 보장)
+      function setShadow(ctx, strong){
+        ctx.shadowColor = 'rgba(0,0,0,0.55)';
+        ctx.shadowBlur  = strong ? 12 : 8;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = strong ? 2 : 1;
+      }
+      function clearShadow(ctx){
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur  = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+      }
 
       ctx.textAlign='center';
       // 유형명 — 폭에 맞게 폰트 자동 축소
@@ -451,23 +466,30 @@
 
       if(nick){
         // 1줄: 유형명 → 2줄: 닉네임 칩 → 3줄: 태그
+        setShadow(ctx, true);
         ctx.fillStyle='#fff';
         ctx.font='bold '+nameSize+'px "Noto Sans KR",sans-serif';
         ctx.fillText(d.name, W/2, iy+ih-160);
         // 닉네임 칩 — 반투명 흰색 배경, m.color 글씨
+        clearShadow(ctx);
         ctx.font='bold 46px "Noto Sans KR",sans-serif';
         const tw=ctx.measureText(nick).width, bw=Math.min(tw+72, iw-40), bh=72;
         const bx=(W-bw)/2, by=iy+ih-138;
-        roundRect(ctx,bx,by,bw,bh,36); ctx.fillStyle='rgba(255,255,255,0.92)'; ctx.fill();
+        roundRect(ctx,bx,by,bw,bh,36); ctx.fillStyle='rgba(255,255,255,0.95)'; ctx.fill();
         ctx.fillStyle=m.color; ctx.textAlign='center'; ctx.fillText(nick, W/2, by+50);
         // 태그
-        ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.font='32px "Noto Sans KR",sans-serif';
+        setShadow(ctx, false);
+        ctx.fillStyle='#fff'; ctx.font='32px "Noto Sans KR",sans-serif';
         ctx.fillText(d.tag, W/2, iy+ih-30);
+        clearShadow(ctx);
       } else {
         // 닉네임 없으면 유형명+태그만
+        setShadow(ctx, true);
         ctx.fillStyle='#fff'; ctx.fillText(d.name, W/2, iy+ih-72);
-        ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.font='34px "Noto Sans KR",sans-serif';
+        setShadow(ctx, false);
+        ctx.fillStyle='#fff'; ctx.font='34px "Noto Sans KR",sans-serif';
         ctx.fillText(d.tag, W/2, iy+ih-28);
+        clearShadow(ctx);
       }
 
       // 설명
