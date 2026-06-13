@@ -409,8 +409,8 @@
             }, 100 + idx * 150);
           });
 
-          // 마지막 버튼 등장 완료 후 클릭 가능
-          setTimeout(()=> bindAnswers(q), 100 + btns.length * 150 + 300);
+          // 버튼 등장과 동시에 바로 이벤트 연결
+          bindAnswers(q);
         }, 300);
       }
     }
