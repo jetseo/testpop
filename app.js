@@ -102,8 +102,10 @@
     curId=null; TEST=null; setTitle(null);
     const app=document.getElementById('app');
 
-    // 추천 카드덱용: 랜덤 5개 선택
-    const featured = shuffle(TESTS.slice()).slice(0, 5);
+    // 추천 카드덱: 신규 테스트 먼저, 나머지 랜덤으로 채움
+    const newTests = TESTS.filter(t => t.isNew);
+    const oldTests = shuffle(TESTS.filter(t => !t.isNew).slice());
+    const featured = [...newTests, ...oldTests].slice(0, 5);
     const shuffled = shuffle(TESTS.slice());
 
     app.innerHTML=`
@@ -134,6 +136,7 @@
               <div class="swiper-slide" role="button" tabindex="0"
                    aria-label="${L(m.title)}"
                    data-href="#test/${m.id}">
+                ${m.isNew ? '<span class="deck-badge-new">✨ NEW</span>' : ''}
                 <img class="deck-card-img" src="${m.thumb}" alt="${L(m.title)}" loading="lazy">
                 <div class="deck-card-info">
                   <div class="deck-card-name">${m.emoji} ${L(m.title)}</div>
@@ -152,6 +155,7 @@
       <section class="test-list">
         ${shuffled.map(m=>`
           <a class="test-card" href="#test/${m.id}" aria-label="${L(m.title)}">
+            ${m.isNew ? '<span class="badge-new">✨ NEW</span>' : ''}
             <div class="test-thumb"><img src="${m.thumb}" alt="" loading="lazy"></div>
             <div class="test-info">
               <span class="test-emoji">${m.emoji}</span>
