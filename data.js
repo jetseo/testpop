@@ -83,8 +83,8 @@ const TESTS = [
     obj: () => TEST_TRAVEL,
     emoji: '✈️',
     thumb: 'images/travel_hero.jpg',
-    title: { ko:'나를 닮은 여행지 테스트', en:'Which Destination Resembles You?',
-             ja:'私に似ている旅行先は？', zh:'与我相似的旅行目的地测试' },
+    title: { ko:'나에게 어울리는 여행지 테스트', en:'Your Perfect Travel Destination',
+             ja:'私にぴったりの旅行先は？', zh:'最适合我的旅行目的地测试' },
     desc:  { ko:'내 성격에 꼭 맞는 여행지는?', en:'Which destination matches your soul?',
              ja:'私の性格にぴったりの旅行先は？', zh:'最符合我性格的旅行目的地是？' }
   }
