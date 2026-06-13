@@ -598,33 +598,55 @@
       ctx.font=fontSize+'px "Noto Sans KR",sans-serif';
       descLines.forEach((ln,i)=>ctx.fillText(ln, W/2, descStartY+i*lineH));
 
-      // C: 해시태그 칩 — 설명 아래 고정
+      // C: 해시태그 칩 or 텍스트 — 설명 아래 고정
       const tagY = H - pad - wmH - tagAreaH + 8;
-      const tags = (d.tag||'').split(' ').filter(Boolean);
-      if(tags.length){
+      const tagStr = d.tag || '';
+      const isHashTag = tagStr.trim().startsWith('#');
+
+      if(isHashTag){
+        // #으로 시작하면 칩으로 분리
+        const tags = tagStr.split(' ').filter(t=>t.startsWith('#'));
         ctx.font = 'bold 26px "Noto Sans KR",sans-serif';
-        // 전체 너비 계산해서 중앙 정렬
-        const chipPadX=22, chipPadY=14, chipGap=12, chipR=22;
-        const chipH=26+chipPadY*2;
-        let totalChipW = 0;
-        const chipWidths = tags.map(tag=>{
+        const chipPadX=22, chipGap=12, chipR=22;
+        const chipH=26+14*2;
+        let totalChipW=0;
+        const chipWidths=tags.map(tag=>{
           const w=ctx.measureText(tag).width+chipPadX*2;
-          totalChipW+=w;
-          return w;
+          totalChipW+=w; return w;
         });
-        totalChipW += chipGap*(tags.length-1);
-        let cx=(W-totalChipW)/2;
-        tags.forEach((tag,i)=>{
-          const cw=chipWidths[i];
-          // 칩 배경
-          roundRect(ctx,cx,tagY,cw,chipH,chipR);
-          ctx.fillStyle=m.color+'22'; ctx.fill();
-          ctx.strokeStyle=m.color+'88'; ctx.lineWidth=2; ctx.stroke();
-          // 텍스트
-          ctx.fillStyle=m.color;
-          ctx.fillText(tag, cx+cw/2, tagY+chipH*0.68);
-          cx+=cw+chipGap;
-        });
+        totalChipW+=chipGap*(tags.length-1);
+        // 너무 넓으면 두 줄로
+        if(totalChipW > maxW){
+          const mid=Math.ceil(tags.length/2);
+          [tags.slice(0,mid), tags.slice(mid)].forEach((row,ri)=>{
+            let rw=row.reduce((s,t,i)=>s+ctx.measureText(t).width+chipPadX*2+(i?chipGap:0),0);
+            let cx=(W-rw)/2;
+            row.forEach(tag=>{
+              const cw=ctx.measureText(tag).width+chipPadX*2;
+              roundRect(ctx,cx,tagY+ri*(chipH+8),cw,chipH,chipR);
+              ctx.fillStyle=m.color+'22'; ctx.fill();
+              ctx.strokeStyle=m.color+'88'; ctx.lineWidth=2; ctx.stroke();
+              ctx.fillStyle=m.color; ctx.fillText(tag, cx+cw/2, tagY+ri*(chipH+8)+chipH*0.68);
+              cx+=cw+chipGap;
+            });
+          });
+        } else {
+          let cx=(W-totalChipW)/2;
+          tags.forEach((tag,i)=>{
+            const cw=chipWidths[i];
+            roundRect(ctx,cx,tagY,cw,chipH,chipR);
+            ctx.fillStyle=m.color+'22'; ctx.fill();
+            ctx.strokeStyle=m.color+'88'; ctx.lineWidth=2; ctx.stroke();
+            ctx.fillStyle=m.color; ctx.fillText(tag, cx+cw/2, tagY+chipH*0.68);
+            cx+=cw+chipGap;
+          });
+        }
+      } else if(tagStr){
+        // 문장형 태그는 한 줄 텍스트로
+        ctx.font='italic 28px "Noto Sans KR",sans-serif';
+        ctx.fillStyle='#888';
+        ctx.textAlign='center';
+        ctx.fillText(tagStr, W/2, tagY+28);
       }
 
       // 워터마크 — 카드 하단 고정
