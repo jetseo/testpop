@@ -133,7 +133,7 @@ const TESTS = [
     obj: () => TEST_WORK_SURVIVAL,
     emoji: '💼',
     thumb: 'images/work_hero.jpg',
-    title: { ko:'나의 직장 생존 유형은?', en:"What's My Work Survival Type?",
+    title: { ko:'나의 직장 생존 유형은?', en:'My Work Survival Type',
              ja:'私の職場生存タイプは？', zh:'我的职场生存类型是？' },
     desc:  { ko:'직장에서 나는 어떤 캐릭터?', en:'Which office character are you?',
              ja:'職場での私はどんなキャラ？', zh:'你是哪种职场角色？' }
