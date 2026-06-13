@@ -118,6 +118,16 @@ const TESTS = [
     desc:  { ko:'나의 분위기를 색으로 알아봐요', en:'Find the color that matches your vibe',
              ja:'あなたの雰囲気を色で表してみましょう', zh:'用颜色发现你的气质' }
   }
+  ,{
+    id: 'startup', isNew: true,
+    obj: () => TEST_STARTUP,
+    emoji: '🚀',
+    thumb: 'images/startup_hero.jpg',
+    title: { ko:'내가 창업한다면 어떤 회사?', en:'What Kind of Startup Would I Build?',
+             ja:'私が創業するならどんな会社？', zh:'如果我创业，会是什么公司？' },
+    desc:  { ko:'나의 창업 DNA를 알아보세요', en:'Discover your entrepreneurial DNA',
+             ja:'自分の起業家DNAを見つけよう', zh:'发现你的创业者DNA' }
+  }
 ];
 
 // id로 테스트 객체 찾기
@@ -127,4 +137,4 @@ function getTest(id){
 }
 function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded — tests:', TESTS.length); // 12
+console.log('data.js loaded — tests:', TESTS.length); // 13
