@@ -535,3 +535,131 @@ body{
   .sparkle-particle,
   .result-card { animation: none !important; }
 }
+
+/* ============================================================
+   🎬 인트로 + 퀴즈 인터랙션 효과
+   ============================================================ */
+
+/* ---- 인트로 Hero 등장 애니메이션 ---- */
+.hero-art {
+  animation: hero-zoom .6s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes hero-zoom {
+  from { transform: scale(.88); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+.hero-title {
+  animation: fade-up .5s .15s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-tagline {
+  animation: fade-up .5s .25s cubic-bezier(.22,1,.36,1) both;
+}
+.hero-sub {
+  animation: fade-up .5s .32s cubic-bezier(.22,1,.36,1) both;
+}
+.btn-primary {
+  animation: fade-up .5s .4s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 시작 버튼 pulse 링 */
+.btn-primary {
+  position: relative;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute; inset: -6px;
+  border-radius: 999px;
+  border: 2px solid var(--accent);
+  opacity: 0;
+  animation: pulse-ring 2s ease-out 1s infinite;
+  pointer-events: none;
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: .6; }
+  100% { transform: scale(1.18); opacity: 0; }
+}
+
+/* ---- 퀴즈 화면 전환 ---- */
+.quiz {
+  animation: quiz-slide-in .3s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes quiz-slide-in {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.quiz.slide-out {
+  animation: quiz-slide-out .18s ease-in forwards;
+}
+@keyframes quiz-slide-out {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(-32px); }
+}
+
+/* 진행바 부드러운 증가 */
+.qbar-fill {
+  transition: width .5s cubic-bezier(.34,1.56,.64,1) !important;
+}
+
+/* 질문 텍스트 fade */
+.qtext {
+  animation: qtext-fade .35s .1s ease both;
+}
+@keyframes qtext-fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 답변 버튼 순차 등장 */
+.answer {
+  animation: answer-rise .35s ease both;
+  animation-play-state: paused;
+}
+.answer.visible {
+  animation-play-state: running;
+}
+.answers .answer:nth-child(1) { animation-delay: .12s; }
+.answers .answer:nth-child(2) { animation-delay: .18s; }
+.answers .answer:nth-child(3) { animation-delay: .24s; }
+.answers .answer:nth-child(4) { animation-delay: .30s; }
+@keyframes answer-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 답변 선택 피드백 */
+.answer.selected {
+  background: var(--accent) !important;
+  border-color: var(--accent-deep) !important;
+  color: #5A4500 !important;
+  transform: scale(1.02) !important;
+  transition: all .12s ease !important;
+}
+.answer:active {
+  transform: scale(0.97);
+}
+
+/* 퀴즈 카운트 배지 */
+.qcount {
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  background: var(--accent);
+  color: #5A4500;
+  font-weight: 700;
+  font-size: .82rem;
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin: 0 auto 20px;
+  animation: fade-up .3s ease both;
+}
+
+/* ---- 모션 감소 대응 ---- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-art, .hero-title, .hero-tagline, .hero-sub,
+  .btn-primary, .quiz, .qtext, .answer,
+  .btn-primary::before { animation: none !important; }
+  .answer { opacity: 1 !important; transform: none !important; }
+}
