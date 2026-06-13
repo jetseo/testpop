@@ -514,18 +514,37 @@
     img.onload=()=>{
       const W=720, pad=36;
       const ix=pad+16, iy=pad+16, iw=W-pad*2-32, ih=Math.round(iw*1.05);
-      // 설명 줄 나누기 (높이 계산 먼저)
-      ctx.font='32px "Noto Sans KR",sans-serif';
-      const maxW=W-pad*2-40, lineH=46;
-      const descLines=splitLines(ctx, d.desc, maxW);
-      // 동적 높이 계산: 상단여백+이미지+이름영역+설명+워터마크+하단여백
-      const descTop = iy+ih+54;
-      const descH = descLines.length*lineH;
-      const wmPad = 60;   // 설명 끝 → 워터마크 시작 여백
-      const wmLineH = 48; // 워터마크 줄 간격
-      const wmH = wmPad + wmLineH*2 + 56; // 여백 + 테스트명 + 주소 + 하단 여백
-      const H = descTop + descH + wmH + pad;
+
+      // ---- 카드 높이 완전 고정 ----
+      const H = 1400;
       cv.width=W; cv.height=H;
+
+      // 영역 사전 계산
+      const descTop = iy+ih+54;
+      const wmPad = 56;
+      const wmLineH = 48;
+      const wmH = wmPad + wmLineH*2 + 56;
+      const descAreaH = H - descTop - wmH - pad; // 설명에 쓸 수 있는 높이
+
+      // 설명 폰트 크기를 반응형으로 — descAreaH에 맞게 자동 축소
+      const maxW = W-pad*2-40;
+      let fontSize = 32;
+      let descLines, lineH;
+      while(fontSize >= 22){
+        lineH = Math.round(fontSize * 1.52);
+        ctx.font = fontSize+'px "Noto Sans KR",sans-serif';
+        descLines = splitLines(ctx, d.desc, maxW);
+        if(descLines.length * lineH <= descAreaH) break;
+        fontSize -= 2;
+      }
+      // 그래도 넘치면 7줄로 잘라냄
+      if(descLines.length * lineH > descAreaH){
+        const maxLines = Math.floor(descAreaH / lineH);
+        descLines = descLines.slice(0, maxLines);
+        if(descLines.length > 0)
+          descLines[descLines.length-1] = descLines[descLines.length-1].replace(/.{0,3}$/, '…');
+      }
+      const descH = descLines.length * lineH;
 
       // 배경
       ctx.fillStyle=m.color; ctx.fillRect(0,0,W,H);
@@ -597,17 +616,18 @@
         clearShadow(ctx);
       }
 
-      // 설명
-      ctx.textAlign='center'; ctx.fillStyle='#444'; ctx.font='32px "Noto Sans KR",sans-serif';
+      // 설명 (descTop 기준으로 렌더)
+      ctx.textAlign='center'; ctx.fillStyle='#444';
+      ctx.font=fontSize+'px "Noto Sans KR",sans-serif';
       descLines.forEach((ln,i)=>ctx.fillText(ln, W/2, descTop+i*lineH));
 
-      // 워터마크 — descH 끝 기준 고정 오프셋 (글자 길이와 무관하게 항상 표시)
-      const wmY1 = descTop + descH + wmPad + wmLineH;     // 테스트명
-      const wmY2 = descTop + descH + wmPad + wmLineH*2;   // testpop.app
+      // 워터마크 — 카드 하단 고정
+      const wmY1 = H - pad - wmLineH - 20;   // testpop.app
+      const wmY2 = wmY1 - wmLineH;            // 테스트명
       ctx.fillStyle='#aaa'; ctx.font='30px "Noto Sans KR",sans-serif';
-      ctx.fillText(L(getTestMeta(curId).title), W/2, wmY1);
+      ctx.fillText(L(getTestMeta(curId).title), W/2, wmY2);
       ctx.fillStyle=m.color; ctx.font='bold 36px sans-serif';
-      ctx.fillText('testpop.app', W/2, wmY2);
+      ctx.fillText('testpop.app', W/2, wmY1);
 
       cv.style.display='block';
 
