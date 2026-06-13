@@ -453,22 +453,12 @@
         ${fromLink?`<a class="friend-banner" href="#test/${curId}">${t('friend_result')}<span class="friend-cta">${t('try_too')} →</span></a>`:''}
         <p class="result-label">${L(TEST.resultLabel)}</p>
 
-        <!-- 카드 뒤집기 래퍼 -->
-        <div class="result-flip-wrap" id="flipWrap">
-          <div class="result-flip-inner" id="flipInner">
-            <!-- 앞면: 실제 결과 카드 -->
-            <div class="result-flip-front">
-              <div class="result-card" style="--c:${m.color};--ink:${m.ink}" id="resultCard">
-                <img class="result-img" src="${m.img}" alt="${d.name}">
-                <h2 class="result-name">${d.name}</h2>
-                <p class="result-tag">${d.tag}</p>
-              </div>
-            </div>
-            <!-- 뒷면: 물음표 -->
-            <div class="result-flip-back" aria-hidden="true">
-              <span class="flip-icon">🎴</span>
-              <span class="flip-hint">${t('flip_hint')||'탭해서 결과 확인!'}</span>
-            </div>
+        <!-- 결과 카드 -->
+        <div class="result-flip-wrap">
+          <div class="result-card result-card-spin" style="--c:${m.color};--ink:${m.ink}" id="resultCard">
+            <img class="result-img" src="${m.img}" alt="${d.name}">
+            <h2 class="result-name">${d.name}</h2>
+            <p class="result-tag">${d.tag}</p>
           </div>
         </div>
 
@@ -509,12 +499,7 @@
     }
 
     // 결과 도달 시 confetti (테스트 완료한 경우만)
-    if(!fromLink) {
-      setTimeout(()=> launchConfetti(), 400);
-    }
-
-    // 카드 뒤집기 초기화
-    initCardFlip(fromLink);
+    if(!fromLink) setTimeout(()=> launchConfetti(), 600);
   }
 
   // ---- 결과 카드 Canvas ----
@@ -713,56 +698,96 @@
     const app = document.getElementById('app');
     const emoji = TEST.emoji || '🔮';
 
-    // 테스트별 분석 메시지
-    const msgs = {
-      ko: [
-        '답변 열심히 읽는 중... 📖',
-        '어, 이거 흥미롭네요 🤔',
-        '비슷한 유형이랑 비교해 보는 중...',
-        '결과 그림 열심히 그리는 중 🎨',
-        '거의 다 됐는데 조금만 기다려요...',
-        '사실 처음부터 답 알고 있었어요 😏',
-        '두구두구두구두구두구두구두구두구두구두구... 🥁',
-        '짜잔! 결과 나왔어요 ✨',
-      ],
-      en: [
-        'Reading your answers very carefully... 📖',
-        'Oh, this is interesting 🤔',
-        'Comparing with similar types...',
-        'Drawing your result right now 🎨',
-        'Almost done, just a little longer...',
-        'Honestly I knew from the start 😏',
-        'Drumroll drumroll drumroll drumroll drumroll... 🥁',
-        'Ta-da! Your result is ready ✨',
-      ],
-      ja: [
-        '答えを一生懸命読んでいます... 📖',
-        'あ、これは面白い 🤔',
-        '似たタイプと比べています...',
-        '結果の絵を一生懸命描いています 🎨',
-        'もうすぐですよ、ちょっと待って...',
-        '実は最初から答えわかってました 😏',
-        'ドドドドドドドドドドドドドドドド... 🥁',
-        'じゃーん！結果が出ました ✨',
-      ],
-      zh: [
-        '正在认真阅读你的答案... 📖',
-        '哦，这很有趣 🤔',
-        '正在与相似类型比较...',
-        '正在努力画结果图 🎨',
-        '快好了，再等一下...',
-        '其实从一开始就知道答案了 😏',
-        '咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚... 🥁',
-        '哒哒！结果出来了 ✨',
-      ],
-    };
-    const msgList = msgs[lang] || msgs.ko;
-
-    // 모션 감소 시 바로 결과로
     if(reduced){
       location.hash = 'result/'+curId+'/'+resultType;
       return;
     }
+
+    // 중간 랜덤 메시지 풀
+    const midPool = {
+      ko: [
+        '음... 생각보다 복잡한 성격이네요 🤯',
+        '이거 어디서 많이 본 유형인데 🧐',
+        '확실히 독특한 면이 있어요 👀',
+        '친구들도 비슷하게 생각할 것 같은데요 😏',
+        '아, 이래서 그랬군요! 🙊',
+        '데이터가 너무 명확해서 놀랐어요 😲',
+        '솔직히 처음 답변에서 이미 알았어요 🔮',
+        '우주가 당신의 유형을 알고 있었습니다 🌌',
+        '잠깐, 이거 예상 밖인데요? 😳',
+        '고민할 것도 없네요, 딱 이거예요 ✅',
+        '통계적으로 꽤 드문 유형이에요 📊',
+        'AI가 세 번 확인하고 있습니다 🤖',
+        '결과가 충격적일 수도 있어요 (아닐 수도) 😅',
+        '주변에 이런 유형 많이 있죠? 🫠',
+        '빨리 친구한테 공유하고 싶을걸요 📱',
+      ],
+      en: [
+        'Hmm... more complex than expected 🤯',
+        "I've seen this type somewhere before 🧐",
+        'You definitely have a unique side 👀',
+        'Your friends probably think the same 😏',
+        "Ahhh, so THAT'S why! 🙊",
+        'The data is surprisingly clear 😲',
+        'Honestly, I knew from your first answer 🔮',
+        'The universe already knew your type 🌌',
+        'Wait, this is unexpected... 😳',
+        "No need to think twice, it's definitely this ✅",
+        'Statistically quite a rare type 📊',
+        'AI is triple-checking this 🤖',
+        'Results may or may not be shocking 😅',
+        'You know someone exactly like this, right? 🫠',
+        'You will want to share this immediately 📱',
+      ],
+      ja: [
+        'うーん...思ったより複雑な性格ですね 🤯',
+        'どこかで見たことあるタイプですね 🧐',
+        '確かに独特な面がありますね 👀',
+        '友達も同じように思ってそうです 😏',
+        'あ、だからそうだったんですね！ 🙊',
+        'データがあまりにも明確で驚きました 😲',
+        '最初の回答でもう分かってました 🔮',
+        '宇宙があなたのタイプを知っていました 🌌',
+        'ちょっと待って、予想外かも？ 😳',
+        '迷う必要なし、絶対これですよ ✅',
+        '統計的にかなり珍しいタイプです 📊',
+        'AIが三回確認しています 🤖',
+        '結果は衝撃的かも（そうでないかも）😅',
+        '周りにこういうタイプいますよね 🫠',
+        '早く友達にシェアしたくなりますよ 📱',
+      ],
+      zh: [
+        '嗯...性格比想象中复杂 🤯',
+        '这个类型在哪里见过 🧐',
+        '确实有独特的一面呢 👀',
+        '朋友们应该也这样觉得吧 😏',
+        '啊，原来是这样！ 🙊',
+        '数据清晰到让我惊讶了 😲',
+        '说实话，第一个答案就知道了 🔮',
+        '宇宙早就知道你的类型了 🌌',
+        '等等，这有点出乎意料？ 😳',
+        '不用犹豫，就是这个 ✅',
+        '统计上来说这是相当罕见的类型 📊',
+        'AI正在三次确认 🤖',
+        '结果可能令人震惊（也可能不会）😅',
+        '周围有这种类型的人吧？ 🫠',
+        '你会想立刻分享给朋友的 📱',
+      ],
+    };
+
+    const pool = (midPool[lang] || midPool.ko).slice().sort(()=>Math.random()-.5);
+    const mid = pool.slice(0, 3);
+
+    const fixed = {
+      ko: { first:'답변 열심히 읽는 중... 📖', pre:'거의 다 됐어요, 조금만요...', drum:'두구두구두구두구두구두구두구두구두구두구두구두구... 🥁', last:'짜잔! 결과 나왔어요 ✨' },
+      en: { first:'Reading your answers carefully... 📖', pre:'Almost there, just a little more...', drum:'Drumroll drumroll drumroll drumroll drumroll drumroll... 🥁', last:'Ta-da! Your result is ready ✨' },
+      ja: { first:'答えを一生懸命読んでいます... 📖', pre:'もうすぐですよ、ちょっと待って...', drum:'ドドドドドドドドドドドドドドドドドドドドドドドド... 🥁', last:'じゃーん！結果が出ました ✨' },
+      zh: { first:'正在认真阅读你的答案... 📖', pre:'快好了，再等一下...', drum:'咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚... 🥁', last:'哒哒！结果出来了 ✨' },
+    };
+    const f = fixed[lang] || fixed.ko;
+    const msgList = [f.first, ...mid, f.pre, f.drum, f.last];
+    const drumIdx = msgList.length - 2;
+    const totalTime = msgList.length * 900;
 
     app.innerHTML = `
       <div class="analyzing-screen">
@@ -776,28 +801,23 @@
 
     const textEl = document.getElementById('analyzingText');
     const barEl  = document.getElementById('analyzingBar');
-    let msgIdx = 0;
-    let charIdx = 0;
+    let msgIdx = 0, charIdx = 0;
     let fullText = msgList[0];
 
-    // 타이핑 효과
-    // 두구두구 메시지(인덱스 6)는 타이핑 속도 빠르게, 나머지는 천천히
     function typeNext(){
-      const isDrumroll = msgIdx === 6;
-      const speed = isDrumroll ? 25 : 75;
+      const isDrum = msgIdx === drumIdx;
+      const speed = isDrum ? 22 : 55;
       if(charIdx < fullText.length){
         charIdx++;
-        textEl.innerHTML = fullText.slice(0, charIdx) +
-          '<span class="analyzing-cursor"></span>';
+        textEl.innerHTML = fullText.slice(0, charIdx) + '<span class="analyzing-cursor"></span>';
         setTimeout(typeNext, speed);
       } else {
-        // 타이핑 완료 — 커서만 깜빡이다가 다음 메시지로
         textEl.innerHTML = fullText + '<span class="analyzing-cursor"></span>';
         msgIdx++;
         if(msgIdx < msgList.length){
-          const delay = msgIdx === 7 ? 700 : 400;
+          const isLastMsg = msgIdx === msgList.length - 1;
+          const delay = isLastMsg ? 700 : 500;
           setTimeout(()=>{
-            // fade out
             textEl.style.transition = 'opacity .2s ease';
             textEl.style.opacity = '0';
             setTimeout(()=>{
@@ -805,27 +825,23 @@
               charIdx = 0;
               textEl.innerHTML = '<span class="analyzing-cursor"></span>';
               textEl.style.opacity = '1';
-              setTimeout(typeNext, 100);
+              setTimeout(typeNext, 80);
             }, 200);
           }, delay);
         }
       }
     }
 
-    // 진행바 애니메이션
-    const totalTime = 5000;
-    const steps = 20;
+    const steps = 30;
     let step = 0;
     const barTimer = setInterval(()=>{
       step++;
-      const pct = Math.min(step / steps * 100, 100);
-      if(barEl) barEl.style.width = pct + '%';
+      if(barEl) barEl.style.width = Math.min(step/steps*100, 100) + '%';
       if(step >= steps) clearInterval(barTimer);
     }, totalTime / steps);
 
     typeNext();
 
-    // 분석 완료 후 결과로
     setTimeout(()=>{
       app.style.transition = 'opacity .25s ease';
       app.style.opacity = '0';
@@ -837,7 +853,7 @@
     }, totalTime);
   }
 
-  // ---- 결과 카드 뒤집기 ----
+    // ---- 결과 카드 뒤집기 ----
   function initCardFlip(fromLink){
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const inner = document.getElementById('flipInner');
