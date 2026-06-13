@@ -106,10 +106,10 @@
     const newTests = TESTS.filter(t => t.isNew);
     const oldTests = shuffle(TESTS.filter(t => !t.isNew).slice());
     const featured = [...newTests, ...oldTests].slice(0, 5);
-    // 전체 그리드: 가장 최근 테스트(배열 마지막) 첫 번째 고정 + 나머지 랜덤
-    const latest = TESTS[TESTS.length - 1];
-    const rest = shuffle(TESTS.slice(0, TESTS.length - 1));
-    const shuffled = [latest, ...rest];
+    // 전체 그리드: 최근 3개(배열 뒤에서 3개) 상단 고정 + 나머지 랜덤
+    const recentCount = 3;
+    const pinned = TESTS.slice(-recentCount);
+    const shuffled = [...pinned, ...shuffle(TESTS.slice(0, TESTS.length - recentCount))];
 
     app.innerHTML=`
       <!-- 플로팅 장식 -->
