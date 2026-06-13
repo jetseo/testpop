@@ -152,6 +152,20 @@
     // 카드 등장 애니메이션 (IntersectionObserver)
     initCardAnimation();
 
+    // 3D 틸트 + sparkle (test-card)
+    document.querySelectorAll('.test-card').forEach(el=>{
+      initTilt(el);
+      el.addEventListener('click', e=>{
+        spawnSparkle(e.clientX || e.touches?.[0]?.clientX || 0,
+                     e.clientY || e.touches?.[0]?.clientY || 0);
+      });
+    });
+
+    // Swiper 슬라이드 틸트
+    document.querySelectorAll('.swiper-deck .swiper-slide').forEach(el=>{
+      initTilt(el);
+    });
+
     // 스와이프 카드 클릭
     document.querySelectorAll('.swiper-slide[data-href]').forEach(el=>{
       el.addEventListener('click', ()=>{ location.hash=el.dataset.href.slice(1); });
@@ -295,6 +309,11 @@
     document.getElementById('shareBtn').onclick=()=>{track('result_share',{test_id:curId,result_type:ty});shareSocial(ty,d);};
     document.getElementById('cardBtn').onclick=()=>drawCard(ty,d,false);
     document.getElementById('saveBtn').onclick=()=>{track('card_save',{test_id:curId,result_type:ty});drawCard(ty,d,true);};
+
+    // 결과 도달 시 confetti (테스트 완료한 경우만)
+    if(!fromLink) {
+      setTimeout(()=> launchConfetti(), 400);
+    }
   }
 
   // ---- 결과 카드 Canvas ----
@@ -454,6 +473,116 @@
     const fn=document.getElementById('f-note'); if(fn)fn.textContent=t('footer_note');
     route();
   }
+  // ---- 3D 틸트 효과 ----
+  function initTilt(el){
+    if(!el) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced) return;
+
+    function applyTilt(x, y){
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top  + rect.height / 2;
+      const dx = (x - cx) / (rect.width  / 2); // -1 ~ 1
+      const dy = (y - cy) / (rect.height / 2);
+      const rotX = (-dy * 8).toFixed(2);  // 최대 ±8도
+      const rotY = ( dx * 8).toFixed(2);
+      el.style.transform = `perspective(600px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`;
+      el.classList.add('tilting');
+    }
+    function resetTilt(){
+      el.style.transform = '';
+      el.style.transition = 'transform .4s ease';
+      el.classList.remove('tilting');
+      setTimeout(()=>{ el.style.transition = ''; }, 400);
+    }
+
+    // 마우스
+    el.addEventListener('mousemove', e => applyTilt(e.clientX, e.clientY));
+    el.addEventListener('mouseleave', resetTilt);
+
+    // 터치 (모바일)
+    el.addEventListener('touchmove', e => {
+      const t = e.touches[0];
+      applyTilt(t.clientX, t.clientY);
+    }, { passive: true });
+    el.addEventListener('touchend', resetTilt);
+  }
+
+  // ---- 탭 Sparkle 효과 ----
+  function spawnSparkle(x, y){
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced) return;
+    const icons = ['✨','⭐','💫','✦','🌟','💎'];
+    const count = 6;
+    for(let i = 0; i < count; i++){
+      const el = document.createElement('span');
+      el.className = 'sparkle-particle';
+      el.textContent = icons[Math.floor(Math.random() * icons.length)];
+      const angle = (360 / count) * i + Math.random() * 30;
+      const dist  = 40 + Math.random() * 30;
+      const rad   = angle * Math.PI / 180;
+      const tx = Math.cos(rad) * dist;
+      const ty = Math.sin(rad) * dist;
+      el.style.left = x + 'px';
+      el.style.top  = y + 'px';
+      el.style.setProperty('--tx', tx + 'px');
+      el.style.setProperty('--ty', ty + 'px');
+      el.style.animationDuration = (.4 + Math.random() * .3) + 's';
+      document.body.appendChild(el);
+      el.addEventListener('animationend', ()=> el.remove());
+    }
+  }
+
+  // ---- Confetti 폭죽 효과 ----
+  function launchConfetti(){
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced) return;
+
+    // canvas-confetti CDN 로드 (없으면 직접 구현)
+    if(window.confetti){
+      _fireConfetti();
+      return;
+    }
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js';
+    s.onload = _fireConfetti;
+    s.onerror = _fallbackConfetti; // CDN 실패 시 직접 구현
+    document.head.appendChild(s);
+  }
+
+  function _fireConfetti(){
+    if(!window.confetti) { _fallbackConfetti(); return; }
+    // 왼쪽에서 오른쪽으로 두 번 발사
+    window.confetti({ particleCount:60, spread:70, origin:{x:.3, y:.5},
+      colors:['#FFD54A','#FF8FAB','#7EC8E3','#A8E6CF','#FFB347'] });
+    setTimeout(()=>{
+      window.confetti({ particleCount:60, spread:70, origin:{x:.7, y:.5},
+        colors:['#FFD54A','#C9B1FF','#FF8FAB','#7EC8E3','#FFB347'] });
+    }, 200);
+  }
+
+  function _fallbackConfetti(){
+    // canvas-confetti 없을 때 직접 DOM 파티클
+    const colors = ['#FFD54A','#FF8FAB','#7EC8E3','#A8E6CF','#C9B1FF','#FFB347'];
+    const overlay = document.createElement('div');
+    overlay.className = 'confetti-overlay';
+    document.body.appendChild(overlay);
+    for(let i = 0; i < 60; i++){
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.background = colors[Math.floor(Math.random()*colors.length)];
+      p.style.width  = (8 + Math.random()*8) + 'px';
+      p.style.height = (8 + Math.random()*8) + 'px';
+      p.style.borderRadius = Math.random() > .5 ? '50%' : '2px';
+      p.style.animationDuration = (1.2 + Math.random()*1.2) + 's';
+      p.style.animationDelay   = Math.random() * .5 + 's';
+      overlay.appendChild(p);
+    }
+    setTimeout(()=> overlay.remove(), 3000);
+  }
+
   window.addEventListener('hashchange',route);
   document.addEventListener('DOMContentLoaded',()=>{
     document.getElementById('brand').onclick=()=>{location.hash='home';};
