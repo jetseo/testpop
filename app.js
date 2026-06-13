@@ -515,20 +515,19 @@
       const W=720, H=1280;
       cv.width=W; cv.height=H;
 
-      const pad=32;
-      // 하단 고정 영역 계산
-      const wmH = 96;
-      const tagAreaH = 72;
-      const bottomFixed = pad + wmH + tagAreaH; // 하단 총 고정 높이: ~200px
+      const pad=28;
+      // 고정 영역
+      const wmH = 88;
+      const tagAreaH = 64;
+      const bottomFixed = pad + wmH + tagAreaH; // 하단 고정
 
-      // 이미지 높이: 전체에서 상단여백+이미지간격+설명영역+하단고정 제외
-      // 설명 영역은 전체의 약 30% 확보
-      const descAreaTarget = Math.round(H * 0.30);
-      const gapTop = pad + 12;       // 상단 여백
-      const gapMid = 28;             // 이미지↔설명 간격
+      // 설명 영역: 전체의 26% (너무 넓지 않게)
+      const descAreaTarget = Math.round(H * 0.26);
+      const gapTop = pad + 10;  // 상단 여백
+      const gapMid = 22;        // 이미지↔설명 간격
       const ih = H - gapTop - gapMid - descAreaTarget - bottomFixed;
-      const iw = W - pad*2 - 24;
-      const ix = pad + 12;
+      const iw = W - pad*2 - 20;
+      const ix = pad + 10;
       const iy = gapTop;
 
       // 배경
