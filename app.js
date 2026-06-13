@@ -388,7 +388,7 @@
       if(i <= text.length){
         qtxt.textContent = text.slice(0, i);
         i++;
-        setTimeout(typeChar, 35);
+        setTimeout(typeChar, 65);
       } else {
         // 타이핑 완료 → 선택지 등장
         setTimeout(()=>{
