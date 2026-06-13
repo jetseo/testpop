@@ -762,7 +762,7 @@
       return;
     }
 
-    // 중간 랜덤 메시지 풀
+    // 중간 랜덤 메시지 풀 (ko/en/ja/zh 각 25개)
     const midPool = {
       ko: [
         '음... 생각보다 복잡한 성격이네요 🤯',
@@ -780,6 +780,16 @@
         '결과가 충격적일 수도 있어요 (아닐 수도) 😅',
         '주변에 이런 유형 많이 있죠? 🫠',
         '빨리 친구한테 공유하고 싶을걸요 📱',
+        '이 유형 진짜 맞는 것 같은데요? 🎯',
+        '잠깐 커피 한 잔 하고 올게요... ☕',
+        '음... 마지막 답변이 결정적이었어요 🃏',
+        '역시 예상한 대로네요 😌',
+        '이거 친구한테 보내면 깜짝 놀랄 걸요 🎁',
+        '결과를 보고 공감할 준비 되셨나요? 😆',
+        '전 세계 테스트 유형 중 이게 뭔지 알아요 🗺️',
+        '지금 심장 두근거리지 않으세요? 💓',
+        '솔직히 저도 두근두근합니다 🥺',
+        '이 결과 진짜 찰떡같을 거예요 👌',
       ],
       en: [
         'Hmm... more complex than expected 🤯',
@@ -797,6 +807,16 @@
         'Results may or may not be shocking 😅',
         'You know someone exactly like this, right? 🫠',
         'You will want to share this immediately 📱',
+        'This type is spot on for you 🎯',
+        'Just grabbing a coffee real quick... ☕',
+        'That last answer was the deciding factor 🃏',
+        'Exactly as I expected 😌',
+        'Your friends will be surprised by this 🎁',
+        'Ready to feel totally called out? 😆',
+        'I know exactly which type this is 🗺️',
+        'Is your heart beating faster right now? 💓',
+        "I'll be honest, even I'm excited 🥺",
+        "This result is going to fit you perfectly 👌",
       ],
       ja: [
         'うーん...思ったより複雑な性格ですね 🤯',
@@ -814,6 +834,16 @@
         '結果は衝撃的かも（そうでないかも）😅',
         '周りにこういうタイプいますよね 🫠',
         '早く友達にシェアしたくなりますよ 📱',
+        'ぴったりのタイプだと思います 🎯',
+        'ちょっとコーヒー飲んできます... ☕',
+        '最後の回答が決め手になりました 🃏',
+        'やっぱり予想通りでしたね 😌',
+        '友達が驚くと思いますよ 🎁',
+        '共感する準備はできていますか？ 😆',
+        'どのタイプか分かりましたよ 🗺️',
+        'ドキドキしていませんか？ 💓',
+        '私もドキドキしています 🥺',
+        'ぴったりな結果になるはずです 👌',
       ],
       zh: [
         '嗯...性格比想象中复杂 🤯',
@@ -831,23 +861,32 @@
         '结果可能令人震惊（也可能不会）😅',
         '周围有这种类型的人吧？ 🫠',
         '你会想立刻分享给朋友的 📱',
+        '感觉这个类型非常适合你 🎯',
+        '我去喝杯咖啡马上回来... ☕',
+        '最后那个答案是关键 🃏',
+        '果然不出所料 😌',
+        '朋友看到会很惊讶的 🎁',
+        '准备好感同身受了吗？ 😆',
+        '我知道是哪个类型了 🗺️',
+        '现在心跳有没有加速？ 💓',
+        '说实话我也很期待 🥺',
+        '这个结果一定非常贴切 👌',
       ],
     };
 
     const pool = (midPool[lang] || midPool.ko).slice().sort(()=>Math.random()-.5);
-    const mid = pool.slice(0, 3);
+    const mid = pool.slice(0, 4); // 3개→4개로 증가
 
     const fixed = {
-      ko: { first:'답변 열심히 읽는 중... 📖', pre:'거의 다 됐어요, 조금만요...', drum:'두구두구두구두구두구두구두구두구두구두구두구두구... 🥁', last:'✅ 분석 완료!' },
-      en: { first:'Reading your answers carefully... 📖', pre:'Almost there, just a little more...', drum:'Drumroll drumroll drumroll drumroll drumroll drumroll... 🥁', last:'✅ Analysis complete!' },
-      ja: { first:'答えを一生懸命読んでいます... 📖', pre:'もうすぐですよ、ちょっと待って...', drum:'ドドドドドドドドドドドドドドドドドドドドドドドド... 🥁', last:'✅ 分析完了！' },
-      zh: { first:'正在认真阅读你的答案... 📖', pre:'快好了，再等一下...', drum:'咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚... 🥁', last:'✅ 分析完成！' },
+      ko: { first:'답변 열심히 읽는 중... 📖', pre:'거의 다 됐어요, 조금만요...', drum:'두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구... 🥁', last:'✅ 분석 완료!' },
+      en: { first:'Reading your answers carefully... 📖', pre:'Almost there, just a little more...', drum:'Drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll... 🥁', last:'✅ Analysis complete!' },
+      ja: { first:'答えを一生懸命読んでいます... 📖', pre:'もうすぐですよ、ちょっと待って...', drum:'ドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドド... 🥁', last:'✅ 分析完了！' },
+      zh: { first:'正在认真阅读你的答案... 📖', pre:'快好了，再等一下...', drum:'咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚... 🥁', last:'✅ 分析完成！' },
     };
     const f = fixed[lang] || fixed.ko;
     const msgList = [f.first, ...mid, f.pre, f.drum, f.last];
     const drumIdx = msgList.length - 2;
-    // 타이핑 시간 충분히 확보: 메시지당 평균 글자 20자 × 55ms + 대기 700ms = 약 1800ms
-    const totalTime = msgList.length * 1800;
+    const totalTime = msgList.length * 1600;
 
     app.innerHTML = `
       <div class="analyzing-screen">
@@ -866,13 +905,28 @@
 
     function typeNext(){
       const isDrum = msgIdx === drumIdx;
-      const speed = isDrum ? 22 : 55;
+      const speed = isDrum ? 18 : 55;
+
+      // 두구두구 시작 시 shake 클래스 추가
+      if(isDrum && charIdx === 0){
+        const screen = document.querySelector('.analyzing-screen');
+        if(screen) screen.classList.add('drumroll');
+        if(navigator.vibrate) navigator.vibrate([80,40,80,40,80,40,100,50,100,50,200]);
+      }
+
       if(charIdx < fullText.length){
         charIdx++;
         textEl.innerHTML = fullText.slice(0, charIdx) + '<span class="analyzing-cursor"></span>';
         setTimeout(typeNext, speed);
       } else {
         textEl.innerHTML = fullText + '<span class="analyzing-cursor"></span>';
+
+        // 두구두구 끝나면 shake 제거
+        if(isDrum){
+          const screen = document.querySelector('.analyzing-screen');
+          if(screen) screen.classList.remove('drumroll');
+        }
+
         msgIdx++;
         if(msgIdx < msgList.length){
           const isLastMsg = msgIdx === msgList.length - 1;
