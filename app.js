@@ -892,13 +892,14 @@
 
     function typeNext(){
       const isDrum = msgIdx === drumIdx;
-      const speed = isDrum ? 18 : 55;
+      const isLast = msgIdx === msgList.length - 1;
+      const speed = isDrum ? 35 : isLast ? 90 : 55;
 
       // 두구두구 시작 시 shake 클래스 추가
       if(isDrum && charIdx === 0){
         const screen = document.querySelector('.analyzing-screen');
         if(screen) screen.classList.add('drumroll');
-        if(navigator.vibrate) navigator.vibrate([80,40,80,40,80,40,100,50,100,50,200]);
+        if(navigator.vibrate) navigator.vibrate([60,40,60,40,60,40,80,50,80,50,150]);
       }
 
       if(charIdx < fullText.length){
@@ -917,7 +918,7 @@
         msgIdx++;
         if(msgIdx < msgList.length){
           const isLastMsg = msgIdx === msgList.length - 1;
-          const delay = isLastMsg ? 700 : 500;
+          const delay = isLastMsg ? 1200 : 500;
           setTimeout(()=>{
             textEl.style.transition = 'opacity .2s ease';
             textEl.style.opacity = '0';
