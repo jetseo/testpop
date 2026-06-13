@@ -303,17 +303,20 @@
     const app=document.getElementById('app');
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // 첫 문제: 전체 HTML 렌더링
-    if(!app.querySelector('.quiz')){
+    // 첫 문제: 전체 HTML 렌더링 — 프로그레스바/카운트는 quiz 밖에 고정
+    if(!app.querySelector('.quiz-wrap')){
       app.innerHTML=`
-        <section class="quiz">
-          <div class="qbar"><div class="qbar-fill" style="width:0%"></div></div>
-          <div class="qcount" id="qcount">${qIndex+1} / ${qs.length}</div>
-          <h2 class="qtext" id="qtext"></h2>
-          <div class="answers" id="answers" style="opacity:0"></div>
-        </section>
+        <div class="quiz-wrap">
+          <div class="quiz-header">
+            <div class="qbar"><div class="qbar-fill" style="width:0%"></div></div>
+            <div class="qcount" id="qcount">${qIndex+1} / ${qs.length}</div>
+          </div>
+          <section class="quiz">
+            <h2 class="qtext" id="qtext"></h2>
+            <div class="answers" id="answers" style="opacity:0"></div>
+          </section>
+        </div>
       `;
-      // 첫 문제 프로그레스바
       requestAnimationFrame(()=>{
         const bar = app.querySelector('.qbar-fill');
         if(bar) bar.style.width = pct + '%';
@@ -322,36 +325,27 @@
       return;
     }
 
-    // 2번째~ 문제: 프로그레스바 + 카운트만 업데이트, 질문/선택지는 교체
+    // 2번째~ 문제: 헤더는 그대로 두고 quiz 섹션 내용만 교체
     const quiz = app.querySelector('.quiz');
 
     const doUpdate = () => {
-      // 프로그레스바 & 카운트 부드럽게 업데이트 (재렌더링 없이)
+      // 프로그레스바 & 카운트 — 애니메이션 없이 조용히 업데이트
       const bar = app.querySelector('.qbar-fill');
       const cnt = document.getElementById('qcount');
-      const qtxt = document.getElementById('qtext');
-      const ansEl = document.getElementById('answers');
-
       if(bar) bar.style.width = pct + '%';
       if(cnt) cnt.textContent = (qIndex+1) + ' / ' + qs.length;
 
-      // 질문 초기화 후 타이핑
-      if(qtxt){
-        qtxt.style.opacity = '0';
-        qtxt.textContent = '';
-      }
-      if(ansEl){
-        ansEl.style.opacity = '0';
-        ansEl.innerHTML = '';
-      }
+      // 질문/선택지 초기화
+      const qtxt = document.getElementById('qtext');
+      const ansEl = document.getElementById('answers');
+      if(qtxt){ qtxt.style.opacity='0'; qtxt.textContent=''; }
+      if(ansEl){ ansEl.style.opacity='0'; ansEl.innerHTML=''; }
 
-      // 슬라이드 인 애니메이션
+      // quiz 섹션 슬라이드 인
       if(!reduced){
+        quiz.classList.remove('slide-out');
         quiz.style.animation = 'none';
-        requestAnimationFrame(()=>{
-          quiz.style.animation = '';
-          quiz.classList.remove('slide-out');
-        });
+        requestAnimationFrame(()=>{ quiz.style.animation=''; });
       }
 
       typeQuestion(q, qs.length, reduced);
