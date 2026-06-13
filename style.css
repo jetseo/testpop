@@ -893,7 +893,6 @@ body{
 }
 .analyzing-screen.drumroll .analyzing-text {
   font-size: 1.45rem;
-  color: var(--accent-deep);
 }
 @media (prefers-reduced-motion: reduce) {
   .analyzing-screen.drumroll { animation: none !important; }
