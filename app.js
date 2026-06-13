@@ -637,10 +637,46 @@
 
     // 테스트별 분석 메시지
     const msgs = {
-      ko: ['분석 중', '성향 파악 중', '결과 도출 중', '거의 다 됐어요'],
-      en: ['Analyzing', 'Finding your type', 'Almost there', 'Revealing result'],
-      ja: ['分析中', '性格を把握中', 'もうすぐ', '結果を表示中'],
-      zh: ['分析中', '正在了解你的性格', '快好了', '即将揭晓'],
+      ko: [
+        '답변 열심히 읽는 중... 📖',
+        '어, 이거 흥미롭네요 🤔',
+        '비슷한 유형이랑 비교해 보는 중...',
+        '결과 그림 열심히 그리는 중 🎨',
+        '거의 다 됐는데 조금만 기다려요...',
+        '사실 처음부터 답 알고 있었어요 😏',
+        '두구두구두구두구... 🥁',
+        '짜잔! 결과 나왔어요 ✨',
+      ],
+      en: [
+        'Reading your answers very carefully... 📖',
+        'Oh, this is interesting 🤔',
+        'Comparing with similar types...',
+        'Drawing your result right now 🎨',
+        'Almost done, just a little longer...',
+        'Honestly I knew from the start 😏',
+        'Drumroll please... 🥁',
+        'Ta-da! Your result is ready ✨',
+      ],
+      ja: [
+        '答えを一生懸命読んでいます... 📖',
+        'あ、これは面白い 🤔',
+        '似たタイプと比べています...',
+        '結果の絵を一生懸命描いています 🎨',
+        'もうすぐですよ、ちょっと待って...',
+        '実は最初から答えわかってました 😏',
+        'ドドドドド... 🥁',
+        'じゃーん！結果が出ました ✨',
+      ],
+      zh: [
+        '正在认真阅读你的答案... 📖',
+        '哦，这很有趣 🤔',
+        '正在与相似类型比较...',
+        '正在努力画结果图 🎨',
+        '快好了，再等一下...',
+        '其实从一开始就知道答案了 😏',
+        '咚咚咚咚... 🥁',
+        '哒哒！结果出来了 ✨',
+      ],
     };
     const msgList = msgs[lang] || msgs.ko;
 
@@ -672,7 +708,7 @@
         textEl.innerHTML = fullText.slice(0, charIdx) +
           '<span class="analyzing-cursor"></span>';
         charIdx++;
-        setTimeout(typeNext, 60);
+        setTimeout(typeNext, 40);
       } else {
         // 한 메시지 완료 → 잠시 후 다음 메시지
         msgIdx++;
@@ -681,13 +717,13 @@
             fullText = msgList[msgIdx];
             charIdx = 0;
             typeNext();
-          }, 400);
+          }, 250);
         }
       }
     }
 
     // 진행바 애니메이션
-    const totalTime = 1800;
+    const totalTime = 3500;
     const steps = 20;
     let step = 0;
     const barTimer = setInterval(()=>{
