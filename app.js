@@ -305,15 +305,9 @@
         </section>
       `;
 
-      // 답변 버튼 순차 등장
+      // 답변 버튼 이벤트 연결
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      app.querySelectorAll('.answer').forEach((btn, idx)=>{
-        if(!reduced) {
-          setTimeout(()=> btn.classList.add('visible'), idx * 60);
-        } else {
-          btn.classList.add('visible');
-        }
-
+      app.querySelectorAll('.answer').forEach((btn)=>{
         btn.onclick=()=>{
           // 선택 피드백 — 색 변환 후 다음으로
           btn.classList.add('selected');
