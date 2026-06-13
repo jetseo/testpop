@@ -523,6 +523,12 @@
       ctx.fillText('testpop.app', W/2, wmY2);
 
       cv.style.display='block';
+
+      // 생성된 이미지 상단으로 부드럽게 스크롤
+      setTimeout(()=>{
+        cv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+
       if(download){
         const a=document.createElement('a');
         // 파일명: testpop_유형명_닉네임_시각 (특수문자/공백 정리, 이모지 제거)
