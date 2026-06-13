@@ -879,25 +879,20 @@ body{
 /* ---- 두구두구 shake 효과 ---- */
 @keyframes drumroll-shake {
   0%,100% { transform: translateX(0) rotate(0deg); }
-  10%      { transform: translateX(-6px) rotate(-1deg); }
-  20%      { transform: translateX(6px) rotate(1deg); }
-  30%      { transform: translateX(-5px) rotate(-1deg); }
-  40%      { transform: translateX(5px) rotate(1deg); }
-  50%      { transform: translateX(-4px) rotate(0deg); }
-  60%      { transform: translateX(4px) rotate(1deg); }
-  70%      { transform: translateX(-3px) rotate(-1deg); }
-  80%      { transform: translateX(3px) rotate(0deg); }
-  90%      { transform: translateX(-2px) rotate(1deg); }
+  15%      { transform: translateX(-3px) rotate(-.5deg); }
+  35%      { transform: translateX(3px) rotate(.5deg); }
+  55%      { transform: translateX(-2px) rotate(-.3deg); }
+  75%      { transform: translateX(2px) rotate(.3deg); }
 }
 .analyzing-screen.drumroll {
-  animation: drumroll-shake .12s ease-in-out infinite;
+  animation: drumroll-shake .25s ease-in-out infinite;
 }
 .analyzing-screen.drumroll .analyzing-emoji {
-  animation: analyzing-spin .3s ease-in-out infinite !important;
-  font-size: 5rem;
+  animation: analyzing-spin .5s ease-in-out infinite !important;
+  font-size: 4.5rem;
 }
 .analyzing-screen.drumroll .analyzing-text {
-  font-size: 1.6rem;
+  font-size: 1.45rem;
   color: var(--accent-deep);
 }
 @media (prefers-reduced-motion: reduce) {
