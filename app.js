@@ -516,7 +516,20 @@
       cv.width=W; cv.height=H;
 
       const pad=32;
-      const ix=pad+12, iy=pad+12, iw=W-pad*2-24, ih=Math.round(iw*0.95);
+      // 하단 고정 영역 계산
+      const wmH = 96;
+      const tagAreaH = 72;
+      const bottomFixed = pad + wmH + tagAreaH; // 하단 총 고정 높이: ~200px
+
+      // 이미지 높이: 전체에서 상단여백+이미지간격+설명영역+하단고정 제외
+      // 설명 영역은 전체의 약 30% 확보
+      const descAreaTarget = Math.round(H * 0.30);
+      const gapTop = pad + 12;       // 상단 여백
+      const gapMid = 28;             // 이미지↔설명 간격
+      const ih = H - gapTop - gapMid - descAreaTarget - bottomFixed;
+      const iw = W - pad*2 - 24;
+      const ix = pad + 12;
+      const iy = gapTop;
 
       // 배경
       ctx.fillStyle=m.color; ctx.fillRect(0,0,W,H);
@@ -566,10 +579,8 @@
         clearShadow(ctx);
       }
 
-      // 설명 영역 — 이미지 아래부터 워터마크 위까지
-      const descTop = iy+ih+36;
-      const wmH = 100;
-      const tagAreaH = 72; // 해시태그 칩 영역
+      // 설명 영역
+      const descTop = iy + ih + gapMid;
       const descAreaH = H - pad - descTop - wmH - tagAreaH;
       const maxW = W-pad*2-40;
 
