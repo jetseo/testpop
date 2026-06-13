@@ -164,14 +164,16 @@
     if(typeof Swiper === 'undefined') return;
     try {
       new Swiper('.swiper-deck', {
-        effect: 'cards',
+        effect: 'coverflow',
         grabCursor: true,
         centeredSlides: true,
         slidesPerView: 'auto',
-        cardsEffect: {
-          perSlideOffset: 10,
-          perSlideRotate: 4,
-          rotate: true,
+        loop: true,
+        coverflowEffect: {
+          rotate: 30,
+          stretch: 0,
+          depth: 80,
+          modifier: 1,
           slideShadows: false,
         },
         pagination: {
@@ -180,9 +182,14 @@
         },
       });
     } catch(e) {
-      // Swiper 로드 실패 시 fallback — 일반 스크롤로 표시
+      // Swiper 로드 실패 시 fallback
       const deck = document.querySelector('.swiper-deck');
-      if(deck){ deck.style.display='flex'; deck.style.overflowX='auto'; deck.style.gap='12px'; deck.style.padding='0 18px'; }
+      if(deck){
+        deck.style.display='flex';
+        deck.style.overflowX='auto';
+        deck.style.gap='12px';
+        deck.style.padding='0 18px';
+      }
     }
   }
 
