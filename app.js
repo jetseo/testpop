@@ -267,6 +267,7 @@
         <div class="hero-art"><img src="${m.thumb}" alt="" loading="eager"></div>
         <h1 class="hero-title">${m.emoji} ${L(m.title)}</h1>
         <p class="hero-sub">${L(m.desc)}</p>
+        <p class="hero-sub">${t('hero_sub')}</p>
         <button class="btn-primary" id="startBtn">${t('start')}</button>
       </section>
     `;
