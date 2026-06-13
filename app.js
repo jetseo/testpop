@@ -276,15 +276,8 @@
       track('test_complete',{test_id:curId,result_type:rt});
       justCompleted=true;
 
-      // 결과로 넘어갈 때 fade out
-      const app=document.getElementById('app');
-      app.style.transition='opacity .2s ease';
-      app.style.opacity='0';
-      setTimeout(()=>{
-        app.style.transition='';
-        app.style.opacity='1';
-        location.hash='result/'+curId+'/'+rt;
-      }, 200);
+      // 분석 화면 표시 후 결과로 전환
+      showAnalyzing(rt);
       return;
     }
 
@@ -309,6 +302,9 @@
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       app.querySelectorAll('.answer').forEach((btn)=>{
         btn.onclick=()=>{
+          // 햅틱 피드백 (모바일)
+          if(navigator.vibrate) navigator.vibrate(40);
+
           // 선택 피드백 — 색 변환 후 다음으로
           btn.classList.add('selected');
           btn.disabled = true;
@@ -614,6 +610,88 @@
     const fn=document.getElementById('f-note'); if(fn)fn.textContent=t('footer_note');
     route();
   }
+  // ---- 결과 분석 타이핑 화면 ----
+  function showAnalyzing(resultType){
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const app = document.getElementById('app');
+    const emoji = TEST.emoji || '🔮';
+
+    // 테스트별 분석 메시지
+    const msgs = {
+      ko: ['분석 중', '성향 파악 중', '결과 도출 중', '거의 다 됐어요'],
+      en: ['Analyzing', 'Finding your type', 'Almost there', 'Revealing result'],
+      ja: ['分析中', '性格を把握中', 'もうすぐ', '結果を表示中'],
+      zh: ['分析中', '正在了解你的性格', '快好了', '即将揭晓'],
+    };
+    const msgList = msgs[lang] || msgs.ko;
+
+    // 모션 감소 시 바로 결과로
+    if(reduced){
+      location.hash = 'result/'+curId+'/'+resultType;
+      return;
+    }
+
+    app.innerHTML = `
+      <div class="analyzing-screen">
+        <div class="analyzing-emoji">${emoji}</div>
+        <div class="analyzing-text" id="analyzingText"></div>
+        <div class="analyzing-bar">
+          <div class="analyzing-bar-fill" id="analyzingBar"></div>
+        </div>
+      </div>
+    `;
+
+    const textEl = document.getElementById('analyzingText');
+    const barEl  = document.getElementById('analyzingBar');
+    let msgIdx = 0;
+    let charIdx = 0;
+    let fullText = msgList[0];
+
+    // 타이핑 효과
+    function typeNext(){
+      if(charIdx <= fullText.length){
+        textEl.innerHTML = fullText.slice(0, charIdx) +
+          '<span class="analyzing-cursor"></span>';
+        charIdx++;
+        setTimeout(typeNext, 60);
+      } else {
+        // 한 메시지 완료 → 잠시 후 다음 메시지
+        msgIdx++;
+        if(msgIdx < msgList.length){
+          setTimeout(()=>{
+            fullText = msgList[msgIdx];
+            charIdx = 0;
+            typeNext();
+          }, 400);
+        }
+      }
+    }
+
+    // 진행바 애니메이션
+    const totalTime = 1800;
+    const steps = 20;
+    let step = 0;
+    const barTimer = setInterval(()=>{
+      step++;
+      const pct = Math.min(step / steps * 100, 100);
+      if(barEl) barEl.style.width = pct + '%';
+      if(step >= steps) clearInterval(barTimer);
+    }, totalTime / steps);
+
+    typeNext();
+
+    // 분석 완료 후 결과로
+    setTimeout(()=>{
+      app.style.transition = 'opacity .25s ease';
+      app.style.opacity = '0';
+      setTimeout(()=>{
+        app.style.transition = '';
+        app.style.opacity = '1';
+        location.hash = 'result/'+curId+'/'+resultType;
+      }, 250);
+    }, totalTime);
+  }
+
   // ---- 결과 카드 뒤집기 ----
   function initCardFlip(fromLink){
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
