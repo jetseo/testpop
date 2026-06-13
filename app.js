@@ -10,6 +10,25 @@
   let TEST = null;       // 현재 테스트 객체
   let answers = [];
   let justCompleted = false;  // 방금 테스트를 정상 완료했는지 (링크 직접접근 구분용)
+
+  // sessionStorage로 완료 여부 저장/확인 (새로고침 대응)
+  function markCompleted(id, type){
+    try { sessionStorage.setItem('tp_done', id+'/'+type); } catch(e){}
+    justCompleted = true;
+  }
+  function checkCompleted(id, type){
+    // justCompleted 플래그 먼저 확인 (같은 세션 내 직접 완료)
+    if(justCompleted) return true;
+    // sessionStorage에서 확인 (새로고침 시)
+    try {
+      const v = sessionStorage.getItem('tp_done');
+      return v === id+'/'+type;
+    } catch(e){ return false; }
+  }
+  function clearCompleted(){
+    justCompleted = false;
+    try { sessionStorage.removeItem('tp_done'); } catch(e){}
+  }
   let qIndex = 0;
 
   const SITE = (location.origin.startsWith('http') && !location.origin.includes('localhost') && !location.origin.includes('127.0.0.1'))
@@ -274,7 +293,7 @@
     if(qIndex>=qs.length){
       const rt=calcType();
       track('test_complete',{test_id:curId,result_type:rt});
-      justCompleted=true;
+      markCompleted(curId, rt);
 
       // 분석 화면 표시 후 결과로 전환
       showAnalyzing(rt);
@@ -350,8 +369,8 @@
     const m=TEST.meta[ty], d=TEST.types[ty][lang];
     const bestD=TEST.types[d.best][lang], worstD=TEST.types[d.worst][lang];
     const meta=getTestMeta(curId);
-    const fromLink = !justCompleted;   // 플래그 없으면 공유링크/직접 접근
-    justCompleted = false;             // 플래그 소비 (새로고침 시 다시 링크접근 취급)
+    const fromLink = !checkCompleted(curId, ty);
+    clearCompleted(); // 소비 후 초기화 (다른 테스트로 이동 시 오염 방지)
     const app=document.getElementById('app');
     app.innerHTML=`
       <section class="result">
