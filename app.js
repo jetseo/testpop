@@ -524,50 +524,26 @@
     const nick=(document.getElementById('nick').value||'').trim();
     const img=new Image(); img.crossOrigin='anonymous';
     img.onload=()=>{
-      const W=720, pad=36;
-      const ix=pad+16, iy=pad+16, iw=W-pad*2-32, ih=Math.round(iw*1.05);
-
-      // 설명 폰트/줄 먼저 계산
-      const maxW = W-pad*2-40;
-      let fontSize = 32;
-      let descLines, lineH;
-      const maxDescH = 420; // 설명 영역 최대 높이 고정
-      while(fontSize >= 22){
-        lineH = Math.round(fontSize * 1.52);
-        ctx.font = fontSize+'px "Noto Sans KR",sans-serif';
-        descLines = splitLines(ctx, d.desc, maxW);
-        if(descLines.length * lineH <= maxDescH) break;
-        fontSize -= 2;
-      }
-      if(descLines.length * lineH > maxDescH){
-        const maxLines = Math.floor(maxDescH / lineH);
-        descLines = descLines.slice(0, maxLines);
-        if(descLines.length > 0)
-          descLines[descLines.length-1] = descLines[descLines.length-1].replace(/.{0,3}$/, '…');
-      }
-      const descH = descLines.length * lineH;
-
-      // 카드 높이: 각 영역 합산 (여백 최소화)
-      const descTop = iy + ih + 54;
-      const wmPad = 40;
-      const wmLineH = 48;
-      const wmH = wmPad + wmLineH*2 + 48;
-      const H = descTop + descH + wmH + pad;
+      // ---- 720×1280 완전 고정 (9:16) ----
+      const W=720, H=1280;
       cv.width=W; cv.height=H;
+
+      const pad=32;
+      const ix=pad+12, iy=pad+12, iw=W-pad*2-24, ih=Math.round(iw*0.95);
 
       // 배경
       ctx.fillStyle=m.color; ctx.fillRect(0,0,W,H);
-      const r=44;
+      const r=40;
       roundRect(ctx,pad,pad,W-pad*2,H-pad*2,r); ctx.fillStyle='#fff'; ctx.fill();
 
       // 이미지
-      roundRect(ctx,ix,iy,iw,ih,32); ctx.save(); ctx.clip();
+      roundRect(ctx,ix,iy,iw,ih,28); ctx.save(); ctx.clip();
       const ratio=Math.max(iw/img.width,ih/img.height),dw=img.width*ratio,dh=img.height*ratio;
       ctx.drawImage(img,ix+(iw-dw)/2,iy+(ih-dh)/2,dw,dh);
-      // 닉네임 유무에 따라 띠 높이 조절
-      const bandH = nick ? 280 : 210;
-      // m.color를 RGB로 파싱해서 그라데이션에 활용
-      const hex = m.color.replace('#','');
+
+      // 이미지 하단 그라데이션 띠
+      const bandH = nick ? 270 : 200;
+      const hex=m.color.replace('#','');
       const cr=parseInt(hex.slice(0,2),16), cg=parseInt(hex.slice(2,4),16), cb=parseInt(hex.slice(4,6),16);
       const grad=ctx.createLinearGradient(0,iy+ih-bandH,0,iy+ih);
       grad.addColorStop(0,`rgba(${cr},${cg},${cb},0)`);
@@ -576,67 +552,76 @@
       ctx.fillStyle=grad; ctx.fillRect(ix,iy+ih-bandH,iw,bandH);
       ctx.restore();
 
-      // 텍스트 공통 그림자 설정 (어떤 배경색이든 가독성 보장)
-      function setShadow(ctx, strong){
-        ctx.shadowColor = 'rgba(0,0,0,0.55)';
-        ctx.shadowBlur  = strong ? 12 : 8;
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = strong ? 2 : 1;
-      }
-      function clearShadow(ctx){
-        ctx.shadowColor = 'transparent';
-        ctx.shadowBlur  = 0;
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
-      }
-
+      // 유형명
       ctx.textAlign='center';
-      // 유형명 — 폭에 맞게 폰트 자동 축소
-      let nameSize=58;
+      let nameSize=54;
       do { ctx.font='bold '+nameSize+'px "Noto Sans KR",sans-serif';
            if(ctx.measureText(d.name).width<=iw-40) break; nameSize-=3;
       } while(nameSize>32);
 
+      function setShadow(ctx,strong){ ctx.shadowColor='rgba(0,0,0,0.55)'; ctx.shadowBlur=strong?12:8; ctx.shadowOffsetX=0; ctx.shadowOffsetY=strong?2:1; }
+      function clearShadow(ctx){ ctx.shadowColor='transparent'; ctx.shadowBlur=0; ctx.shadowOffsetX=0; ctx.shadowOffsetY=0; }
+
       if(nick){
-        // 1줄: 유형명 → 2줄: 닉네임 칩 → 3줄: 태그
-        setShadow(ctx, true);
-        ctx.fillStyle='#fff';
-        ctx.font='bold '+nameSize+'px "Noto Sans KR",sans-serif';
-        ctx.fillText(d.name, W/2, iy+ih-160);
-        // 닉네임 칩 — 반투명 흰색 배경, m.color 글씨
+        setShadow(ctx,true);
+        ctx.fillStyle='#fff'; ctx.font='bold '+nameSize+'px "Noto Sans KR",sans-serif';
+        ctx.fillText(d.name, W/2, iy+ih-150);
         clearShadow(ctx);
-        ctx.font='bold 46px "Noto Sans KR",sans-serif';
-        const tw=ctx.measureText(nick).width, bw=Math.min(tw+72, iw-40), bh=72;
-        const bx=(W-bw)/2, by=iy+ih-138;
-        roundRect(ctx,bx,by,bw,bh,36); ctx.fillStyle='rgba(255,255,255,0.95)'; ctx.fill();
-        ctx.fillStyle=m.color; ctx.textAlign='center'; ctx.fillText(nick, W/2, by+50);
-        // 태그
-        setShadow(ctx, false);
-        ctx.fillStyle='#fff'; ctx.font='32px "Noto Sans KR",sans-serif';
-        ctx.fillText(d.tag, W/2, iy+ih-30);
+        ctx.font='bold 44px "Noto Sans KR",sans-serif';
+        const tw=ctx.measureText(nick).width, bw=Math.min(tw+68,iw-40), bh=68;
+        const bx=(W-bw)/2, by=iy+ih-128;
+        roundRect(ctx,bx,by,bw,bh,34); ctx.fillStyle='rgba(255,255,255,0.95)'; ctx.fill();
+        ctx.fillStyle=m.color; ctx.fillText(nick, W/2, by+47);
+        setShadow(ctx,false);
+        ctx.fillStyle='#fff'; ctx.font='30px "Noto Sans KR",sans-serif';
+        ctx.fillText(d.tag, W/2, iy+ih-26);
         clearShadow(ctx);
       } else {
-        // 닉네임 없으면 유형명+태그만
-        setShadow(ctx, true);
-        ctx.fillStyle='#fff'; ctx.fillText(d.name, W/2, iy+ih-72);
-        setShadow(ctx, false);
-        ctx.fillStyle='#fff'; ctx.font='34px "Noto Sans KR",sans-serif';
-        ctx.fillText(d.tag, W/2, iy+ih-28);
+        setShadow(ctx,true);
+        ctx.fillStyle='#fff'; ctx.fillText(d.name, W/2, iy+ih-62);
+        setShadow(ctx,false);
+        ctx.fillStyle='#fff'; ctx.font='30px "Noto Sans KR",sans-serif';
+        ctx.fillText(d.tag, W/2, iy+ih-24);
         clearShadow(ctx);
       }
 
-      // 설명
+      // 설명 영역 — 이미지 아래부터 워터마크 위까지
+      const descTop = iy+ih+36;
+      const wmH = 100; // 워터마크 영역 높이
+      const descAreaH = H - pad - descTop - wmH;
+      const maxW = W-pad*2-40;
+
+      // 폰트 크기 반응형
+      let fontSize=30;
+      let descLines, lineH;
+      while(fontSize>=20){
+        lineH=Math.round(fontSize*1.55);
+        ctx.font=fontSize+'px "Noto Sans KR",sans-serif';
+        descLines=splitLines(ctx,d.desc,maxW);
+        if(descLines.length*lineH<=descAreaH) break;
+        fontSize-=2;
+      }
+      // 그래도 넘치면 자름
+      if(descLines.length*lineH>descAreaH){
+        const ml=Math.floor(descAreaH/lineH);
+        descLines=descLines.slice(0,ml);
+        if(descLines.length>0) descLines[descLines.length-1]=descLines[descLines.length-1].replace(/.{0,3}$/,'…');
+      }
+
+      // 설명 텍스트 수직 중앙 정렬
+      const totalDescH = descLines.length*lineH;
+      const descStartY = descTop + Math.floor((descAreaH - totalDescH)/2) + lineH*0.8;
       ctx.textAlign='center'; ctx.fillStyle='#444';
       ctx.font=fontSize+'px "Noto Sans KR",sans-serif';
-      descLines.forEach((ln,i)=>ctx.fillText(ln, W/2, descTop+i*lineH));
+      descLines.forEach((ln,i)=>ctx.fillText(ln, W/2, descStartY+i*lineH));
 
-      // 워터마크 — 설명 바로 아래
-      const wmY1 = descTop + descH + wmPad + wmLineH;     // 테스트명
-      const wmY2 = descTop + descH + wmPad + wmLineH*2;   // testpop.app
-      ctx.fillStyle='#aaa'; ctx.font='30px "Noto Sans KR",sans-serif';
-      ctx.fillText(L(getTestMeta(curId).title), W/2, wmY1);
-      ctx.fillStyle=m.color; ctx.font='bold 36px sans-serif';
-      ctx.fillText('testpop.app', W/2, wmY2);
+      // 워터마크 — 카드 하단 고정
+      const wmY1 = H - pad - 16;
+      const wmY2 = wmY1 - 46;
+      ctx.fillStyle=m.color; ctx.font='bold 34px sans-serif';
+      ctx.fillText('testpop.app', W/2, wmY1);
+      ctx.fillStyle='#aaa'; ctx.font='28px "Noto Sans KR",sans-serif';
+      ctx.fillText(L(getTestMeta(curId).title), W/2, wmY2);
 
       cv.style.display='block';
 
