@@ -873,10 +873,10 @@
     const mid = pool.slice(0, 4); // 3개→4개로 증가
 
     const fixed = {
-      ko: { first:'답변 열심히 읽는 중... 📖', pre:'거의 다 됐어요, 조금만요...', drum:'두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구두구... 🥁', last:'✅ 분석 완료!' },
-      en: { first:'Reading your answers carefully... 📖', pre:'Almost there, just a little more...', drum:'Drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll drumroll... 🥁', last:'✅ Analysis complete!' },
-      ja: { first:'答えを一生懸命読んでいます... 📖', pre:'もうすぐですよ、ちょっと待って...', drum:'ドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドドド... 🥁', last:'✅ 分析完了！' },
-      zh: { first:'正在认真阅读你的答案... 📖', pre:'快好了，再等一下...', drum:'咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚... 🥁', last:'✅ 分析完成！' },
+      ko: { first:'답변 열심히 읽는 중... 📖', pre:'거의 다 됐어요, 조금만요...', drum:'두구두구두구두구두구두구두구두구두구두구두구두구\n두구두구두구두구두구두구두구두구두구두구두구두구... 🥁', last:'✅ 분석 완료!' },
+      en: { first:'Reading your answers carefully... 📖', pre:'Almost there, just a little more...', drum:'Drumroll drumroll drumroll drumroll drumroll drumroll\nDrumroll drumroll drumroll drumroll drumroll drumroll... 🥁', last:'✅ Analysis complete!' },
+      ja: { first:'答えを一生懸命読んでいます... 📖', pre:'もうすぐですよ、ちょっと待って...', drum:'ドドドドドドドドドドドドドドドドドドドドドドドド\nドドドドドドドドドドドドドドドドドドドドドドドド... 🥁', last:'✅ 分析完了！' },
+      zh: { first:'正在认真阅读你的答案... 📖', pre:'快好了，再等一下...', drum:'咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚\n咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚... 🥁', last:'✅ 分析完成！' },
     };
     const f = fixed[lang] || fixed.ko;
     const msgList = [f.first, ...mid, f.pre, f.drum, f.last];
@@ -901,7 +901,7 @@
     function typeNext(){
       const isDrum = msgIdx === drumIdx;
       const isLast = msgIdx === msgList.length - 1;
-      const speed = isDrum ? 35 : isLast ? 90 : 55;
+      const speed = isDrum ? 60 : isLast ? 90 : 55;
 
       // 두구두구 시작 시 shake 클래스 추가
       if(isDrum && charIdx === 0){
