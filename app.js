@@ -657,24 +657,34 @@
       ctx.fillStyle='#aaa'; ctx.font='28px "Noto Sans KR",sans-serif';
       ctx.fillText(L(getTestMeta(curId).title), W/2, wmY2);
 
-      cv.style.display='block';
+      // Canvas → img 태그로 교체 (백그라운드 복귀 시 소실 방지)
+      const dataUrl = cv.toDataURL('image/png');
+      cv.style.display='none';
+
+      // 기존 미리보기 이미지 제거 후 새로 삽입
+      const oldPreview = document.getElementById('cardPreview');
+      if(oldPreview) oldPreview.remove();
+      const preview = document.createElement('img');
+      preview.id = 'cardPreview';
+      preview.src = dataUrl;
+      preview.style.cssText = 'width:100%;border-radius:20px;display:block;box-shadow:0 4px 20px rgba(0,0,0,.12)';
+      cv.parentNode.insertBefore(preview, cv);
 
       // 생성된 이미지 상단이 topbar 바로 아래에 딱 맞게 스크롤
       setTimeout(()=>{
         const topbar = document.querySelector('.topbar');
         const topbarH = topbar ? topbar.offsetHeight : 0;
-        const top = cv.getBoundingClientRect().top + window.scrollY - topbarH;
+        const top = preview.getBoundingClientRect().top + window.scrollY - topbarH;
         window.scrollTo({ top, behavior: 'smooth' });
       }, 50);
 
       if(download){
         const a=document.createElement('a');
-        // 파일명: testpop_유형명_닉네임_시각 (특수문자/공백 정리, 이모지 제거)
         const clean=(s)=>(s||'').replace(/[^\p{L}\p{N}]+/gu,'').slice(0,20);
         const stamp=new Date().toISOString().slice(0,19).replace(/[-:T]/g,'');
         const parts=['testpop', clean(d.name), nick&&clean(nick), stamp].filter(Boolean);
         a.download=parts.join('_')+'.png';
-        a.href=cv.toDataURL('image/png'); a.click();
+        a.href=dataUrl; a.click();
       }
     };
     img.onerror=()=>toast('image load failed');
