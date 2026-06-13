@@ -527,36 +527,33 @@
       const W=720, pad=36;
       const ix=pad+16, iy=pad+16, iw=W-pad*2-32, ih=Math.round(iw*1.05);
 
-      // ---- 카드 높이 완전 고정 ----
-      const H = 1400;
-      cv.width=W; cv.height=H;
-
-      // 영역 사전 계산
-      const descTop = iy+ih+54;
-      const wmPad = 56;
-      const wmLineH = 48;
-      const wmH = wmPad + wmLineH*2 + 56;
-      const descAreaH = H - descTop - wmH - pad; // 설명에 쓸 수 있는 높이
-
-      // 설명 폰트 크기를 반응형으로 — descAreaH에 맞게 자동 축소
+      // 설명 폰트/줄 먼저 계산
       const maxW = W-pad*2-40;
       let fontSize = 32;
       let descLines, lineH;
+      const maxDescH = 420; // 설명 영역 최대 높이 고정
       while(fontSize >= 22){
         lineH = Math.round(fontSize * 1.52);
         ctx.font = fontSize+'px "Noto Sans KR",sans-serif';
         descLines = splitLines(ctx, d.desc, maxW);
-        if(descLines.length * lineH <= descAreaH) break;
+        if(descLines.length * lineH <= maxDescH) break;
         fontSize -= 2;
       }
-      // 그래도 넘치면 7줄로 잘라냄
-      if(descLines.length * lineH > descAreaH){
-        const maxLines = Math.floor(descAreaH / lineH);
+      if(descLines.length * lineH > maxDescH){
+        const maxLines = Math.floor(maxDescH / lineH);
         descLines = descLines.slice(0, maxLines);
         if(descLines.length > 0)
           descLines[descLines.length-1] = descLines[descLines.length-1].replace(/.{0,3}$/, '…');
       }
       const descH = descLines.length * lineH;
+
+      // 카드 높이: 각 영역 합산 (여백 최소화)
+      const descTop = iy + ih + 54;
+      const wmPad = 40;
+      const wmLineH = 48;
+      const wmH = wmPad + wmLineH*2 + 48;
+      const H = descTop + descH + wmH + pad;
+      cv.width=W; cv.height=H;
 
       // 배경
       ctx.fillStyle=m.color; ctx.fillRect(0,0,W,H);
@@ -628,18 +625,18 @@
         clearShadow(ctx);
       }
 
-      // 설명 (descTop 기준으로 렌더)
+      // 설명
       ctx.textAlign='center'; ctx.fillStyle='#444';
       ctx.font=fontSize+'px "Noto Sans KR",sans-serif';
       descLines.forEach((ln,i)=>ctx.fillText(ln, W/2, descTop+i*lineH));
 
-      // 워터마크 — 카드 하단 고정
-      const wmY1 = H - pad - wmLineH - 20;   // testpop.app
-      const wmY2 = wmY1 - wmLineH;            // 테스트명
+      // 워터마크 — 설명 바로 아래
+      const wmY1 = descTop + descH + wmPad + wmLineH;     // 테스트명
+      const wmY2 = descTop + descH + wmPad + wmLineH*2;   // testpop.app
       ctx.fillStyle='#aaa'; ctx.font='30px "Noto Sans KR",sans-serif';
-      ctx.fillText(L(getTestMeta(curId).title), W/2, wmY2);
+      ctx.fillText(L(getTestMeta(curId).title), W/2, wmY1);
       ctx.fillStyle=m.color; ctx.font='bold 36px sans-serif';
-      ctx.fillText('testpop.app', W/2, wmY1);
+      ctx.fillText('testpop.app', W/2, wmY2);
 
       cv.style.display='block';
 
