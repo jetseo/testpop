@@ -266,9 +266,10 @@
         <a class="back-link" href="#home">← testpop</a>
         <div class="hero-art"><img src="${m.thumb}" alt="" loading="eager"></div>
         <h1 class="hero-title">${m.emoji} ${L(m.title)}</h1>
-        <p class="hero-sub">${L(m.desc)}</p>
-        <p class="hero-sub">${t('hero_sub')}</p>
+        <p class="hero-sub hero-desc">${L(m.desc)}</p>
+        <p class="hero-sub hero-10sec">${t('ten_sec_prefix')} ${L(m.title)}</p>
         <button class="btn-primary" id="startBtn">${t('start')}</button>
+        <button class="btn-share-intro" id="shareIntroBtn">🔗 ${t('share_intro')}</button>
       </section>
     `;
 
@@ -292,6 +293,23 @@
       track('test_start',{test_id:curId});
       location.hash='quiz';
     };
+
+    // 인트로 공유 버튼
+    const shareIntroBtn = document.getElementById('shareIntroBtn');
+    if(shareIntroBtn){
+      shareIntroBtn.onclick=()=>{
+        const url = location.origin + location.pathname + '#test/' + curId;
+        if(navigator.share){
+          navigator.share({ title: document.title, url });
+        } else {
+          navigator.clipboard.writeText(url).then(()=>{
+            shareIntroBtn.textContent = '✓ ' + t('copied');
+            setTimeout(()=>{ shareIntroBtn.innerHTML = '🔗 ' + t('share_intro'); }, 2000);
+          });
+        }
+        track('result_share',{test_id:curId,share_type:'intro'});
+      };
+    }
   }
 
   // ---- 화면: 퀴즈 ----
