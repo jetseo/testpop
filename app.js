@@ -361,11 +361,26 @@
       <section class="result">
         ${fromLink?`<a class="friend-banner" href="#test/${curId}">${t('friend_result')}<span class="friend-cta">${t('try_too')} →</span></a>`:''}
         <p class="result-label">${L(TEST.resultLabel)}</p>
-        <div class="result-card" style="--c:${m.color};--ink:${m.ink}">
-          <img class="result-img" src="${m.img}" alt="${d.name}">
-          <h2 class="result-name">${d.name}</h2>
-          <p class="result-tag">${d.tag}</p>
+
+        <!-- 카드 뒤집기 래퍼 -->
+        <div class="result-flip-wrap" id="flipWrap">
+          <div class="result-flip-inner" id="flipInner">
+            <!-- 앞면: 실제 결과 카드 -->
+            <div class="result-flip-front">
+              <div class="result-card" style="--c:${m.color};--ink:${m.ink}" id="resultCard">
+                <img class="result-img" src="${m.img}" alt="${d.name}">
+                <h2 class="result-name">${d.name}</h2>
+                <p class="result-tag">${d.tag}</p>
+              </div>
+            </div>
+            <!-- 뒷면: 물음표 -->
+            <div class="result-flip-back" aria-hidden="true">
+              <span class="flip-icon">🎴</span>
+              <span class="flip-hint">${t('flip_hint')||'탭해서 결과 확인!'}</span>
+            </div>
+          </div>
         </div>
+
         <p class="result-desc">${d.desc}</p>
         <div class="ad-slot" data-slot="result-mid" aria-hidden="true"></div>
         <div class="match">
@@ -398,6 +413,9 @@
     if(!fromLink) {
       setTimeout(()=> launchConfetti(), 400);
     }
+
+    // 카드 뒤집기 초기화
+    initCardFlip(fromLink);
   }
 
   // ---- 결과 카드 Canvas ----
@@ -579,6 +597,48 @@
     const fn=document.getElementById('f-note'); if(fn)fn.textContent=t('footer_note');
     route();
   }
+  // ---- 결과 카드 뒤집기 ----
+  function initCardFlip(fromLink){
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const inner = document.getElementById('flipInner');
+    const card  = document.getElementById('resultCard');
+    if(!inner || !card) return;
+
+    // 공유 링크로 직접 접근했거나 모션 감소 설정이면 바로 앞면 표시
+    if(fromLink || reduced){
+      inner.classList.add('flipping');
+      card.classList.add('flipped');
+      return;
+    }
+
+    // 뒷면을 먼저 보여주기 위해 초기 상태를 뒤집힌 상태로 설정
+    inner.style.transform = 'rotateY(-180deg)';
+    inner.style.transition = 'none';
+
+    // 0.6초 후 자동으로 뒤집기 (confetti 타이밍과 맞춤)
+    setTimeout(()=>{
+      inner.style.transition = '';
+      inner.classList.add('flipping');
+      card.classList.add('flipped');
+
+      // 뒤집힌 순간 sparkle
+      const rect = inner.getBoundingClientRect();
+      spawnSparkle(rect.left + rect.width/2, rect.top + rect.height/2);
+    }, 600);
+
+    // 탭으로도 즉시 뒤집기 가능
+    let flipped = false;
+    inner.addEventListener('click', ()=>{
+      if(flipped) return;
+      flipped = true;
+      inner.style.transition = 'transform .4s cubic-bezier(.4,0,.2,1)';
+      inner.classList.add('flipping');
+      card.classList.add('flipped');
+      const rect = inner.getBoundingClientRect();
+      spawnSparkle(rect.left + rect.width/2, rect.top + rect.height/2);
+    }, { once: true });
+  }
+
   // ---- 3D 틸트 효과 ----
   function initTilt(el){
     if(!el) return;
