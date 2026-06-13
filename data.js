@@ -128,6 +128,16 @@ const TESTS = [
     desc:  { ko:'나의 창업 DNA를 알아보세요', en:'Discover your entrepreneurial DNA',
              ja:'自分の起業家DNAを見つけよう', zh:'发现你的创业者DNA' }
   }
+  ,{
+    id: 'work-survival', isNew: true,
+    obj: () => TEST_WORK_SURVIVAL,
+    emoji: '💼',
+    thumb: 'images/work_hero.jpg',
+    title: { ko:'나의 직장 생존 유형은?', en:"What's My Work Survival Type?",
+             ja:'私の職場生存タイプは？', zh:'我的职场生存类型是？' },
+    desc:  { ko:'직장에서 나는 어떤 캐릭터?', en:'Which office character are you?',
+             ja:'職場での私はどんなキャラ？', zh:'你是哪种职场角色？' }
+  }
 ];
 
 // id로 테스트 객체 찾기
@@ -137,4 +147,4 @@ function getTest(id){
 }
 function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded — tests:', TESTS.length); // 13
+console.log('data.js loaded — tests:', TESTS.length); // 14
