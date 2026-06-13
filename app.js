@@ -387,6 +387,7 @@
           <div class="match-item best"><span class="match-label">💕 ${t('match_best')}</span><span>${bestD.name}</span></div>
           <div class="match-item worst"><span class="match-label">⚡ ${t('match_worst')}</span><span>${worstD.name}</span></div>
         </div>
+        ${!fromLink ? `
         <div class="card-maker">
           <p class="card-maker-label">${t('card_hint')}</p>
           <input id="nick" type="text" maxlength="12" placeholder="${t('nickname_ph')}">
@@ -397,6 +398,11 @@
           <button class="btn-share share" id="shareBtn">${t('share')}</button>
           <button class="btn-share save" id="saveBtn">${t('save_image')}</button>
         </div>
+        ` : `
+        <div class="share-row">
+          <button class="btn-share share" id="shareBtn">${t('share')}</button>
+        </div>
+        `}
         <div class="result-actions">
           <button class="btn-ghost" id="retryBtn">${t('retry')}</button>
           <a class="btn-ghost" href="#home" style="text-decoration:none">${t('other_tests')}</a>
@@ -406,8 +412,10 @@
     `;
     document.getElementById('retryBtn').onclick=()=>{answers=[];qIndex=0;location.hash='quiz';};
     document.getElementById('shareBtn').onclick=()=>{track('result_share',{test_id:curId,result_type:ty});shareSocial(ty,d);};
-    document.getElementById('cardBtn').onclick=()=>drawCard(ty,d,false);
-    document.getElementById('saveBtn').onclick=()=>{track('card_save',{test_id:curId,result_type:ty});drawCard(ty,d,true);};
+    if(!fromLink){
+      document.getElementById('cardBtn').onclick=()=>drawCard(ty,d,false);
+      document.getElementById('saveBtn').onclick=()=>{track('card_save',{test_id:curId,result_type:ty});drawCard(ty,d,true);};
+    }
 
     // 결과 도달 시 confetti (테스트 완료한 경우만)
     if(!fromLink) {
