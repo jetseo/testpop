@@ -480,8 +480,8 @@
         </div>
         <canvas id="cardCanvas" width="720" height="1500" style="display:none"></canvas>
         <div class="share-row">
-          <button class="btn-share share" id="shareBtn">${t('share')}</button>
           <button class="btn-share save" id="saveBtn">${t('save_image')}</button>
+          <button class="btn-share share" id="shareBtn">${t('share')}</button>
         </div>
         ` : `
         <div class="share-row">
