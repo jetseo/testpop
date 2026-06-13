@@ -30,6 +30,7 @@ const UI = {
     footer_privacy: '개인정보처리방침',
     footer_contact: '문의',
     footer_note: '© 2026 testpop · 모든 테스트는 재미·엔터테인먼트 목적입니다.',
+    featured_deck: '추천 테스트',
     all_tests: '전체 테스트',
     test_count_label: '개의 테스트',
     loading: '결과 분석 중...'
@@ -62,6 +63,7 @@ const UI = {
     footer_privacy: 'Privacy Policy',
     footer_contact: 'Contact',
     footer_note: '© 2026 testpop · All tests are for fun and entertainment.',
+    featured_deck: 'Featured Tests',
     all_tests: 'All tests',
     test_count_label: ' tests',
     loading: 'Analyzing...'
@@ -94,6 +96,7 @@ const UI = {
     footer_privacy: 'プライバシーポリシー',
     footer_contact: 'お問い合わせ',
     footer_note: '© 2026 testpop · 全ての診断は娯楽目的です。',
+    featured_deck: 'おすすめ診断',
     all_tests: 'すべての診断',
     test_count_label: '個の診断',
     loading: '分析中...'
@@ -126,6 +129,7 @@ const UI = {
     footer_privacy: '隐私政策',
     footer_contact: '联系',
     footer_note: '© 2026 testpop · 所有测试仅供娱乐。',
+    featured_deck: '推荐测试',
     all_tests: '全部测试',
     test_count_label: '个测试',
     loading: '分析中...'
