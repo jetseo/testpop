@@ -108,6 +108,16 @@ const TESTS = [
     desc:  { ko:'나의 에겐·테토 에너지 유형은?', en:'Find your Egen·Teto energy type',
              ja:'私のエゲン・テトエネルギータイプは？', zh:'找到我的埃根泰托能量类型' }
   }
+  ,{
+    id: 'aura-color',
+    obj: () => TEST_AURA,
+    emoji: '🎨',
+    thumb: 'images/aura_hero.jpg',
+    title: { ko:'내 분위기를 색으로 표현하면?', en:'What Color Is Your Vibe?',
+             ja:'私の雰囲気を色で表すと？', zh:'我的气质用颜色表达是？' },
+    desc:  { ko:'나의 분위기를 색으로 알아봐요', en:'Find the color that matches your vibe',
+             ja:'あなたの雰囲気を色で表してみましょう', zh:'用颜色发现你的气质' }
+  }
 ];
 
 // id로 테스트 객체 찾기
@@ -117,4 +127,4 @@ function getTest(id){
 }
 function getTestMeta(id){ return TESTS.find(x=>x.id===id) || null; }
 
-console.log('data.js loaded — tests:', TESTS.length); // 11
+console.log('data.js loaded — tests:', TESTS.length); // 12
