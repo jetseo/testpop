@@ -269,8 +269,10 @@
         <p class="hero-sub hero-desc">${L(m.desc)}</p>
         <p class="hero-sub hero-10sec">${t('ten_sec_prefix')}</p>
         <button class="btn-primary" id="startBtn">${t('start')}</button>
-        <button class="btn-share-intro" id="shareIntroBtn">🔗 ${t('share_intro')}</button>
       </section>
+      <div class="share-intro-wrap">
+        <button class="btn-share-intro" id="shareIntroBtn">🔗 ${t('share_intro')}</button>
+      </div>
     `;
 
     // 등장 애니메이션
