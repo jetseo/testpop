@@ -86,8 +86,8 @@ body{
 .hero-tagline{font-size:1.08rem;font-weight:700;color:var(--ink);margin-bottom:6px}
 .hero-sub{font-size:.96rem;color:var(--ink-soft);margin-bottom:12px;padding:0 8px}
 .hero-10sec{font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:24px;padding:0 8px}
-.btn-share-intro{display:block;width:100%;padding:14px;margin-top:12px;border-radius:999px;border:2px solid var(--line);background:transparent;font-size:1rem;font-weight:600;color:var(--ink-soft);cursor:pointer;transition:background .15s,color .15s}
-.btn-share-intro:hover{background:var(--bubble);color:var(--ink)}
+.btn-share-intro{display:block;width:100%;padding:16px;margin-top:12px;border-radius:999px;border:2.5px solid var(--line);background:#fff;font-size:1.1rem;font-weight:700;color:var(--ink);cursor:pointer;transition:background .15s,opacity .15s;font-family:'Jua',sans-serif}
+.btn-share-intro:hover{opacity:.85}
 
 .btn-primary{
   font-family:'Jua',sans-serif;font-size:1.25rem;
