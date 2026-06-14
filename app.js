@@ -1012,19 +1012,7 @@
     const logLines = analyzeLogs[lang] || analyzeLogs.ko;
     const pLabels = progressLabels[lang] || progressLabels.ko;
 
-    // 터미널 렌더링
-    app.innerHTML = `
-      <div class="terminal-screen">
-        <div class="terminal-header">
-          <span class="terminal-dot red"></span>
-          <span class="terminal-dot yellow"></span>
-          <span class="terminal-dot green"></span>
-          <span class="terminal-title">testpop — ${boot.name}</span>
-        </div>
-        <div class="terminal-body" id="terminalBody"></div>
-      </div>
-    `;
-    const tbody = document.getElementById('terminalBody');
+
 
     // 줄 추가 (타이핑 효과)
     function addLine(txt, cls){
@@ -1080,22 +1068,46 @@
 
     // ---- 시퀀스 실행 ----
     (async ()=>{
-      // Phase 1: 관리자 출동
-      await addLine(phase1Prefix[lang]||phase1Prefix.ko, 'terminal-fun');
-      await wait(800);
-      for(const msg of adminScript){
-        await wait(400);
-        await addLine(msg, 'terminal-fun');
-        await wait(700);
+      // Phase 1: 관리자 출동 — 터미널 창 없이 전면 텍스트로 표시
+      app.innerHTML = '<div class="admin-dispatch" id="adminDispatch"></div>';
+      const dispatch = document.getElementById('adminDispatch');
+
+      function showMsg(txt){
+        return new Promise(r=>{
+          dispatch.style.transition = 'opacity .2s';
+          dispatch.style.opacity = '0';
+          setTimeout(()=>{ dispatch.textContent = txt; dispatch.style.opacity = '1'; r(); }, 220);
+        });
       }
-      await wait(400);
-      await addLine(phase1Suffix[lang]||phase1Suffix.ko, 'terminal-fun');
 
-      // Phase 사이 텀
-      await wait(1200);
+      await showMsg(phase1Prefix[lang]||phase1Prefix.ko);
+      await wait(1000);
+      for(const msg of adminScript){
+        await showMsg(msg);
+        await wait(1100);
+      }
+      await showMsg(phase1Suffix[lang]||phase1Suffix.ko);
+      await wait(1300);
 
-      // Phase 2: 부팅 화면 (클리어 후)
-      tbody.innerHTML = '';
+      // Phase 2: 터미널 창으로 전환
+      app.innerHTML = `
+        <div class="terminal-screen">
+          <div class="terminal-header">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+            <span class="terminal-title">testpop — ${boot.name}</span>
+          </div>
+          <div class="terminal-body" id="terminalBody"></div>
+        </div>
+      `;
+      const tbody = document.getElementById('terminalBody');
+
+      // Phase 2: 부팅 화면
+      for(const bl of boot.lines){
+        if(bl==='') { await addLine('',''); await wait(150); }
+        else { await addLine(bl,'terminal-boot'); await wait(bl.startsWith('[') ? 70 : 160); }
+      }
       for(const bl of boot.lines){
         if(bl==='') { await addLine('',''); await wait(150); }
         else { await addLine(bl,'terminal-boot'); await wait(bl.startsWith('[') ? 70 : 160); }
