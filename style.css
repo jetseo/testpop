@@ -822,12 +822,12 @@ body{
 }
 .terminal-body {
   padding: 18px 16px 24px;
-  min-height: 280px;
-  max-height: 420px;
+  height: 320px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  scroll-behavior: smooth;
 }
 .terminal-line {
   font-family: 'Courier New', monospace;
@@ -865,6 +865,10 @@ body{
 .terminal-cursor {
   color: #a8d8a8;
   animation: cursor-blink .6s step-end infinite;
+}
+.terminal-cursor-blink {
+  color: #a8d8a8;
+  display: inline-block;
 }
 @keyframes cursor-blink {
   0%,100% { opacity: 1; } 50% { opacity: 0; }
