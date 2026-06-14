@@ -21,28 +21,28 @@ const TEST_STARTUP = {
   types: {
     tech: {
       ko: {
-        name: 'AI 테크 스타트업',
+        name: '🤖 AI 테크 스타트업',
         tag: '#혁신 #미래기술 #천재형',
         desc: '당신은 기술로 세상을 바꾸는 비전을 가진 창업가입니다. 복잡한 문제를 논리적으로 분석하고, 아무도 생각 못한 해결책을 찾아냅니다. 팀원들은 당신의 날카로운 통찰력에 감탄하지만, 때론 너무 앞서나가는 탓에 따라오기 벅차다고 느끼기도 해요. 완벽한 제품을 향한 집착이 곧 당신의 경쟁력입니다.',
         best: 'space',
         worst: 'luxury'
       },
       en: {
-        name: 'AI Tech Startup',
+        name: '🤖 AI Tech Startup',
         tag: '#Innovation #FutureTech #Genius',
         desc: 'You\'re a visionary who believes technology can change the world. You dissect complex problems with razor-sharp logic and find solutions nobody else imagined. Your team is in awe of your insights, though sometimes you move so fast they struggle to keep up. Your obsession with the perfect product is exactly what gives you the edge.',
         best: 'space',
         worst: 'luxury'
       },
       ja: {
-        name: 'AIテックスタートアップ',
+        name: '🤖 AIテックスタートアップ',
         tag: '#革新 #未来技術 #天才型',
         desc: 'あなたはテクノロジーで世界を変えるビジョンを持つ起業家です。複雑な問題を論理的に分析し、誰も思いつかない解決策を見つけ出します。チームメンバーはあなたの鋭い洞察力に感心しますが、時には先を行きすぎてついていくのが大変だと感じることも。完璧な製品へのこだわりがあなたの競争力です。',
         best: 'space',
         worst: 'luxury'
       },
       zh: {
-        name: 'AI科技创业公司',
+        name: '🤖 AI科技创业公司',
         tag: '#创新 #未来技术 #天才型',
         desc: '你是一位相信科技能改变世界的创业者。你用犀利的逻辑剖析复杂问题，找到别人想不到的解决方案。团队对你的洞察力叹为观止，但有时你走得太快，让他们难以跟上。对完美产品的执着正是你的核心竞争力。',
         best: 'space',
@@ -51,28 +51,28 @@ const TEST_STARTUP = {
     },
     platform: {
       ko: {
-        name: 'SNS 플랫폼 스타트업',
+        name: '📱 SNS 플랫폼 스타트업',
         tag: '#연결 #커뮤니티 #성장해킹',
         desc: '당신은 사람과 사람을 연결하는 데 천재적인 감각을 가지고 있습니다. 트렌드를 누구보다 빠르게 읽고, 사용자가 무엇을 원하는지 직감적으로 파악합니다. 소셜 네트워크처럼 인맥이 넓고, 그 인맥을 자산으로 만드는 능력이 탁월합니다. 숫자보다 사람을 중심에 두는 것이 당신만의 경영 철학이에요.',
         best: 'content',
         worst: 'finance'
       },
       en: {
-        name: 'Social Platform Startup',
+        name: '📱 Social Platform Startup',
         tag: '#Connection #Community #GrowthHacking',
         desc: 'You have a genius for connecting people. You read trends faster than anyone and intuitively understand what users want. Like a social network yourself, your web of connections is vast — and you have an incredible talent for turning relationships into assets. People, not numbers, are at the center of your business philosophy.',
         best: 'content',
         worst: 'finance'
       },
       ja: {
-        name: 'SNSプラットフォームスタートアップ',
+        name: '📱 SNSプラットフォームスタートアップ',
         tag: '#つながり #コミュニティ #成長',
         desc: 'あなたは人と人をつなぐことに天才的なセンスを持っています。トレンドを誰よりも早く読み取り、ユーザーが何を求めているかを直感的に把握します。SNSのように人脈が広く、その人脈を資産に変える能力が卓越しています。数字よりも人を中心に置くのがあなたの経営哲学です。',
         best: 'content',
         worst: 'finance'
       },
       zh: {
-        name: '社交平台创业公司',
+        name: '📱 社交平台创业公司',
         tag: '#连接 #社区 #增长黑客',
         desc: '你有连接人与人的天才直觉。你比任何人都更快地捕捉趋势，凭直觉了解用户需要什么。你的人脉像社交网络一样广泛，将关系转化为资产的能力卓越。以人为中心而非数字，是你独特的经营哲学。',
         best: 'content',
@@ -81,28 +81,28 @@ const TEST_STARTUP = {
     },
     commerce: {
       ko: {
-        name: '이커머스 제국',
+        name: '🛒 이커머스 제국',
         tag: '#전략 #효율 #물류왕',
         desc: '당신은 숫자와 시스템으로 제국을 건설하는 타입입니다. 비용 구조, 마진, 재고 최적화... 이런 단어들이 오히려 설레게 느껴진다면 바로 당신! 감보다 데이터를 믿고, 작은 비효율도 그냥 넘기지 않습니다. 냉철한 판단력으로 경쟁자를 압도하고, 결국엔 시장을 지배하는 스타일이에요.',
         best: 'finance',
         worst: 'content'
       },
       en: {
-        name: 'E-commerce Empire',
+        name: '🛒 E-commerce Empire',
         tag: '#Strategy #Efficiency #LogisticsKing',
         desc: 'You\'re the type who builds empires with numbers and systems. Cost structures, margins, inventory optimization — if these words excite you, that\'s your sign. You trust data over gut feelings and never let even a small inefficiency slide. Your cold-blooded judgment overwhelms the competition, and you\'ll end up dominating the market.',
         best: 'finance',
         worst: 'content'
       },
       ja: {
-        name: 'Eコマース帝国',
+        name: '🛒 Eコマース帝国',
         tag: '#戦略 #効率 #物流王',
         desc: 'あなたは数字とシステムで帝国を築くタイプです。コスト構造、マージン、在庫最適化…こういった言葉がむしろワクワクするなら、まさにあなた！感よりデータを信頼し、小さな非効率も見逃しません。冷静な判断力で競合を圧倒し、最終的には市場を支配するスタイルです。',
         best: 'finance',
         worst: 'content'
       },
       zh: {
-        name: '电商帝国',
+        name: '🛒 电商帝国',
         tag: '#战略 #效率 #物流之王',
         desc: '你是用数字和系统构建帝国的类型。成本结构、利润率、库存优化……如果这些词让你兴奋，那就是你了！你信任数据而非直觉，绝不放过任何小小的低效。凭借冷静的判断力压倒竞争对手，最终主导市场。',
         best: 'finance',
@@ -111,28 +111,28 @@ const TEST_STARTUP = {
     },
     space: {
       ko: {
-        name: '우주/모빌리티 스타트업',
+        name: '🚀 우주/모빌리티 스타트업',
         tag: '#도전 #비전 #혁명가',
         desc: '당신은 남들이 불가능하다고 할 때 오히려 흥분하는 타입입니다. 화성 이주, 자율주행, 하늘을 나는 자동차… 당신의 꿈은 언제나 지구 밖을 향합니다. 실패를 두려워하지 않고 오히려 실패에서 배우는 것을 즐기죠. 세상이 아직 보지 못한 미래를 먼저 사는 것, 그게 당신의 삶입니다.',
         best: 'tech',
         worst: 'luxury'
       },
       en: {
-        name: 'Space & Mobility Startup',
+        name: '🚀 Space & Mobility Startup',
         tag: '#Challenge #Vision #Revolutionary',
         desc: 'You\'re the type who gets excited when others say it\'s impossible. Mars colonization, autonomous driving, flying cars — your dreams always reach beyond this planet. You don\'t fear failure; you enjoy learning from it. Living in the future the world hasn\'t seen yet — that\'s just how you roll.',
         best: 'tech',
         worst: 'luxury'
       },
       ja: {
-        name: '宇宙・モビリティスタートアップ',
+        name: '🚀 宇宙・モビリティスタートアップ',
         tag: '#挑戦 #ビジョン #革命家',
         desc: 'あなたは他の人が不可能だと言う時にむしろ興奮するタイプです。火星移住、自動運転、空飛ぶ車…あなたの夢はいつも地球の外を向いています。失敗を恐れず、むしろ失敗から学ぶことを楽しんでいます。世界がまだ見ていない未来を先に生きること、それがあなたの人生です。',
         best: 'tech',
         worst: 'luxury'
       },
       zh: {
-        name: '航天/出行创业公司',
+        name: '🚀 航天/出行创业公司',
         tag: '#挑战 #愿景 #革命者',
         desc: '你是那种在别人说不可能时反而兴奋的类型。火星移民、自动驾驶、飞行汽车……你的梦想永远指向地球之外。你不畏惧失败，反而享受从失败中学习。走在世界还未见到的未来之前，这就是你的生活方式。',
         best: 'tech',
@@ -141,28 +141,28 @@ const TEST_STARTUP = {
     },
     finance: {
       ko: {
-        name: '핀테크/투자 스타트업',
+        name: '💹 핀테크/투자 스타트업',
         tag: '#분석 #데이터 #안정적천재',
         desc: '당신은 돈의 흐름을 읽는 탁월한 눈을 가지고 있습니다. 충동적인 결정 대신 철저한 분석과 리스크 계산으로 움직이죠. 화려하진 않아도 꾸준히 성장하는 것, 그게 당신의 전략입니다. 주변에서 위기라고 할 때도 당신은 이미 기회를 보고 있어요. 숫자 뒤에 숨겨진 진실을 보는 능력, 그게 당신만의 무기입니다.',
         best: 'commerce',
         worst: 'platform'
       },
       en: {
-        name: 'Fintech & Investment Startup',
+        name: '💹 Fintech & Investment Startup',
         tag: '#Analytics #Data #StableGenius',
         desc: 'You have an exceptional eye for reading the flow of money. Instead of impulsive decisions, you operate through thorough analysis and calculated risk. Your strategy: steady, consistent growth over flashy moves. When others see a crisis, you\'ve already spotted the opportunity. Your ability to see the truth hidden behind the numbers — that\'s your secret weapon.',
         best: 'commerce',
         worst: 'platform'
       },
       ja: {
-        name: 'フィンテック・投資スタートアップ',
+        name: '💹 フィンテック・投資スタートアップ',
         tag: '#分析 #データ #安定の天才',
         desc: 'あなたはお金の流れを読む卓越した目を持っています。衝動的な決断ではなく、徹底的な分析とリスク計算で動きます。派手ではなくても、着実に成長すること、それがあなたの戦略です。周りが危機だと言う時も、あなたはすでにチャンスを見ています。数字の裏に隠された真実を見る能力、それがあなただけの武器です。',
         best: 'commerce',
         worst: 'platform'
       },
       zh: {
-        name: '金融科技/投资创业公司',
+        name: '💹 金融科技/投资创业公司',
         tag: '#分析 #数据 #稳定天才',
         desc: '你拥有解读资金流向的卓越眼光。你不做冲动决策，而是通过彻底分析和风险计算行动。不追求华丽，而是稳定持续增长，这就是你的策略。当别人说危机时，你已经看到了机会。看穿数字背后真相的能力，就是你独有的武器。',
         best: 'commerce',
@@ -171,28 +171,28 @@ const TEST_STARTUP = {
     },
     content: {
       ko: {
-        name: '콘텐츠/미디어 스타트업',
+        name: '🎬 콘텐츠/미디어 스타트업',
         tag: '#창의 #감성 #스토리텔러',
         desc: '당신은 이야기로 세상을 움직이는 크리에이터입니다. 숫자보다 감정, 전략보다 영감을 따라가는 타입이죠. 하나의 영상, 하나의 글로 수백만 명의 마음을 움직일 수 있다고 진심으로 믿습니다. 때로는 현실적인 부분을 놓치기도 하지만, 그 열정과 창의력은 누구도 따라올 수 없습니다.',
         best: 'platform',
         worst: 'commerce'
       },
       en: {
-        name: 'Content & Media Startup',
+        name: '🎬 Content & Media Startup',
         tag: '#Creative #Emotional #Storyteller',
         desc: 'You\'re a creator who moves the world through stories. You follow emotion over numbers, inspiration over strategy. You genuinely believe a single video or a single post can touch the hearts of millions. Sometimes the practical details escape you — but your passion and creativity? No one can match that.',
         best: 'platform',
         worst: 'commerce'
       },
       ja: {
-        name: 'コンテンツ・メディアスタートアップ',
+        name: '🎬 コンテンツ・メディアスタートアップ',
         tag: '#クリエイティブ #感性 #ストーリーテラー',
         desc: 'あなたはストーリーで世界を動かすクリエイターです。数字より感情、戦略よりインスピレーションを追うタイプです。一つの動画、一つの文章で何百万人もの心を動かせると心から信じています。時に現実的な部分を見落とすこともありますが、その情熱と創造力は誰にも真似できません。',
         best: 'platform',
         worst: 'commerce'
       },
       zh: {
-        name: '内容/媒体创业公司',
+        name: '🎬 内容/媒体创业公司',
         tag: '#创意 #感性 #故事讲述者',
         desc: '你是用故事推动世界的创作者。你追随情感而非数字，追随灵感而非策略。你真心相信一个视频、一篇文章能触动数百万人的心。有时会忽略现实细节，但你的激情和创造力？无人能及。',
         best: 'platform',
@@ -201,28 +201,28 @@ const TEST_STARTUP = {
     },
     luxury: {
       ko: {
-        name: '럭셔리 브랜드 스타트업',
+        name: '💎 럭셔리 브랜드 스타트업',
         tag: '#품격 #희소성 #아름다움',
         desc: '당신은 단순한 제품이 아니라 경험과 가치를 파는 사람입니다. 싸게 많이 파는 것보다, 단 하나라도 완벽하게 만드는 것을 선택합니다. 심미적 감각이 뛰어나고, 디테일에 집착하는 편이죠. 브랜드는 곧 철학이라고 생각하는 당신, 언젠가 세상에서 가장 갖고 싶은 것을 만들어낼 겁니다.',
         best: 'content',
         worst: 'tech'
       },
       en: {
-        name: 'Luxury Brand Startup',
+        name: '💎 Luxury Brand Startup',
         tag: '#Prestige #Exclusivity #Beauty',
         desc: 'You sell experiences and values, not mere products. You\'d choose crafting one perfect piece over selling cheap in volume, every time. Your aesthetic sense is refined, and you\'re obsessed with details. For you, a brand is a philosophy — and someday, you\'ll create the most coveted thing in the world.',
         best: 'content',
         worst: 'tech'
       },
       ja: {
-        name: 'ラグジュアリーブランドスタートアップ',
+        name: '💎 ラグジュアリーブランドスタートアップ',
         tag: '#品格 #希少性 #美しさ',
         desc: 'あなたは単なる製品ではなく、体験と価値を売る人です。安く大量に売るより、たった一つでも完璧に作ることを選びます。審美的センスに優れ、細部にこだわる傾向があります。ブランドはすなわち哲学だと考えるあなたは、いつか世界で最も欲しいものを作り出すでしょう。',
         best: 'content',
         worst: 'tech'
       },
       zh: {
-        name: '奢侈品牌创业公司',
+        name: '💎 奢侈品牌创业公司',
         tag: '#品格 #稀缺性 #美',
         desc: '你销售的不是产品，而是体验与价值。比起低价大量销售，你宁愿选择精心打造一件完美之作。你有卓越的审美感，痴迷于细节。你认为品牌即哲学——有朝一日，你将创造出世界上最令人渴望拥有的东西。',
         best: 'content',
@@ -231,28 +231,28 @@ const TEST_STARTUP = {
     },
     health: {
       ko: {
-        name: '헬스케어/웰니스 스타트업',
+        name: '🌿 헬스케어/웰니스 스타트업',
         tag: '#건강 #지속가능 #따뜻한리더',
         desc: '당신은 사람들의 삶을 더 건강하고 행복하게 만들고 싶은 따뜻한 마음을 가진 창업가입니다. 빠른 성장보다 지속 가능한 임팩트를 추구하고, 팀원 한 명 한 명을 소중히 여기는 스타일이에요. 공감 능력이 뛰어나 고객의 니즈를 정확히 파악하고, 그 신뢰가 당신 사업의 가장 강한 무기입니다.',
         best: 'platform',
         worst: 'space'
       },
       en: {
-        name: 'Healthcare & Wellness Startup',
+        name: '🌿 Healthcare & Wellness Startup',
         tag: '#Health #Sustainable #WarmLeader',
         desc: 'You\'re a warm-hearted entrepreneur who wants to make people\'s lives healthier and happier. You chase sustainable impact over rapid growth, and you genuinely treasure every single person on your team. Your empathy lets you pinpoint exactly what customers need — and that trust is the strongest weapon in your business.',
         best: 'platform',
         worst: 'space'
       },
       ja: {
-        name: 'ヘルスケア・ウェルネススタートアップ',
+        name: '🌿 ヘルスケア・ウェルネススタートアップ',
         tag: '#健康 #持続可能 #温かいリーダー',
         desc: 'あなたは人々の生活をより健康で幸せにしたいという温かい心を持つ起業家です。急成長よりも持続可能なインパクトを追求し、チームメンバー一人ひとりを大切にするスタイルです。共感能力に優れ、顧客のニーズを正確に把握し、その信頼があなたのビジネスの最大の武器です。',
         best: 'platform',
         worst: 'space'
       },
       zh: {
-        name: '医疗健康/wellness创业公司',
+        name: '🌿 医疗健康/wellness创业公司',
         tag: '#健康 #可持续 #温暖领袖',
         desc: '你是一位怀有温暖之心的创业者，希望让人们的生活更健康、更幸福。你追求可持续的影响而非快速增长，真心珍视团队中的每一位成员。你的同理心让你精准把握客户需求，这份信任是你商业中最强大的武器。',
         best: 'platform',
