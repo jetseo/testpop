@@ -774,6 +774,23 @@ body{
    ============================================================ */
 
 /* ---- 결과 분석 로딩 화면 ---- */
+/* ---- Phase1 관리자 출동 텍스트 ---- */
+.admin-dispatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 40px 28px;
+  font-family: 'Jua', sans-serif;
+  font-size: 1.3rem;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.7;
+  opacity: 1;
+  transition: opacity .2s;
+  white-space: pre-line;
+}
+
 /* ---- 터미널 분석 화면 ---- */
 .terminal-screen {
   margin: 8px 16px;
