@@ -776,7 +776,7 @@ body{
 /* ---- 결과 분석 로딩 화면 ---- */
 /* ---- 터미널 분석 화면 ---- */
 .terminal-screen {
-  margin: 32px 16px;
+  margin: 8px 16px;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0,0,0,.12);
