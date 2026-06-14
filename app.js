@@ -815,113 +815,396 @@
       return;
     }
 
-    // 터미널 로그 메시지 풀
-    const logs = {
+    // ============================
+    // Phase 1: 관리자 출동 멘트 풀 (30가지)
+    // ============================
+    const adminPools = {
       ko: [
-        { txt: '> 답변 데이터 로드 중...', delay: 600 },
-        { txt: '> 성격 매트릭스 초기화........... [OK]', delay: 700 },
-        { txt: '> 응답 패턴 분석 중...', delay: 500 },
-        { txt: '> 경고: 결과가 너무 정확할 수 있음 ⚠️', delay: 600, fun: true },
-        { txt: '> 유형 데이터베이스 검색 중......... [OK]', delay: 800 },
-        { txt: '> 심층 성격 스캔 실행 중...', delay: 600 },
-        { txt: '> 교차 검증 완료................... [OK]', delay: 700 },
-        { txt: '> 최종 유형 산출 중...', delay: 500 },
-        { txt: '> ██████████████████ 100%', delay: 400 },
-        { txt: '> RESULT FOUND ✓', delay: 0, highlight: true },
+        ['🏃 관리자가 이불을 박차고 일어났습니다', '🧦 양말을 한 짝 못 찾고 있습니다', '🧦 그냥 한 짝만 신고 뛰고 있습니다'],
+        ['😴 관리자가 자다가 알림을 받았습니다', '🥱 눈을 비비며 일어나고 있습니다', '☕ 커피도 없이 출발했습니다... 비장합니다'],
+        ['🎮 관리자가 게임 중이었습니다', '😤 보스 직전에 컨트롤러를 내려놨습니다', '🏃 억울하지만 뛰고 있습니다'],
+        ['🍜 관리자가 라면을 먹고 있었습니다', '😱 면이 불기 전에 포기했습니다', '🏃 라면보다 당신이 더 중요합니다 (거짓말)'],
+        ['🛁 관리자가 샤워 중이었습니다', '💨 반쪽만 헹구고 뛰쳐나왔습니다', '🏃 머리에서 물이 뚝뚝 떨어지고 있습니다'],
+        ['📺 관리자가 드라마 정주행 중이었습니다', '😭 클리프행어 직전에 멈췄습니다', '🏃 내용이 너무 궁금해서 더 빨리 뛰고 있습니다'],
+        ['🐈 관리자가 고양이를 쓰다듬고 있었습니다', '😾 고양이가 화를 냈습니다', '🏃 고양이의 저주를 받으며 달리고 있습니다'],
+        ['💼 관리자가 이미 퇴근 후였습니다', '😒 야근수당도 없이 출발했습니다', '🏃 노조 결성을 고민하며 뛰고 있습니다'],
+        ['🍺 관리자가 치맥 중이었습니다', '🐔 치킨 한 조각을 손에 들고 뛰고 있습니다', '🏃 닭다리를 놓지 않는 프로 의식입니다'],
+        ['🧹 관리자가 대청소 중이었습니다', '🪣 걸레를 든 채로 출발했습니다', '🏃 청소는 나중에... 어차피 또 더러워집니다'],
+        ['📚 관리자가 자기계발서를 읽고 있었습니다', '📖 "성공하는 사람들의 7가지 습관" 3페이지에서 멈췄습니다', '🏃 8번째 습관은 열심히 뛰는 것입니다'],
+        ['🎵 관리자가 노래방에 있었습니다', '🎤 애창곡 "내 나이가 어때서" 중간에 마이크를 내려놨습니다', '🏃 흥얼거리며 뛰고 있습니다'],
+        ['🏋️ 관리자가 헬스장에 있었습니다', '💪 벤치프레스 중 바벨을 내려놨습니다', '🏃 워밍업은 충분히 됐습니다'],
+        ['🧖 관리자가 마사지 중이었습니다', '😌 절반만 받고 일어났습니다', '🏃 반쪽 몸만 개운한 상태로 뛰고 있습니다'],
+        ['🌙 관리자가 별을 보고 있었습니다', '🔭 목성을 발견하려던 참이었습니다', '🏃 목성은 내일 보기로 했습니다'],
+        ['🎨 관리자가 그림을 그리고 있었습니다', '🖌️ 명작 완성 직전에 붓을 내려놨습니다', '🏃 반 고흐도 이랬을 겁니다'],
+        ['🧩 관리자가 퍼즐을 맞추고 있었습니다', '🎯 마지막 한 조각 남았습니다', '🏃 그 한 조각의 위치는 영영 모를 것입니다'],
+        ['🐕 관리자가 강아지 산책 중이었습니다', '🐾 강아지를 이웃집에 맡겼습니다', '🏃 강아지가 배신자를 외치고 있습니다'],
+        ['📱 관리자가 유튜브 쇼츠 보는 중이었습니다', '📵 알고리즘의 늪에서 겨우 빠져나왔습니다', '🏃 손가락은 아직도 스크롤 중입니다'],
+        ['🍕 관리자가 피자를 시켜놨습니다', '🛵 배달이 5분 후 도착 예정이었습니다', '🏃 배달 수령 실패를 각오하고 뛰고 있습니다'],
+        ['🎯 관리자가 다트를 연습 중이었습니다', '🎳 불스아이 직전이었습니다', '🏃 아쉬움을 동력으로 뛰고 있습니다'],
+        ['🧸 관리자가 인형 수집 중이었습니다', '🪆 한정판 마트료시카를 개봉하려던 참이었습니다', '🏃 마트료시카는 집을 지키고 있습니다'],
+        ['🌿 관리자가 화분에 물을 주고 있었습니다', '🥀 선인장도 물이 필요한 순간이었습니다', '🏃 선인장아 잘 버텨라... 너는 할 수 있어'],
+        ['✈️ 관리자가 해외여행 중이었습니다', '🚨 비행기 탑승구 앞에서 돌아섰습니다', '🏃 환불 불가 티켓을 포기하고 뛰고 있습니다'],
+        ['🎮 관리자가 롤 랭크 게임 중이었습니다', '😤 탑 라이너가 트롤링 중이었습니다', '🏃 어차피 지던 게임이었습니다 (자기위안)'],
+        ['📝 관리자가 일기를 쓰고 있었습니다', '🖊️ "오늘은 조용한 하루였다"까지 쓰다 멈췄습니다', '🏃 조용하지 않은 하루가 되었습니다'],
+        ['🧊 관리자가 냉동실을 정리 중이었습니다', '🫐 3년 묵은 냉동 블루베리를 발견한 순간이었습니다', '🏃 블루베리의 정체는 영원히 미스터리입니다'],
+        ['🪥 관리자가 양치 중이었습니다', '🦷 2분 중 47초만 완료했습니다', '🏃 치과 선생님께는 비밀입니다'],
+        ['🌅 관리자가 일출을 보고 있었습니다', '📸 인생샷 직전이었습니다', '🏃 일출은 내일도 뜹니다... 아마도'],
+        ['💤 관리자가 회의 중에 졸고 있었습니다', '😳 꿈에서도 일하다가 깼습니다', '🏃 이게 꿈인지 현실인지 모르며 뛰고 있습니다'],
       ],
       en: [
-        { txt: '> Loading answer data...', delay: 600 },
-        { txt: '> Initializing personality matrix.... [OK]', delay: 700 },
-        { txt: '> Analyzing response patterns...', delay: 500 },
-        { txt: '> Warning: result may be uncomfortably accurate ⚠️', delay: 600, fun: true },
-        { txt: '> Searching type database.......... [OK]', delay: 800 },
-        { txt: '> Running deep personality scan...', delay: 600 },
-        { txt: '> Cross-validation complete......... [OK]', delay: 700 },
-        { txt: '> Calculating final type...', delay: 500 },
-        { txt: '> ██████████████████ 100%', delay: 400 },
-        { txt: '> RESULT FOUND ✓', delay: 0, highlight: true },
+        ["🏃 The admin threw off their blanket", "🧦 Can't find one sock", "🏃 Running with mismatched socks. Commitment."],
+        ["😴 The admin got an alert mid-sleep", "🥱 Rubbing eyes, barely conscious", "🏃 No coffee. Just pure dedication (and panic)"],
+        ["🎮 The admin was mid-game", "😤 Put down the controller right before the boss", "🏃 Running with deep regret"],
+        ["🍜 The admin was eating instant noodles", "😱 Sacrificed the noodles before they got soggy", "🏃 You better be worth it"],
+        ["🛁 The admin was in the shower", "💨 Left half-rinsed", "🏃 Dripping all the way to the office"],
+        ["📺 The admin was binge-watching", "😭 Paused on a cliffhanger", "🏃 Running faster out of frustration"],
+        ["🐈 The admin was petting their cat", "😾 The cat did not approve of this interruption", "🏃 Running under a cat's curse"],
+        ["💼 The admin had already clocked out", "😒 No overtime pay. Still came.", "🏃 Reconsidering life choices while running"],
+        ["🍺 The admin was having fried chicken and beer", "🐔 Still holding the drumstick", "🏃 Professional dedication: never drops the chicken"],
+        ["🧹 The admin was deep-cleaning", "🪣 Left mid-mop", "🏃 At least the floor is half-clean"],
+        ["📚 The admin was reading self-help books", "📖 Stopped at page 3 of \"7 Habits...\"", "🏃 Habit #8: Drop everything and run"],
+        ["🎵 The admin was at karaoke", "🎤 Dropped the mic mid-chorus", "🏃 Humming to maintain rhythm while running"],
+        ["🏋️ The admin was at the gym", "💪 Dropped the barbell mid-rep", "🏃 Fully warmed up and ready to go"],
+        ["🧖 The admin was getting a massage", "😌 Left after only half the session", "🏃 One side is relaxed. The other is tense."],
+        ["🌙 The admin was stargazing", "🔭 Was this close to finding Jupiter", "🏃 Jupiter will still be there tomorrow"],
       ],
       ja: [
-        { txt: '> 回答データをロード中...', delay: 600 },
-        { txt: '> 性格マトリクスを初期化........ [OK]', delay: 700 },
-        { txt: '> 回答パターンを分析中...', delay: 500 },
-        { txt: '> 警告: 結果が正確すぎる可能性あり ⚠️', delay: 600, fun: true },
-        { txt: '> タイプデータベースを検索中.... [OK]', delay: 800 },
-        { txt: '> 深層性格スキャンを実行中...', delay: 600 },
-        { txt: '> クロス検証完了............... [OK]', delay: 700 },
-        { txt: '> 最終タイプを算出中...', delay: 500 },
-        { txt: '> ██████████████████ 100%', delay: 400 },
-        { txt: '> RESULT FOUND ✓', delay: 0, highlight: true },
+        ['🏃 管理者が布団を蹴飛ばして起きました', '🧦 靴下が片方見つかりません', '🏃 片方だけ履いて走っています'],
+        ['😴 管理者が寝ている最中に通知が来ました', '🥱 目をこすりながら起き上がっています', '☕ コーヒーなしで出発しました…覚悟の表れです'],
+        ['🎮 管理者がゲーム中でした', '😤 ボスの直前でコントローラーを置きました', '🏃 悔しいですが走っています'],
+        ['🍜 管理者がラーメンを食べていました', '😱 麺が伸びる前に諦めました', '🏃 ラーメンよりあなたが大事です（嘘）'],
+        ['🛁 管理者がシャワー中でした', '💨 半分だけ流して飛び出しました', '🏃 髪から水がぽたぽた落ちています'],
+        ['📺 管理者がドラマを一気見中でした', '😭 クライマックス直前で止めました', '🏃 気になりすぎてより速く走っています'],
+        ['🐈 管理者が猫を撫でていました', '😾 猫が怒りました', '🏃 猫の呪いを受けながら走っています'],
+        ['💼 管理者はすでに退勤後でした', '😒 残業代もなく出発しました', '🏃 労働組合の結成を考えながら走っています'],
       ],
       zh: [
-        { txt: '> 加载答案数据...', delay: 600 },
-        { txt: '> 初始化性格矩阵.............. [OK]', delay: 700 },
-        { txt: '> 分析回答模式...', delay: 500 },
-        { txt: '> 警告：结果可能过于准确 ⚠️', delay: 600, fun: true },
-        { txt: '> 搜索类型数据库.............. [OK]', delay: 800 },
-        { txt: '> 运行深度性格扫描...', delay: 600 },
-        { txt: '> 交叉验证完成................ [OK]', delay: 700 },
-        { txt: '> 计算最终类型...', delay: 500 },
-        { txt: '> ██████████████████ 100%', delay: 400 },
-        { txt: '> RESULT FOUND ✓', delay: 0, highlight: true },
+        ['🏃 管理员从被窝里跳了出来', '🧦 找不到另一只袜子', '🏃 穿着单只袜子在跑'],
+        ['😴 管理员睡着的时候收到了通知', '🥱 揉着眼睛爬起来了', '☕ 没喝咖啡就出发了……这就是敬业精神'],
+        ['🎮 管理员正在打游戏', '😤 在打boss之前放下了手柄', '🏃 虽然很遗憾但还是跑了'],
+        ['🍜 管理员正在吃泡面', '😱 面条泡发前放弃了', '🏃 您比泡面更重要（谎话）'],
+        ['🛁 管理员正在洗澡', '💨 只冲了一半就跑出来了', '🏃 头发还在滴水'],
+        ['📺 管理员正在追剧', '😭 在高潮部分暂停了', '🏃 越着急越跑得快'],
+        ['🐈 管理员正在撸猫', '😾 猫生气了', '🏃 顶着猫咪的诅咒在跑'],
+        ['💼 管理员已经下班了', '😒 没有加班费还是来了', '🏃 边跑边考虑要不要成立工会'],
       ],
     };
 
-    const msgList = logs[lang] || logs.ko;
-    const totalTime = msgList.reduce((s, m) => s + m.delay + 600, 0) + 1200;
+    // ============================
+    // Phase 2: 랜덤 부팅 화면 풀
+    // ============================
+    const bootScreens = [
+      // 286
+      {
+        name: 'IBM PC/AT 286',
+        lines: [
+          'IBM PC/AT BIOS v1.04  (C) 1984 IBM Corp.',
+          'CPU: Intel 80286 @ 8MHz',
+          'Memory Test: 1024K OK......',
+          'Fixed Disk 0: 20MB Seagate ST-225',
+          'Loading PC-DOS 3.3...',
+          '',
+          'C>',
+        ]
+      },
+      // 386
+      {
+        name: 'MS-DOS 386',
+        lines: [
+          'AMI BIOS v1.01.12  (C) 1990 American Megatrends',
+          'CPU: Intel 80386DX @ 33MHz',
+          'Memory Test: 4096K OK',
+          'IDE HDD: 80MB WD Caviar',
+          'VGA: 640x480 16 colors',
+          'Loading MS-DOS 5.0...',
+          '',
+          'C:\>',
+        ]
+      },
+      // 486
+      {
+        name: 'Windows 3.1 / 486',
+        lines: [
+          'Award BIOS v4.51PG  (C) 1993 Award Software',
+          'CPU: Intel 486DX2 @ 66MHz',
+          'Memory Test: 8MB OK',
+          'Detecting HDD... Primary Master: 210MB',
+          'CD-ROM: Creative CD-ROM x2',
+          'Sound Blaster 16 detected',
+          'Starting MS-DOS...',
+          '',
+          'C:\WIN>',
+        ]
+      },
+      // 586 (Pentium)
+      {
+        name: 'Pentium 586',
+        lines: [
+          'AWARD BIOS v4.51PG  PnP/PCI/ISA  (C) 1995',
+          'CPU: Intel Pentium @ 133MHz',
+          'Memory Test: 32MB OK',
+          'Detecting IDE... HDD: 1.2GB  CD-ROM: 24x',
+          'PnP Init: Detecting PnP devices...OK',
+          'ESS AudioDrive ES688 detected',
+          'Starting Windows 95...',
+          '',
+          'C:\>',
+        ]
+      },
+      // Linux
+      {
+        name: 'Linux',
+        lines: [
+          'GRUB Loading stage1.5...',
+          'GRUB Loading, please wait...',
+          'Linux kernel 2.6.32 (C) Linus Torvalds',
+          '[    0.000000] Initializing cgroup subsys cpuset',
+          '[    0.000000] Linux version 2.6.32 (gcc 4.4.7)',
+          '[    0.523441] ACPI: IRQ0 used by override.',
+          '[    1.204331] EXT4-fs: mounted filesystem',
+          '[    2.001234] eth0: link up 100Mbps',
+          '[    2.345678] System boot complete.',
+          '',
+          'debian login: root',
+          'Password: ********',
+          "Last login: Never (첫 로그인입니다)",
+          'root@debian:~#',
+        ]
+      },
+      // 라즈베리파이
+      {
+        name: 'Raspberry Pi',
+        lines: [
+          'Raspberry Pi 3 Model B (C) 2018 Raspberry Pi Foundation',
+          '[  0.000000] Booting Linux on physical CPU 0x0',
+          '[  0.000000] Linux version 5.10.17-v7+ (armv7l)',
+          '[  1.234567] mmc0: new high speed SDHC card',
+          '[  1.456789] EXT4-fs: mounted / on mmcblk0p2',
+          '[  2.001234] Bluetooth: HCI UART driver initialized',
+          '[  2.345678] wifi0: IEEE 802.11bgn ready',
+          '',
+          'Raspbian GNU/Linux 10 raspberrypi tty1',
+          'raspberrypi login: pi',
+          'Password: ********',
+          'pi@raspberrypi:~ $',
+        ]
+      },
+    ];
 
+    // ============================
+    // Phase 3: 분석 로그
+    // ============================
+    const analyzeLogs = {
+      ko: [
+        '> personality_scan.exe /deep /full',
+        '> 답변 데이터 파싱 중...',
+        '> 성격 패턴 매칭...',
+        '> 경고: 결과가 너무 정확할 수 있음 ⚠️',
+        '> 유형 데이터베이스 검색...',
+        '> 교차 검증 완료',
+        '> 결과 산출 중...',
+      ],
+      en: [
+        '> personality_scan.exe /deep /full',
+        '> Parsing answer data...',
+        '> Matching personality patterns...',
+        '> Warning: result may be uncomfortably accurate ⚠️',
+        '> Searching type database...',
+        '> Cross-validation complete',
+        '> Calculating result...',
+      ],
+      ja: [
+        '> personality_scan.exe /deep /full',
+        '> 回答データを解析中...',
+        '> 性格パターンをマッチング中...',
+        '> 警告: 結果が正確すぎる可能性あり ⚠️',
+        '> タイプデータベースを検索中...',
+        '> クロス検証完了',
+        '> 結果を算出中...',
+      ],
+      zh: [
+        '> personality_scan.exe /deep /full',
+        '> 解析答案数据...',
+        '> 匹配性格模式...',
+        '> 警告：结果可能过于准确 ⚠️',
+        '> 搜索类型数据库...',
+        '> 交叉验证完成',
+        '> 计算结果中...',
+      ],
+    };
+
+    // 랜덤 선택
+    const adminMsgs = adminPools[lang] || adminPools.ko;
+    const adminScript = adminMsgs[Math.floor(Math.random() * adminMsgs.length)];
+    const boot = bootScreens[Math.floor(Math.random() * bootScreens.length)];
+    const analyzeLog = analyzeLogs[lang] || analyzeLogs.ko;
+
+    // 터미널 HTML 렌더링
     app.innerHTML = `
       <div class="terminal-screen">
         <div class="terminal-header">
           <span class="terminal-dot red"></span>
           <span class="terminal-dot yellow"></span>
           <span class="terminal-dot green"></span>
-          <span class="terminal-title">testpop — personality_scan.exe</span>
+          <span class="terminal-title">testpop — ${boot.name}</span>
         </div>
         <div class="terminal-body" id="terminalBody"></div>
       </div>
     `;
 
     const body = document.getElementById('terminalBody');
-    let elapsed = 0;
 
-    msgList.forEach((msg, i) => {
-      elapsed += (i === 0 ? 300 : msgList[i-1].delay + 600);
-      setTimeout(() => {
-        const line = document.createElement('div');
-        line.className = 'terminal-line' + (msg.highlight ? ' terminal-highlight' : msg.fun ? ' terminal-fun' : '');
+    // 줄 추가 헬퍼
+    function addLine(txt, cls, cb){
+      const line = document.createElement('div');
+      line.className = 'terminal-line' + (cls ? ' '+cls : '');
+      body.appendChild(line);
+      body.scrollTop = body.scrollHeight;
+      if(!txt){ if(cb) cb(); return; }
+      let ci = 0;
+      const speed = txt.startsWith('[') ? 8 : 22; // 리눅스 로그는 빠르게
+      const type = ()=>{
+        if(ci <= txt.length){
+          line.innerHTML = txt.slice(0,ci) + '<span class="terminal-cursor">█</span>';
+          ci++;
+          setTimeout(type, speed);
+        } else {
+          line.innerHTML = txt;
+          if(cb) cb();
+        }
+      };
+      type();
+    }
 
-        // 타이핑 효과
-        let ci = 0;
-        const type = () => {
-          if(ci <= msg.txt.length){
-            line.innerHTML = msg.txt.slice(0, ci) + '<span class="terminal-cursor">█</span>';
-            ci++;
-            setTimeout(type, ci === 1 ? 0 : 28);
-          } else {
-            line.innerHTML = msg.txt;
-            // 마지막 줄이면 결과로 이동
-            if(i === msgList.length - 1){
-              setTimeout(() => {
-                app.style.transition = 'opacity .3s ease';
-                app.style.opacity = '0';
-                setTimeout(() => {
-                  app.style.transition = '';
-                  app.style.opacity = '1';
-                  location.hash = 'result/'+curId+'/'+resultType;
-                }, 300);
-              }, 1200);
-            }
-          }
-        };
-        body.appendChild(line);
-        body.scrollTop = body.scrollHeight;
-        type();
-      }, elapsed);
-    });
+    // 커서 깜빡임
+    function blinkCursor(el, times, interval, cb){
+      let n = 0;
+      const blink = ()=>{
+        el.style.opacity = el.style.opacity === '0' ? '1' : '0';
+        n++;
+        if(n < times*2) setTimeout(blink, interval);
+        else { el.style.opacity = '1'; if(cb) cb(); }
+      };
+      setTimeout(blink, interval);
+    }
+
+    // 프로그레스 바
+    function progressBar(label, cb){
+      const line = document.createElement('div');
+      line.className = 'terminal-line terminal-progress';
+      body.appendChild(line);
+      body.scrollTop = body.scrollHeight;
+      let pct = 0;
+      const fill = ()=>{
+        const bar = '█'.repeat(Math.floor(pct/5)) + '░'.repeat(20-Math.floor(pct/5));
+        line.innerHTML = label + ' [' + bar + '] ' + pct + '%';
+        if(pct < 100){ pct = Math.min(100, pct + Math.floor(Math.random()*8)+3); setTimeout(fill, 60); }
+        else { line.innerHTML = label + ' [████████████████████] 100% <span class="terminal-ok">OK</span>'; if(cb) cb(); }
+      };
+      fill();
+    }
+
+    // ---- 시퀀스 실행 ----
+    let seq = Promise.resolve();
+
+    function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+    function queueLine(txt, cls, delay){
+      seq = seq.then(()=>new Promise(r=>{
+        setTimeout(()=>addLine(txt,cls,r), delay||0);
+      }));
+    }
+
+    function queueWait(ms){
+      seq = seq.then(()=>wait(ms));
+    }
+
+    // Phase 1: 관리자 출동
+    queueLine('📟 분석 요청이 접수되었습니다...', 'terminal-fun', 0);
+    queueWait(700);
+    for(const msg of adminScript){
+      queueLine(msg, 'terminal-fun', 300);
+      queueWait(600);
+    }
+    queueLine('🖥️  컴퓨터실 도착. PC를 켭니다...', 'terminal-fun', 300);
+    queueWait(800);
+
+    // Phase 2: 부팅 화면
+    seq = seq.then(()=>new Promise(r=>{
+      // 화면 클리어 효과
+      setTimeout(()=>{
+        body.innerHTML = '';
+        r();
+      }, 300);
+    }));
+
+    for(const bl of boot.lines){
+      if(bl === ''){
+        queueLine('', '', 0);
+        queueWait(200);
+      } else {
+        queueLine(bl, 'terminal-boot', 0);
+        queueWait(bl.startsWith('[') ? 80 : 180);
+      }
+    }
+
+    // 커서 깜빡임 후 명령어 입력
+    seq = seq.then(()=>new Promise(r=>{
+      setTimeout(()=>{
+        const lastLine = body.lastElementChild;
+        if(lastLine) blinkCursor(lastLine, 5, 300, r);
+        else r();
+      }, 200);
+    }));
+
+    // Phase 3: 분석 명령어 및 로그
+    for(const log of analyzeLog){
+      queueLine(log, log.startsWith('>') ? 'terminal-cmd' : '', 0);
+      queueWait(log.includes('경고') || log.includes('Warning') || log.includes('警告') ? 900 : 400);
+    }
+
+    // 프로그레스 바 3개
+    const progressItems = {
+      ko: ['성격 스캔', '유형 매칭', '결과 생성'],
+      en: ['Personality Scan', 'Type Matching', 'Result Build'],
+      ja: ['性格スキャン', 'タイプマッチ', '結果生成'],
+      zh: ['性格扫描', '类型匹配', '生成结果'],
+    };
+    const pItems = progressItems[lang] || progressItems.ko;
+
+    seq = seq.then(()=>new Promise(r=>{
+      setTimeout(()=>{
+        progressBar(pItems[0], ()=>{
+          setTimeout(()=>{
+            progressBar(pItems[1], ()=>{
+              setTimeout(()=>{
+                progressBar(pItems[2], ()=>{
+                  setTimeout(()=>{
+                    addLine('', '', null);
+                    const hl = {ko:'✓ RESULT FOUND — 결과를 불러옵니다!', en:'✓ RESULT FOUND — Loading your result!', ja:'✓ RESULT FOUND — 結果を表示します!', zh:'✓ RESULT FOUND — 正在加载结果!'};
+                    addLine(hl[lang]||hl.ko, 'terminal-highlight', ()=>{
+                      setTimeout(()=>{
+                        app.style.transition = 'opacity .4s ease';
+                        app.style.opacity = '0';
+                        setTimeout(()=>{
+                          app.style.transition = '';
+                          app.style.opacity = '1';
+                          location.hash = 'result/'+curId+'/'+resultType;
+                        }, 400);
+                      }, 1200);
+                    });
+                    r();
+                  }, 200);
+                });
+              }, 300);
+            });
+          }, 300);
+        });
+      }, 0);
+    }));
   }
 
-    // ---- 결과 카드 뒤집기 ----
+    // ---- 결과 카드 뒤집기 ----    // ---- 결과 카드 뒤집기 ----
   function initCardFlip(fromLink){
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const inner = document.getElementById('flipInner');
