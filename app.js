@@ -321,7 +321,12 @@
         location.hash = 'home';
         setTimeout(()=>{
           const sec = document.getElementById('all-tests-section');
-          if(sec) sec.scrollIntoView({ behavior:'smooth', block:'start' });
+          if(sec){
+            const topbar = document.querySelector('.topbar');
+            const offset = topbar ? topbar.offsetHeight + 12 : 12;
+            const top = sec.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior:'smooth' });
+          }
         }, 100);
       });
     }
