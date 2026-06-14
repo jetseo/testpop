@@ -267,7 +267,7 @@
         <div class="hero-art"><img src="${m.thumb}" alt="" loading="eager"></div>
         <h1 class="hero-title">${m.emoji} ${L(m.title)}</h1>
         <p class="hero-sub hero-desc">${L(m.desc)}</p>
-        <p class="hero-sub hero-10sec">${t('ten_sec_prefix')} ${L(m.title)}</p>
+        <p class="hero-sub hero-10sec">${t('ten_sec_prefix')}</p>
         <button class="btn-primary" id="startBtn">${t('start')}</button>
         <button class="btn-share-intro" id="shareIntroBtn">🔗 ${t('share_intro')}</button>
       </section>
