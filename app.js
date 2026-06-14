@@ -103,11 +103,11 @@
     const app=document.getElementById('app');
 
     // 추천 카드덱: 신규 테스트 먼저, 나머지 랜덤으로 채움
-    const newTests = TESTS.filter(t => t.isNew);
-    const oldTests = shuffle(TESTS.filter(t => !t.isNew).slice());
-    const featured = [...newTests, ...oldTests].slice(0, 5);
-    // 전체 그리드: 최근 3개(배열 뒤에서 3개) 상단 고정 + 나머지 랜덤
+    // 추천 덱: 최신 3개 제외한 나머지에서 랜덤 5개
     const recentCount = 3;
+    const recentIds = new Set(TESTS.slice(-recentCount).map(t => t.id));
+    const featured = shuffle(TESTS.filter(t => !recentIds.has(t.id)).slice()).slice(0, 5);
+    // 전체 그리드: 최신 3개 상단 고정(역순) + 나머지 랜덤
     const pinned = TESTS.slice(-recentCount).reverse();
     const shuffled = [...pinned, ...shuffle(TESTS.slice(0, TESTS.length - recentCount))];
 
@@ -139,7 +139,7 @@
               <div class="swiper-slide" role="button" tabindex="0"
                    aria-label="${L(m.title)}"
                    data-href="#test/${m.id}">
-                ${m.isNew ? '<span class="deck-badge-new">✨ NEW</span>' : ''}
+                ${recentIds.has(m.id) ? '<span class="deck-badge-new">✨ NEW</span>' : ''}
                 <img class="deck-card-img" src="${m.thumb}" alt="${L(m.title)}" loading="lazy">
                 <div class="deck-card-info">
                   <div class="deck-card-name">${m.emoji} ${L(m.title)}</div>
@@ -158,7 +158,7 @@
       <section class="test-list">
         ${shuffled.map(m=>`
           <a class="test-card" href="#test/${m.id}" aria-label="${L(m.title)}">
-            ${m.isNew ? '<span class="badge-new">✨ NEW</span>' : ''}
+            ${recentIds.has(m.id) ? '<span class="badge-new">✨ NEW</span>' : ''}
             <div class="test-thumb"><img src="${m.thumb}" alt="" loading="lazy"></div>
             <div class="test-info">
               <span class="test-emoji">${m.emoji}</span>
