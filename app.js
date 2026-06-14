@@ -776,216 +776,112 @@
   function showAnalyzing(resultType){
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const app = document.getElementById('app');
-    const emoji = TEST.emoji || '🔮';
 
     if(reduced){
       location.hash = 'result/'+curId+'/'+resultType;
       return;
     }
 
-    // 중간 랜덤 메시지 풀 (ko/en/ja/zh 각 25개)
-    const midPool = {
+    // 터미널 로그 메시지 풀
+    const logs = {
       ko: [
-        '음... 생각보다 복잡한 성격이네요 🤯',
-        '이거 어디서 많이 본 유형인데 🧐',
-        '확실히 독특한 면이 있어요 👀',
-        '친구들도 비슷하게 생각할 것 같은데요 😏',
-        '아, 이래서 그랬군요! 🙊',
-        '데이터가 너무 명확해서 놀랐어요 😲',
-        '솔직히 처음 답변에서 이미 알았어요 🔮',
-        '우주가 당신의 유형을 알고 있었습니다 🌌',
-        '잠깐, 이거 예상 밖인데요? 😳',
-        '고민할 것도 없네요, 딱 이거예요 ✅',
-        '통계적으로 꽤 드문 유형이에요 📊',
-        'AI가 세 번 확인하고 있습니다 🤖',
-        '결과가 충격적일 수도 있어요 (아닐 수도) 😅',
-        '주변에 이런 유형 많이 있죠? 🫠',
-        '빨리 친구한테 공유하고 싶을걸요 📱',
-        '이 유형 진짜 맞는 것 같은데요? 🎯',
-        '잠깐 커피 한 잔 하고 올게요... ☕',
-        '음... 마지막 답변이 결정적이었어요 🃏',
-        '역시 예상한 대로네요 😌',
-        '이거 친구한테 보내면 깜짝 놀랄 걸요 🎁',
-        '결과를 보고 공감할 준비 되셨나요? 😆',
-        '전 세계 테스트 유형 중 이게 뭔지 알아요 🗺️',
-        '지금 심장 두근거리지 않으세요? 💓',
-        '솔직히 저도 두근두근합니다 🥺',
-        '이 결과 진짜 찰떡같을 거예요 👌',
+        { txt: '> 답변 데이터 로드 중...', delay: 600 },
+        { txt: '> 성격 매트릭스 초기화........... [OK]', delay: 700 },
+        { txt: '> 응답 패턴 분석 중...', delay: 500 },
+        { txt: '> 유형 데이터베이스 검색 중......... [OK]', delay: 800 },
+        { txt: '> 심층 성격 스캔 실행 중...', delay: 600 },
+        { txt: '> 교차 검증 완료................... [OK]', delay: 700 },
+        { txt: '> 최종 유형 산출 중...', delay: 500 },
+        { txt: '> ██████████████████ 100%', delay: 400 },
+        { txt: '> RESULT FOUND ✓', delay: 0, highlight: true },
       ],
       en: [
-        'Hmm... more complex than expected 🤯',
-        "I've seen this type somewhere before 🧐",
-        'You definitely have a unique side 👀',
-        'Your friends probably think the same 😏',
-        "Ahhh, so THAT'S why! 🙊",
-        'The data is surprisingly clear 😲',
-        'Honestly, I knew from your first answer 🔮',
-        'The universe already knew your type 🌌',
-        'Wait, this is unexpected... 😳',
-        "No need to think twice, it's definitely this ✅",
-        'Statistically quite a rare type 📊',
-        'AI is triple-checking this 🤖',
-        'Results may or may not be shocking 😅',
-        'You know someone exactly like this, right? 🫠',
-        'You will want to share this immediately 📱',
-        'This type is spot on for you 🎯',
-        'Just grabbing a coffee real quick... ☕',
-        'That last answer was the deciding factor 🃏',
-        'Exactly as I expected 😌',
-        'Your friends will be surprised by this 🎁',
-        'Ready to feel totally called out? 😆',
-        'I know exactly which type this is 🗺️',
-        'Is your heart beating faster right now? 💓',
-        "I'll be honest, even I'm excited 🥺",
-        "This result is going to fit you perfectly 👌",
+        { txt: '> Loading answer data...', delay: 600 },
+        { txt: '> Initializing personality matrix.... [OK]', delay: 700 },
+        { txt: '> Analyzing response patterns...', delay: 500 },
+        { txt: '> Searching type database.......... [OK]', delay: 800 },
+        { txt: '> Running deep personality scan...', delay: 600 },
+        { txt: '> Cross-validation complete......... [OK]', delay: 700 },
+        { txt: '> Calculating final type...', delay: 500 },
+        { txt: '> ██████████████████ 100%', delay: 400 },
+        { txt: '> RESULT FOUND ✓', delay: 0, highlight: true },
       ],
       ja: [
-        'うーん...思ったより複雑な性格ですね 🤯',
-        'どこかで見たことあるタイプですね 🧐',
-        '確かに独特な面がありますね 👀',
-        '友達も同じように思ってそうです 😏',
-        'あ、だからそうだったんですね！ 🙊',
-        'データがあまりにも明確で驚きました 😲',
-        '最初の回答でもう分かってました 🔮',
-        '宇宙があなたのタイプを知っていました 🌌',
-        'ちょっと待って、予想外かも？ 😳',
-        '迷う必要なし、絶対これですよ ✅',
-        '統計的にかなり珍しいタイプです 📊',
-        'AIが三回確認しています 🤖',
-        '結果は衝撃的かも（そうでないかも）😅',
-        '周りにこういうタイプいますよね 🫠',
-        '早く友達にシェアしたくなりますよ 📱',
-        'ぴったりのタイプだと思います 🎯',
-        'ちょっとコーヒー飲んできます... ☕',
-        '最後の回答が決め手になりました 🃏',
-        'やっぱり予想通りでしたね 😌',
-        '友達が驚くと思いますよ 🎁',
-        '共感する準備はできていますか？ 😆',
-        'どのタイプか分かりましたよ 🗺️',
-        'ドキドキしていませんか？ 💓',
-        '私もドキドキしています 🥺',
-        'ぴったりな結果になるはずです 👌',
+        { txt: '> 回答データをロード中...', delay: 600 },
+        { txt: '> 性格マトリクスを初期化........ [OK]', delay: 700 },
+        { txt: '> 回答パターンを分析中...', delay: 500 },
+        { txt: '> タイプデータベースを検索中.... [OK]', delay: 800 },
+        { txt: '> 深層性格スキャンを実行中...', delay: 600 },
+        { txt: '> クロス検証完了............... [OK]', delay: 700 },
+        { txt: '> 最終タイプを算出中...', delay: 500 },
+        { txt: '> ██████████████████ 100%', delay: 400 },
+        { txt: '> RESULT FOUND ✓', delay: 0, highlight: true },
       ],
       zh: [
-        '嗯...性格比想象中复杂 🤯',
-        '这个类型在哪里见过 🧐',
-        '确实有独特的一面呢 👀',
-        '朋友们应该也这样觉得吧 😏',
-        '啊，原来是这样！ 🙊',
-        '数据清晰到让我惊讶了 😲',
-        '说实话，第一个答案就知道了 🔮',
-        '宇宙早就知道你的类型了 🌌',
-        '等等，这有点出乎意料？ 😳',
-        '不用犹豫，就是这个 ✅',
-        '统计上来说这是相当罕见的类型 📊',
-        'AI正在三次确认 🤖',
-        '结果可能令人震惊（也可能不会）😅',
-        '周围有这种类型的人吧？ 🫠',
-        '你会想立刻分享给朋友的 📱',
-        '感觉这个类型非常适合你 🎯',
-        '我去喝杯咖啡马上回来... ☕',
-        '最后那个答案是关键 🃏',
-        '果然不出所料 😌',
-        '朋友看到会很惊讶的 🎁',
-        '准备好感同身受了吗？ 😆',
-        '我知道是哪个类型了 🗺️',
-        '现在心跳有没有加速？ 💓',
-        '说实话我也很期待 🥺',
-        '这个结果一定非常贴切 👌',
+        { txt: '> 加载答案数据...', delay: 600 },
+        { txt: '> 初始化性格矩阵.............. [OK]', delay: 700 },
+        { txt: '> 分析回答模式...', delay: 500 },
+        { txt: '> 搜索类型数据库.............. [OK]', delay: 800 },
+        { txt: '> 运行深度性格扫描...', delay: 600 },
+        { txt: '> 交叉验证完成................ [OK]', delay: 700 },
+        { txt: '> 计算最终类型...', delay: 500 },
+        { txt: '> ██████████████████ 100%', delay: 400 },
+        { txt: '> RESULT FOUND ✓', delay: 0, highlight: true },
       ],
     };
 
-    const pool = (midPool[lang] || midPool.ko).slice().sort(()=>Math.random()-.5);
-    const mid = pool.slice(0, 4); // 3개→4개로 증가
-
-    const fixed = {
-      ko: { first:'답변 열심히 읽는 중... 📖', pre:'거의 다 됐어요, 조금만요...', drum:'두구두구두구두구두구두구두구두구두구두구두구두구\n두구두구두구두구두구두구두구두구두구두구두구두구... 🥁', last:'✅ 분석 완료!' },
-      en: { first:'Reading your answers carefully... 📖', pre:'Almost there, just a little more...', drum:'Drumroll drumroll drumroll drumroll drumroll drumroll\nDrumroll drumroll drumroll drumroll drumroll drumroll... 🥁', last:'✅ Analysis complete!' },
-      ja: { first:'答えを一生懸命読んでいます... 📖', pre:'もうすぐですよ、ちょっと待って...', drum:'ドドドドドドドドドドドドドドドドドドドドドドドド\nドドドドドドドドドドドドドドドドドドドドドドドド... 🥁', last:'✅ 分析完了！' },
-      zh: { first:'正在认真阅读你的答案... 📖', pre:'快好了，再等一下...', drum:'咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚\n咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚咚... 🥁', last:'✅ 分析完成！' },
-    };
-    const f = fixed[lang] || fixed.ko;
-    const msgList = [f.first, ...mid, f.pre, f.drum, f.last];
-    const drumIdx = msgList.length - 2;
-    const totalTime = msgList.length * 1600 + 3000; // 마지막 멘트 노출 시간 확보
+    const msgList = logs[lang] || logs.ko;
+    const totalTime = msgList.reduce((s, m) => s + m.delay + 600, 0) + 1200;
 
     app.innerHTML = `
-      <div class="analyzing-screen">
-        <div class="analyzing-emoji">${emoji}</div>
-        <div class="analyzing-text" id="analyzingText"></div>
-        <div class="analyzing-bar">
-          <div class="analyzing-bar-fill" id="analyzingBar"></div>
+      <div class="terminal-screen">
+        <div class="terminal-header">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-title">testpop — personality_scan.exe</span>
         </div>
+        <div class="terminal-body" id="terminalBody"></div>
       </div>
     `;
 
-    const textEl = document.getElementById('analyzingText');
-    const barEl  = document.getElementById('analyzingBar');
-    let msgIdx = 0, charIdx = 0;
-    let fullText = msgList[0];
+    const body = document.getElementById('terminalBody');
+    let elapsed = 0;
 
-    function typeNext(){
-      const isDrum = msgIdx === drumIdx;
-      const isLast = msgIdx === msgList.length - 1;
-      const speed = isDrum ? 60 : isLast ? 90 : 55;
+    msgList.forEach((msg, i) => {
+      elapsed += (i === 0 ? 300 : msgList[i-1].delay + 600);
+      setTimeout(() => {
+        const line = document.createElement('div');
+        line.className = 'terminal-line' + (msg.highlight ? ' terminal-highlight' : '');
 
-      // 두구두구 시작 시 shake 클래스 추가
-      if(isDrum && charIdx === 0){
-        const screen = document.querySelector('.analyzing-screen');
-        if(screen) screen.classList.add('drumroll');
-      }
-
-      if(charIdx < fullText.length){
-        charIdx++;
-        textEl.innerHTML = fullText.slice(0, charIdx) + '<span class="analyzing-cursor"></span>';
-        setTimeout(typeNext, speed);
-      } else {
-        textEl.innerHTML = fullText + '<span class="analyzing-cursor"></span>';
-
-        // 두구두구 끝나면 shake 제거
-        if(isDrum){
-          const screen = document.querySelector('.analyzing-screen');
-          if(screen) screen.classList.remove('drumroll');
-        }
-
-        msgIdx++;
-        if(msgIdx < msgList.length){
-          const isLastMsg = msgIdx === msgList.length - 1;
-          const delay = isLastMsg ? 2500 : 500;
-          setTimeout(()=>{
-            textEl.style.transition = 'opacity .2s ease';
-            textEl.style.opacity = '0';
-            setTimeout(()=>{
-              fullText = msgList[msgIdx];
-              charIdx = 0;
-              textEl.innerHTML = '<span class="analyzing-cursor"></span>';
-              textEl.style.opacity = '1';
-              setTimeout(typeNext, 80);
-            }, 200);
-          }, delay);
-        }
-      }
-    }
-
-    const steps = 30;
-    let step = 0;
-    const barTimer = setInterval(()=>{
-      step++;
-      if(barEl) barEl.style.width = Math.min(step/steps*100, 100) + '%';
-      if(step >= steps) clearInterval(barTimer);
-    }, totalTime / steps);
-
-    typeNext();
-
-    setTimeout(()=>{
-      app.style.transition = 'opacity .25s ease';
-      app.style.opacity = '0';
-      setTimeout(()=>{
-        app.style.transition = '';
-        app.style.opacity = '1';
-        location.hash = 'result/'+curId+'/'+resultType;
-      }, 250);
-    }, totalTime);
+        // 타이핑 효과
+        let ci = 0;
+        const type = () => {
+          if(ci <= msg.txt.length){
+            line.innerHTML = msg.txt.slice(0, ci) + '<span class="terminal-cursor">█</span>';
+            ci++;
+            setTimeout(type, ci === 1 ? 0 : 28);
+          } else {
+            line.innerHTML = msg.txt;
+            // 마지막 줄이면 결과로 이동
+            if(i === msgList.length - 1){
+              setTimeout(() => {
+                app.style.transition = 'opacity .3s ease';
+                app.style.opacity = '0';
+                setTimeout(() => {
+                  app.style.transition = '';
+                  app.style.opacity = '1';
+                  location.hash = 'result/'+curId+'/'+resultType;
+                }, 300);
+              }, 1200);
+            }
+          }
+        };
+        body.appendChild(line);
+        body.scrollTop = body.scrollHeight;
+        type();
+      }, elapsed);
+    });
   }
 
     // ---- 결과 카드 뒤집기 ----
