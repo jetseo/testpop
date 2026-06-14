@@ -505,10 +505,10 @@
           <p class="card-maker-label">${t('card_hint')}</p>
           <input id="nick" type="text" maxlength="12" placeholder="${t('nickname_ph')}">
           <button class="btn-make" id="cardBtn">${t('make_card')}</button>
+          <canvas id="cardCanvas" width="720" height="1500" style="display:none"></canvas>
+          <button class="btn-share save" id="saveBtn" style="display:none;width:100%;margin-top:12px">${t('save_image')}</button>
         </div>
-        <canvas id="cardCanvas" width="720" height="1500" style="display:none"></canvas>
         <div class="share-row">
-          <button class="btn-share save" id="saveBtn" style="display:none">${t('save_image')}</button>
           <button class="btn-share retry" id="retryBtn">${t('retry')}</button>
           <button class="btn-share share" id="shareBtn">${t('share')}</button>
         </div>
@@ -708,12 +708,13 @@
       const preview = document.createElement('img');
       preview.id = 'cardPreview';
       preview.src = dataUrl;
-      preview.style.cssText = 'width:100%;border-radius:20px;display:block;box-shadow:0 4px 20px rgba(0,0,0,.12)';
+      preview.style.cssText = 'width:100%;border-radius:20px;display:block;box-shadow:0 4px 20px rgba(0,0,0,.12);margin-top:14px';
+      // card-maker 안의 canvas 앞에 삽입 (btnMake 아래)
       cv.parentNode.insertBefore(preview, cv);
 
-      // 카드 생성 완료 → 이미지 저장 버튼 표시
+      // 카드 생성 완료 → 이미지 저장 버튼 표시 (card-maker 안)
       const saveBtn = document.getElementById('saveBtn');
-      if(saveBtn) saveBtn.style.display = '';
+      if(saveBtn){ saveBtn.style.display = 'block'; }
 
       // 생성된 이미지 상단이 topbar 바로 아래에 딱 맞게 스크롤
       setTimeout(()=>{
