@@ -323,7 +323,7 @@
           const sec = document.getElementById('all-tests-section');
           if(sec){
             const topbar = document.querySelector('.topbar');
-            const offset = topbar ? topbar.offsetHeight + 12 : 12;
+            const offset = topbar ? topbar.offsetHeight : 0;
             const top = sec.getBoundingClientRect().top + window.scrollY - offset;
             window.scrollTo({ top, behavior:'smooth' });
           }
