@@ -76,7 +76,8 @@ body{
 
 /* ---- 뒤로가기 ---- */
 .back-link{display:none}
-.back-to-home{display:inline-block;margin-top:20px;color:var(--ink-soft);text-decoration:none;font-size:.95rem;font-weight:600}
+.back-home-wrap{text-align:center;padding:0 20px 32px}
+.back-to-home{display:inline-block;margin-top:0;color:var(--ink-soft);text-decoration:none;font-size:.95rem;font-weight:600}
 .back-to-home:hover{color:var(--ink)}
 
 /* ---- 히어로 ---- */
@@ -189,8 +190,9 @@ body{
 .btn-share.share{background:#5B8DEF}
 .btn-share.link{background:#7C8AED}
 .btn-share.save{background:#5BC4A8}
+.btn-share.retry{background:#f0a500;color:#fff}
 
-.result-actions{display:flex;gap:10px;justify-content:center}
+.result-actions{display:flex;gap:10px;justify-content:center;margin-top:4px}
 .btn-ghost{
   background:#fff;border:2px solid var(--line);color:var(--ink-soft);
   font-family:inherit;font-weight:700;font-size:.95rem;
