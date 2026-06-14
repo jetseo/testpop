@@ -816,230 +816,203 @@
     }
 
     // ============================
-    // Phase 1: 관리자 출동 멘트 풀 (30가지)
+    // Phase 1: 관리자 출동 멘트 풀 (4개 언어 × 30가지)
     // ============================
     const adminPools = {
       ko: [
-        ['🏃 관리자가 이불을 박차고 일어났습니다', '🧦 양말을 한 짝 못 찾고 있습니다', '🧦 그냥 한 짝만 신고 뛰고 있습니다'],
-        ['😴 관리자가 자다가 알림을 받았습니다', '🥱 눈을 비비며 일어나고 있습니다', '☕ 커피도 없이 출발했습니다... 비장합니다'],
-        ['🎮 관리자가 게임 중이었습니다', '😤 보스 직전에 컨트롤러를 내려놨습니다', '🏃 억울하지만 뛰고 있습니다'],
-        ['🍜 관리자가 라면을 먹고 있었습니다', '😱 면이 불기 전에 포기했습니다', '🏃 라면보다 당신이 더 중요합니다 (거짓말)'],
-        ['🛁 관리자가 샤워 중이었습니다', '💨 반쪽만 헹구고 뛰쳐나왔습니다', '🏃 머리에서 물이 뚝뚝 떨어지고 있습니다'],
-        ['📺 관리자가 드라마 정주행 중이었습니다', '😭 클리프행어 직전에 멈췄습니다', '🏃 내용이 너무 궁금해서 더 빨리 뛰고 있습니다'],
-        ['🐈 관리자가 고양이를 쓰다듬고 있었습니다', '😾 고양이가 화를 냈습니다', '🏃 고양이의 저주를 받으며 달리고 있습니다'],
-        ['💼 관리자가 이미 퇴근 후였습니다', '😒 야근수당도 없이 출발했습니다', '🏃 노조 결성을 고민하며 뛰고 있습니다'],
-        ['🍺 관리자가 치맥 중이었습니다', '🐔 치킨 한 조각을 손에 들고 뛰고 있습니다', '🏃 닭다리를 놓지 않는 프로 의식입니다'],
-        ['🧹 관리자가 대청소 중이었습니다', '🪣 걸레를 든 채로 출발했습니다', '🏃 청소는 나중에... 어차피 또 더러워집니다'],
-        ['📚 관리자가 자기계발서를 읽고 있었습니다', '📖 "성공하는 사람들의 7가지 습관" 3페이지에서 멈췄습니다', '🏃 8번째 습관은 열심히 뛰는 것입니다'],
-        ['🎵 관리자가 노래방에 있었습니다', '🎤 애창곡 "내 나이가 어때서" 중간에 마이크를 내려놨습니다', '🏃 흥얼거리며 뛰고 있습니다'],
-        ['🏋️ 관리자가 헬스장에 있었습니다', '💪 벤치프레스 중 바벨을 내려놨습니다', '🏃 워밍업은 충분히 됐습니다'],
-        ['🧖 관리자가 마사지 중이었습니다', '😌 절반만 받고 일어났습니다', '🏃 반쪽 몸만 개운한 상태로 뛰고 있습니다'],
-        ['🌙 관리자가 별을 보고 있었습니다', '🔭 목성을 발견하려던 참이었습니다', '🏃 목성은 내일 보기로 했습니다'],
-        ['🎨 관리자가 그림을 그리고 있었습니다', '🖌️ 명작 완성 직전에 붓을 내려놨습니다', '🏃 반 고흐도 이랬을 겁니다'],
-        ['🧩 관리자가 퍼즐을 맞추고 있었습니다', '🎯 마지막 한 조각 남았습니다', '🏃 그 한 조각의 위치는 영영 모를 것입니다'],
-        ['🐕 관리자가 강아지 산책 중이었습니다', '🐾 강아지를 이웃집에 맡겼습니다', '🏃 강아지가 배신자를 외치고 있습니다'],
-        ['📱 관리자가 유튜브 쇼츠 보는 중이었습니다', '📵 알고리즘의 늪에서 겨우 빠져나왔습니다', '🏃 손가락은 아직도 스크롤 중입니다'],
-        ['🍕 관리자가 피자를 시켜놨습니다', '🛵 배달이 5분 후 도착 예정이었습니다', '🏃 배달 수령 실패를 각오하고 뛰고 있습니다'],
-        ['🎯 관리자가 다트를 연습 중이었습니다', '🎳 불스아이 직전이었습니다', '🏃 아쉬움을 동력으로 뛰고 있습니다'],
-        ['🧸 관리자가 인형 수집 중이었습니다', '🪆 한정판 마트료시카를 개봉하려던 참이었습니다', '🏃 마트료시카는 집을 지키고 있습니다'],
-        ['🌿 관리자가 화분에 물을 주고 있었습니다', '🥀 선인장도 물이 필요한 순간이었습니다', '🏃 선인장아 잘 버텨라... 너는 할 수 있어'],
-        ['✈️ 관리자가 해외여행 중이었습니다', '🚨 비행기 탑승구 앞에서 돌아섰습니다', '🏃 환불 불가 티켓을 포기하고 뛰고 있습니다'],
-        ['🎮 관리자가 롤 랭크 게임 중이었습니다', '😤 탑 라이너가 트롤링 중이었습니다', '🏃 어차피 지던 게임이었습니다 (자기위안)'],
-        ['📝 관리자가 일기를 쓰고 있었습니다', '🖊️ "오늘은 조용한 하루였다"까지 쓰다 멈췄습니다', '🏃 조용하지 않은 하루가 되었습니다'],
-        ['🧊 관리자가 냉동실을 정리 중이었습니다', '🫐 3년 묵은 냉동 블루베리를 발견한 순간이었습니다', '🏃 블루베리의 정체는 영원히 미스터리입니다'],
-        ['🪥 관리자가 양치 중이었습니다', '🦷 2분 중 47초만 완료했습니다', '🏃 치과 선생님께는 비밀입니다'],
-        ['🌅 관리자가 일출을 보고 있었습니다', '📸 인생샷 직전이었습니다', '🏃 일출은 내일도 뜹니다... 아마도'],
-        ['💤 관리자가 회의 중에 졸고 있었습니다', '😳 꿈에서도 일하다가 깼습니다', '🏃 이게 꿈인지 현실인지 모르며 뛰고 있습니다'],
+        ['🏃 관리자가 이불을 박차고 일어났습니다','🧦 양말을 한 짝 못 찾고 있습니다','🧦 그냥 한 짝만 신고 뛰고 있습니다'],
+        ['😴 관리자가 자다가 알림을 받았습니다','🥱 눈을 비비며 일어나고 있습니다','☕ 커피도 없이 출발했습니다... 비장합니다'],
+        ['🎮 관리자가 게임 중이었습니다','😤 보스 직전에 컨트롤러를 내려놨습니다','🏃 억울하지만 뛰고 있습니다'],
+        ['🍜 관리자가 라면을 먹고 있었습니다','😱 면이 불기 전에 포기했습니다','🏃 라면보다 당신이 더 중요합니다 (거짓말)'],
+        ['🛁 관리자가 샤워 중이었습니다','💨 반쪽만 헹구고 뛰쳐나왔습니다','🏃 머리에서 물이 뚝뚝 떨어지고 있습니다'],
+        ['📺 관리자가 드라마 정주행 중이었습니다','😭 클리프행어 직전에 멈췄습니다','🏃 내용이 너무 궁금해서 더 빨리 뛰고 있습니다'],
+        ['🐈 관리자가 고양이를 쓰다듬고 있었습니다','😾 고양이가 화를 냈습니다','🏃 고양이의 저주를 받으며 달리고 있습니다'],
+        ['💼 관리자가 이미 퇴근 후였습니다','😒 야근수당도 없이 출발했습니다','🏃 노조 결성을 고민하며 뛰고 있습니다'],
+        ['🍺 관리자가 치맥 중이었습니다','🐔 치킨 한 조각을 손에 들고 뛰고 있습니다','🏃 닭다리를 놓지 않는 프로 의식입니다'],
+        ['🧹 관리자가 대청소 중이었습니다','🪣 걸레를 든 채로 출발했습니다','🏃 청소는 나중에... 어차피 또 더러워집니다'],
+        ['📚 관리자가 자기계발서를 읽고 있었습니다','📖 "성공하는 사람들의 7가지 습관" 3페이지에서 멈췄습니다','🏃 8번째 습관은 열심히 뛰는 것입니다'],
+        ['🎵 관리자가 노래방에 있었습니다','🎤 애창곡 중간에 마이크를 내려놨습니다','🏃 흥얼거리며 뛰고 있습니다'],
+        ['🏋️ 관리자가 헬스장에 있었습니다','💪 벤치프레스 중 바벨을 내려놨습니다','🏃 워밍업은 충분히 됐습니다'],
+        ['🧖 관리자가 마사지 중이었습니다','😌 절반만 받고 일어났습니다','🏃 반쪽 몸만 개운한 상태로 뛰고 있습니다'],
+        ['🌙 관리자가 별을 보고 있었습니다','🔭 목성을 발견하려던 참이었습니다','🏃 목성은 내일 보기로 했습니다'],
+        ['🎨 관리자가 그림을 그리고 있었습니다','🖌️ 명작 완성 직전에 붓을 내려놨습니다','🏃 반 고흐도 이랬을 겁니다'],
+        ['🧩 관리자가 퍼즐을 맞추고 있었습니다','🎯 마지막 한 조각 남았습니다','🏃 그 한 조각의 위치는 영영 모를 것입니다'],
+        ['🐕 관리자가 강아지 산책 중이었습니다','🐾 강아지를 이웃집에 맡겼습니다','🏃 강아지가 배신자를 외치고 있습니다'],
+        ['📱 관리자가 유튜브 쇼츠 보는 중이었습니다','📵 알고리즘의 늪에서 겨우 빠져나왔습니다','🏃 손가락은 아직도 스크롤 중입니다'],
+        ['🍕 관리자가 피자를 시켜놨습니다','🛵 배달이 5분 후 도착 예정이었습니다','🏃 배달 수령 실패를 각오하고 뛰고 있습니다'],
+        ['🎯 관리자가 다트를 연습 중이었습니다','💥 불스아이 직전이었습니다','🏃 아쉬움을 동력으로 뛰고 있습니다'],
+        ['🧸 관리자가 한정판 피규어를 개봉하려던 참이었습니다','📦 뜯다 만 박스를 두고 왔습니다','🏃 피규어는 집을 지키고 있습니다'],
+        ['🌿 관리자가 화분에 물을 주고 있었습니다','🥀 선인장도 물이 필요한 순간이었습니다','🏃 선인장아 잘 버텨라... 너는 할 수 있어'],
+        ['✈️ 관리자가 해외여행 중이었습니다','🚨 비행기 탑승구 앞에서 돌아섰습니다','🏃 환불 불가 티켓을 포기하고 뛰고 있습니다'],
+        ['🎮 관리자가 롤 랭크 게임 중이었습니다','😤 탑 라이너가 트롤링 중이었습니다','🏃 어차피 지던 게임이었습니다 (자기위안)'],
+        ['📝 관리자가 일기를 쓰고 있었습니다','🖊️ "오늘은 조용한 하루였다"까지 쓰다 멈췄습니다','🏃 조용하지 않은 하루가 되었습니다'],
+        ['🧊 관리자가 냉동실을 정리 중이었습니다','🫐 3년 묵은 냉동 블루베리를 발견한 순간이었습니다','🏃 블루베리의 정체는 영원히 미스터리입니다'],
+        ['🪥 관리자가 양치 중이었습니다','🦷 2분 중 47초만 완료했습니다','🏃 치과 선생님께는 비밀입니다'],
+        ['🌅 관리자가 인생샷을 찍으려던 참이었습니다','📸 셔터를 누르려던 순간이었습니다','🏃 일출은 내일도 뜹니다... 아마도'],
+        ['💤 관리자가 회의 중에 졸고 있었습니다','😳 꿈에서도 일하다가 깼습니다','🏃 이게 꿈인지 현실인지 모르며 뛰고 있습니다'],
       ],
       en: [
-        ["🏃 The admin threw off their blanket", "🧦 Can't find one sock", "🏃 Running with mismatched socks. Commitment."],
-        ["😴 The admin got an alert mid-sleep", "🥱 Rubbing eyes, barely conscious", "🏃 No coffee. Just pure dedication (and panic)"],
-        ["🎮 The admin was mid-game", "😤 Put down the controller right before the boss", "🏃 Running with deep regret"],
-        ["🍜 The admin was eating instant noodles", "😱 Sacrificed the noodles before they got soggy", "🏃 You better be worth it"],
-        ["🛁 The admin was in the shower", "💨 Left half-rinsed", "🏃 Dripping all the way to the office"],
-        ["📺 The admin was binge-watching", "😭 Paused on a cliffhanger", "🏃 Running faster out of frustration"],
-        ["🐈 The admin was petting their cat", "😾 The cat did not approve of this interruption", "🏃 Running under a cat's curse"],
-        ["💼 The admin had already clocked out", "😒 No overtime pay. Still came.", "🏃 Reconsidering life choices while running"],
-        ["🍺 The admin was having fried chicken and beer", "🐔 Still holding the drumstick", "🏃 Professional dedication: never drops the chicken"],
-        ["🧹 The admin was deep-cleaning", "🪣 Left mid-mop", "🏃 At least the floor is half-clean"],
-        ["📚 The admin was reading self-help books", "📖 Stopped at page 3 of \"7 Habits...\"", "🏃 Habit #8: Drop everything and run"],
-        ["🎵 The admin was at karaoke", "🎤 Dropped the mic mid-chorus", "🏃 Humming to maintain rhythm while running"],
-        ["🏋️ The admin was at the gym", "💪 Dropped the barbell mid-rep", "🏃 Fully warmed up and ready to go"],
-        ["🧖 The admin was getting a massage", "😌 Left after only half the session", "🏃 One side is relaxed. The other is tense."],
-        ["🌙 The admin was stargazing", "🔭 Was this close to finding Jupiter", "🏃 Jupiter will still be there tomorrow"],
+        ['🏃 The admin kicked off the blanket','🧦 Cannot find one sock','🏃 Running with one sock on. True dedication.'],
+        ['😴 The admin was fast asleep when the alert came','🥱 Barely conscious, eyes half-open','☕ Left without coffee. This is serious.'],
+        ['🎮 The admin was mid-game','😤 Put down the controller right before the boss','🏃 Running with enormous regret'],
+        ['🍜 The admin was eating instant noodles','😱 Abandoned them before they got soggy','🏃 You better be worth it'],
+        ['🛁 The admin was in the shower','💨 Left half-rinsed','🏃 Dripping all the way here'],
+        ['📺 The admin was binge-watching','😭 Paused on a cliffhanger','🏃 Running faster out of sheer frustration'],
+        ['🐈 The admin was petting their cat','😾 The cat strongly disapproved','🏃 Running under an ancient cat curse'],
+        ['💼 The admin had already clocked out','😒 No overtime pay. Came anyway.','🏃 Reconsidering career choices while running'],
+        ['🍺 The admin was having fried chicken and beer','🐔 Still holding the drumstick while running','🏃 Never dropping the chicken. Professional.'],
+        ['🧹 The admin was deep-cleaning','🪣 Left holding a mop','🏃 At least half the floor is clean now'],
+        ['📚 The admin was reading a self-help book','📖 Stopped at page 3 of "7 Habits..."','🏃 Habit #8: Drop everything and run'],
+        ['🎵 The admin was at karaoke','🎤 Dropped the mic mid-song','🏃 Still humming to keep the rhythm'],
+        ['🏋️ The admin was at the gym','💪 Dropped the barbell mid-rep','🏃 Fully warmed up at least'],
+        ['🧖 The admin was mid-massage','😌 Left after only one side was done','🏃 Asymmetrically relaxed'],
+        ['🌙 The admin was stargazing','🔭 Was about to spot Jupiter','🏃 Jupiter will still be there tomorrow'],
+        ['🎨 The admin was painting a masterpiece','🖌️ Put down the brush at the critical moment','🏃 Van Gogh would understand'],
+        ['🧩 The admin was doing a puzzle','🎯 Only one piece left','🏃 The location of that piece is now a mystery forever'],
+        ['🐕 The admin was walking their dog','🐾 Left the dog with the neighbor','🏃 The dog is barking "traitor"'],
+        ['📱 The admin was stuck in YouTube Shorts','📵 Barely escaped the algorithm','🏃 Fingers still reflexively scrolling'],
+        ['🍕 The admin had just ordered pizza','🛵 Delivery was 5 minutes away','🏃 Running knowing the pizza will be gone'],
+        ['🎯 The admin was practicing darts','💥 Was about to hit the bullseye','🏃 Fueled by pure disappointment'],
+        ['🧸 The admin was unboxing a limited edition figure','📦 Left it half-opened','🏃 The figure is guarding the house now'],
+        ['🌿 The admin was watering a cactus','🥀 The cactus finally needed water','🏃 Hang in there, little cactus'],
+        ['✈️ The admin was at the airport departures gate','🚨 Turned back at the last second','🏃 Non-refundable ticket. Sacrificed.'],
+        ['🎮 The admin was in a ranked match','😤 The top laner was trolling','🏃 It was a losing game anyway (self-comfort)'],
+        ['📝 The admin was writing in their diary','🖊️ Got to "Today was a quiet day..." and stopped','🏃 It was not a quiet day.'],
+        ['🧊 The admin was cleaning the freezer','🫐 Discovered 3-year-old frozen blueberries','🏃 Their identity remains a mystery'],
+        ['🪥 The admin was brushing their teeth','🦷 Only 47 of the required 120 seconds completed','🏃 The dentist must never know'],
+        ['🌅 The admin was about to take the perfect photo','📸 Finger on the shutter. One second away.','🏃 Sunrises happen every day. Probably.'],
+        ['💤 The admin was dozing off in a meeting','😳 Was working even in the dream','🏃 Not sure if this is a dream or reality'],
       ],
       ja: [
-        ['🏃 管理者が布団を蹴飛ばして起きました', '🧦 靴下が片方見つかりません', '🏃 片方だけ履いて走っています'],
-        ['😴 管理者が寝ている最中に通知が来ました', '🥱 目をこすりながら起き上がっています', '☕ コーヒーなしで出発しました…覚悟の表れです'],
-        ['🎮 管理者がゲーム中でした', '😤 ボスの直前でコントローラーを置きました', '🏃 悔しいですが走っています'],
-        ['🍜 管理者がラーメンを食べていました', '😱 麺が伸びる前に諦めました', '🏃 ラーメンよりあなたが大事です（嘘）'],
-        ['🛁 管理者がシャワー中でした', '💨 半分だけ流して飛び出しました', '🏃 髪から水がぽたぽた落ちています'],
-        ['📺 管理者がドラマを一気見中でした', '😭 クライマックス直前で止めました', '🏃 気になりすぎてより速く走っています'],
-        ['🐈 管理者が猫を撫でていました', '😾 猫が怒りました', '🏃 猫の呪いを受けながら走っています'],
-        ['💼 管理者はすでに退勤後でした', '😒 残業代もなく出発しました', '🏃 労働組合の結成を考えながら走っています'],
+        ['🏃 管理者が布団を蹴飛ばして起きました','🧦 靴下が片方見つかりません','🏃 片方だけ履いて走っています'],
+        ['😴 管理者が寝ている最中に通知が来ました','🥱 目をこすりながら起き上がっています','☕ コーヒーなしで出発しました…覚悟の表れです'],
+        ['🎮 管理者がゲーム中でした','😤 ボスの直前でコントローラーを置きました','🏃 悔しいですが走っています'],
+        ['🍜 管理者がラーメンを食べていました','😱 麺が伸びる前に諦めました','🏃 ラーメンよりあなたが大事です（嘘）'],
+        ['🛁 管理者がシャワー中でした','💨 半分だけ流して飛び出しました','🏃 髪から水がぽたぽた落ちています'],
+        ['📺 管理者がドラマを一気見中でした','😭 クライマックス直前で止めました','🏃 気になりすぎてより速く走っています'],
+        ['🐈 管理者が猫を撫でていました','😾 猫が怒りました','🏃 猫の呪いを受けながら走っています'],
+        ['💼 管理者はすでに退勤後でした','😒 残業代もなく出発しました','🏃 労働組合の結成を考えながら走っています'],
+        ['🍺 管理者がチキンとビールを楽しんでいました','🐔 手羽先を持ったまま走っています','🏃 チキンを離さないプロ意識です'],
+        ['🧹 管理者が大掃除中でした','🪣 モップを持ったまま出発しました','🏃 どうせまた汚れます'],
+        ['📚 管理者が自己啓発書を読んでいました','📖 「7つの習慣」3ページで止まりました','🏃 8つ目の習慣は全力で走ることです'],
+        ['🎵 管理者がカラオケにいました','🎤 サビの途中でマイクを置きました','🏃 鼻歌を歌いながら走っています'],
+        ['🏋️ 管理者がジムにいました','💪 ベンチプレス中にバーベルを下ろしました','🏃 ウォームアップは十分です'],
+        ['🧖 管理者がマッサージ中でした','😌 半分だけ受けて立ち上がりました','🏃 片側だけスッキリした状態で走っています'],
+        ['🌙 管理者が星を見ていました','🔭 木星を発見しようとしていた矢先でした','🏃 木星は明日も見られます'],
+        ['🎨 管理者が絵を描いていました','🖌️ 名作完成直前に筆を置きました','🏃 ゴッホもこんな気持ちだったでしょう'],
+        ['🧩 管理者がパズルをやっていました','🎯 最後の1ピースが残っていました','🏃 そのピースの場所は永遠に謎です'],
+        ['🐕 管理者が犬の散歩中でした','🐾 犬をご近所に預けました','🏃 犬が「裏切り者」と吠えています'],
+        ['📱 管理者がYouTubeショートを見ていました','📵 アルゴリズムの沼からやっと抜け出しました','🏃 指はまだスクロールしようとしています'],
+        ['🍕 管理者がピザを注文したばかりでした','🛵 配達まであと5分でした','🏃 ピザとの悲しい別れを覚悟して走っています'],
+        ['🎯 管理者がダーツを練習中でした','💥 ブルズアイ直前でした','🏃 悔しさをエネルギーに変えて走っています'],
+        ['🧸 管理者が限定フィギュアを開封しようとしていました','📦 半開きのまま置いてきました','🏃 フィギュアが家を守っています'],
+        ['🌿 管理者がサボテンに水をあげようとしていました','🥀 サボテンがついに水を必要とした瞬間でした','🏃 頑張れサボテン…あなたならできる'],
+        ['✈️ 管理者が海外旅行中でした','🚨 搭乗口の前で引き返しました','🏃 払い戻し不可のチケットを犠牲にして走っています'],
+        ['🎮 管理者がランクマッチ中でした','😤 トップレーナーがトロールしていました','🏃 どうせ負けてたゲームです（自己暗示）'],
+        ['📝 管理者が日記を書いていました','🖊️ 「今日は穏やかな一日だった」まで書いて止まりました','🏃 穏やかではない一日になりました'],
+        ['🧊 管理者が冷凍庫を整理中でした','🫐 3年前の冷凍ブルーベリーを発見した瞬間でした','🏃 ブルーベリーの正体は永遠に謎です'],
+        ['🪥 管理者が歯磨き中でした','🦷 2分のうち47秒しか完了していません','🏃 歯医者さんには内緒です'],
+        ['🌅 管理者がインスタ映え写真を撮ろうとしていました','📸 シャッターを押す寸前でした','🏃 日の出は明日も見られます… たぶん'],
+        ['💤 管理者が会議中に居眠りしていました','😳 夢の中でも仕事していて起きました','🏃 夢か現実かわからないまま走っています'],
       ],
       zh: [
-        ['🏃 管理员从被窝里跳了出来', '🧦 找不到另一只袜子', '🏃 穿着单只袜子在跑'],
-        ['😴 管理员睡着的时候收到了通知', '🥱 揉着眼睛爬起来了', '☕ 没喝咖啡就出发了……这就是敬业精神'],
-        ['🎮 管理员正在打游戏', '😤 在打boss之前放下了手柄', '🏃 虽然很遗憾但还是跑了'],
-        ['🍜 管理员正在吃泡面', '😱 面条泡发前放弃了', '🏃 您比泡面更重要（谎话）'],
-        ['🛁 管理员正在洗澡', '💨 只冲了一半就跑出来了', '🏃 头发还在滴水'],
-        ['📺 管理员正在追剧', '😭 在高潮部分暂停了', '🏃 越着急越跑得快'],
-        ['🐈 管理员正在撸猫', '😾 猫生气了', '🏃 顶着猫咪的诅咒在跑'],
-        ['💼 管理员已经下班了', '😒 没有加班费还是来了', '🏃 边跑边考虑要不要成立工会'],
+        ['🏃 管理员从被窝里跳了出来','🧦 找不到另一只袜子','🏃 穿着单只袜子在跑'],
+        ['😴 管理员睡着的时候收到了通知','🥱 揉着眼睛爬起来了','☕ 没喝咖啡就出发了……这就是敬业精神'],
+        ['🎮 管理员正在打游戏','😤 在打boss之前放下了手柄','🏃 虽然很遗憾但还是跑了'],
+        ['🍜 管理员正在吃泡面','😱 面条泡发前放弃了','🏃 您比泡面更重要（谎话）'],
+        ['🛁 管理员正在洗澡','💨 只冲了一半就跑出来了','🏃 头发还在滴水'],
+        ['📺 管理员正在追剧','😭 在高潮部分暂停了','🏃 越着急越跑得快'],
+        ['🐈 管理员正在撸猫','😾 猫生气了','🏃 顶着猫咪的诅咒在跑'],
+        ['💼 管理员已经下班了','😒 没有加班费还是来了','🏃 边跑边考虑要不要成立工会'],
+        ['🍺 管理员正在吃炸鸡喝啤酒','🐔 手里还拿着鸡腿在跑','🏃 永不放弃鸡腿的职业精神'],
+        ['🧹 管理员正在大扫除','🪣 拿着拖把就出发了','🏃 反正还会再脏的'],
+        ['📚 管理员正在读励志书','📖 在第3页停了下来','🏃 第8个习惯就是拼命跑'],
+        ['🎵 管理员在KTV','🎤 高潮部分放下了麦克风','🏃 哼着歌在跑'],
+        ['🏋️ 管理员在健身房','💪 卧推到一半放下了杠铃','🏃 热身已经够充分了'],
+        ['🧖 管理员正在做按摩','😌 只做了一半就站了起来','🏃 一半身体很放松，另一半很紧张'],
+        ['🌙 管理员正在看星星','🔭 刚要发现木星','🏃 木星明天还在'],
+        ['🎨 管理员正在画画','🖌️ 杰作完成前放下了画笔','🏃 梵高也会理解的'],
+        ['🧩 管理员正在拼拼图','🎯 只剩最后一块了','🏃 那块拼图的位置将永远是个谜'],
+        ['🐕 管理员正在遛狗','🐾 把狗托付给邻居了','🏃 狗狗在喊"叛徒"'],
+        ['📱 管理员正在刷短视频','📵 好不容易从算法的深渊里爬出来了','🏃 手指还想继续滑'],
+        ['🍕 管理员刚点了外卖披萨','🛵 配送还有5分钟到达','🏃 做好了吃不到披萨的心理准备'],
+        ['🎯 管理员正在练习飞镖','💥 刚要射中靶心','🏃 用遗憾作为动力在跑'],
+        ['🧸 管理员正要开封限定手办','📦 开了一半就放在那里了','🏃 手办在守护家园'],
+        ['🌿 管理员正要给仙人掌浇水','🥀 仙人掌终于需要水的那一刻','🏃 仙人掌加油……你可以的'],
+        ['✈️ 管理员正在海外旅行','🚨 在登机口前折返了','🏃 放弃了不可退款的机票在跑'],
+        ['🎮 管理员正在打排位赛','😤 上单在送人头','🏃 反正也是输的游戏（自我安慰）'],
+        ['📝 管理员正在写日记','🖊️ 写到"今天是平静的一天"就停了','🏃 结果不是平静的一天'],
+        ['🧊 管理员正在整理冰箱','🫐 发现了3年前的冷冻蓝莓','🏃 蓝莓的真实身份永远是个谜'],
+        ['🪥 管理员正在刷牙','🦷 2分钟只完成了47秒','🏃 这件事牙医不能知道'],
+        ['🌅 管理员正要拍人生照片','📸 手指刚要按下快门','🏃 日出明天还会有……大概'],
+        ['💤 管理员在开会时打瞌睡','😳 连梦里都在工作','🏃 不知道这是梦还是现实'],
       ],
     };
 
     // ============================
-    // Phase 2: 랜덤 부팅 화면 풀
+    // Phase 2: 랜덤 부팅 화면 풀 (6종)
     // ============================
     const bootScreens = [
-      // 286
-      {
-        name: 'IBM PC/AT 286',
-        lines: [
-          'IBM PC/AT BIOS v1.04  (C) 1984 IBM Corp.',
-          'CPU: Intel 80286 @ 8MHz',
-          'Memory Test: 1024K OK......',
-          'Fixed Disk 0: 20MB Seagate ST-225',
-          'Loading PC-DOS 3.3...',
-          '',
-          'C>',
-        ]
-      },
-      // 386
-      {
-        name: 'MS-DOS 386',
-        lines: [
-          'AMI BIOS v1.01.12  (C) 1990 American Megatrends',
-          'CPU: Intel 80386DX @ 33MHz',
-          'Memory Test: 4096K OK',
-          'IDE HDD: 80MB WD Caviar',
-          'VGA: 640x480 16 colors',
-          'Loading MS-DOS 5.0...',
-          '',
-          'C:\>',
-        ]
-      },
-      // 486
-      {
-        name: 'Windows 3.1 / 486',
-        lines: [
-          'Award BIOS v4.51PG  (C) 1993 Award Software',
-          'CPU: Intel 486DX2 @ 66MHz',
-          'Memory Test: 8MB OK',
-          'Detecting HDD... Primary Master: 210MB',
-          'CD-ROM: Creative CD-ROM x2',
-          'Sound Blaster 16 detected',
-          'Starting MS-DOS...',
-          '',
-          'C:\WIN>',
-        ]
-      },
-      // 586 (Pentium)
-      {
-        name: 'Pentium 586',
-        lines: [
-          'AWARD BIOS v4.51PG  PnP/PCI/ISA  (C) 1995',
-          'CPU: Intel Pentium @ 133MHz',
-          'Memory Test: 32MB OK',
-          'Detecting IDE... HDD: 1.2GB  CD-ROM: 24x',
-          'PnP Init: Detecting PnP devices...OK',
-          'ESS AudioDrive ES688 detected',
-          'Starting Windows 95...',
-          '',
-          'C:\>',
-        ]
-      },
-      // Linux
-      {
-        name: 'Linux',
-        lines: [
-          'GRUB Loading stage1.5...',
-          'GRUB Loading, please wait...',
-          'Linux kernel 2.6.32 (C) Linus Torvalds',
-          '[    0.000000] Initializing cgroup subsys cpuset',
-          '[    0.000000] Linux version 2.6.32 (gcc 4.4.7)',
-          '[    0.523441] ACPI: IRQ0 used by override.',
-          '[    1.204331] EXT4-fs: mounted filesystem',
-          '[    2.001234] eth0: link up 100Mbps',
-          '[    2.345678] System boot complete.',
-          '',
-          'debian login: root',
-          'Password: ********',
-          "Last login: Never (첫 로그인입니다)",
-          'root@debian:~#',
-        ]
-      },
-      // 라즈베리파이
-      {
-        name: 'Raspberry Pi',
-        lines: [
-          'Raspberry Pi 3 Model B (C) 2018 Raspberry Pi Foundation',
-          '[  0.000000] Booting Linux on physical CPU 0x0',
-          '[  0.000000] Linux version 5.10.17-v7+ (armv7l)',
-          '[  1.234567] mmc0: new high speed SDHC card',
-          '[  1.456789] EXT4-fs: mounted / on mmcblk0p2',
-          '[  2.001234] Bluetooth: HCI UART driver initialized',
-          '[  2.345678] wifi0: IEEE 802.11bgn ready',
-          '',
-          'Raspbian GNU/Linux 10 raspberrypi tty1',
-          'raspberrypi login: pi',
-          'Password: ********',
-          'pi@raspberrypi:~ $',
-        ]
-      },
+      { name:'IBM PC/AT 286', prompt:'C>',
+        lines:['IBM PC/AT BIOS v1.04  (C) 1984 IBM Corp.','CPU: Intel 80286 @ 8MHz','Memory Test: 1024K OK......','Fixed Disk 0: 20MB Seagate ST-225','Loading PC-DOS 3.3...','','C>'] },
+      { name:'MS-DOS 5.0 / 386', prompt:'C:\\>',
+        lines:['AMI BIOS v1.01.12  (C) 1990 American Megatrends','CPU: Intel 80386DX @ 33MHz','Memory Test: 4096K OK','IDE HDD: 80MB WD Caviar','VGA: 640x480 16 colors','Loading MS-DOS 5.0...','','C:\\>'] },
+      { name:'Windows 3.1 / 486', prompt:'C:\\WIN>',
+        lines:['Award BIOS v4.51PG  (C) 1993 Award Software','CPU: Intel 486DX2 @ 66MHz','Memory Test: 8MB OK','Detecting HDD... Primary Master: 210MB','CD-ROM: Creative CD-ROM x2','Sound Blaster 16 detected','Starting MS-DOS...','','C:\\WIN>'] },
+      { name:'Pentium 133MHz', prompt:'C:\\>',
+        lines:['AWARD BIOS v4.51PG  PnP/PCI/ISA  (C) 1995','CPU: Intel Pentium @ 133MHz','Memory Test: 32MB OK','Detecting IDE... HDD: 1.2GB  CD-ROM: 24x','PnP Init: Detecting PnP devices...OK','ESS AudioDrive ES688 detected','Starting Windows 95...','','C:\\>'] },
+      { name:'Linux 2.6 / debian', prompt:'root@debian:~#',
+        lines:['GRUB Loading stage1.5...','Linux kernel 2.6.32 (C) Linus Torvalds','[    0.000000] Initializing cgroup subsys cpuset','[    0.523441] ACPI: IRQ0 used by override.','[    1.204331] EXT4-fs: mounted filesystem','[    2.001234] eth0: link up 100Mbps','[    2.345678] System boot complete.','','debian login: root','Password: ********','Last login: Never','root@debian:~#'] },
+      { name:'Raspberry Pi OS', prompt:'pi@raspberrypi:~ $',
+        lines:['Raspberry Pi 3 Model B  (C) 2018 RPi Foundation','[  0.000000] Booting Linux on physical CPU 0x0','[  1.234567] mmc0: new high speed SDHC card','[  1.456789] EXT4-fs: mounted / on mmcblk0p2','[  2.001234] Bluetooth: HCI UART driver initialized','[  2.345678] wifi0: IEEE 802.11bgn ready','','Raspbian GNU/Linux 10','raspberrypi login: pi','Password: ********','pi@raspberrypi:~ $'] },
     ];
 
     // ============================
-    // Phase 3: 분석 로그
+    // Phase 3: 분석 로그 (4개 언어)
     // ============================
     const analyzeLogs = {
-      ko: [
-        '> personality_scan.exe /deep /full',
-        '> 답변 데이터 파싱 중...',
-        '> 성격 패턴 매칭...',
-        '> 경고: 결과가 너무 정확할 수 있음 ⚠️',
-        '> 유형 데이터베이스 검색...',
-        '> 교차 검증 완료',
-        '> 결과 산출 중...',
-      ],
-      en: [
-        '> personality_scan.exe /deep /full',
-        '> Parsing answer data...',
-        '> Matching personality patterns...',
-        '> Warning: result may be uncomfortably accurate ⚠️',
-        '> Searching type database...',
-        '> Cross-validation complete',
-        '> Calculating result...',
-      ],
-      ja: [
-        '> personality_scan.exe /deep /full',
-        '> 回答データを解析中...',
-        '> 性格パターンをマッチング中...',
-        '> 警告: 結果が正確すぎる可能性あり ⚠️',
-        '> タイプデータベースを検索中...',
-        '> クロス検証完了',
-        '> 結果を算出中...',
-      ],
-      zh: [
-        '> personality_scan.exe /deep /full',
-        '> 解析答案数据...',
-        '> 匹配性格模式...',
-        '> 警告：结果可能过于准确 ⚠️',
-        '> 搜索类型数据库...',
-        '> 交叉验证完成',
-        '> 计算结果中...',
-      ],
+      ko:['> personality_scan.exe /deep /full /lang:ko','> 답변 데이터 파싱 중...','> 성격 패턴 매칭...','> 경고: 결과가 너무 정확할 수 있음 ⚠️','> 유형 데이터베이스 검색...','> 교차 검증 완료','> 결과 산출 중...'],
+      en:['> personality_scan.exe /deep /full /lang:en','> Parsing answer data...','> Matching personality patterns...','> Warning: result may be uncomfortably accurate ⚠️','> Searching type database...','> Cross-validation complete','> Calculating result...'],
+      ja:['> personality_scan.exe /deep /full /lang:ja','> 回答データを解析中...','> 性格パターンをマッチング中...','> 警告: 結果が正確すぎる可能性あり ⚠️','> タイプデータベースを検索中...','> クロス検証完了','> 結果を算出中...'],
+      zh:['> personality_scan.exe /deep /full /lang:zh','> 解析答案数据...','> 匹配性格模式...','> 警告：结果可能过于准确 ⚠️','> 搜索类型数据库...','> 交叉验证完成','> 计算结果中...'],
+    };
+
+    const progressLabels = {
+      ko:['성격 스캔     ','유형 매칭     ','결과 생성     '],
+      en:['Scanning     ','Matching     ','Building     '],
+      ja:['スキャン      ','マッチング    ','生成          '],
+      zh:['扫描          ','匹配          ','生成          '],
+    };
+
+    const resultMsgs = {
+      ko:'✓ RESULT FOUND — 결과를 불러옵니다!',
+      en:'✓ RESULT FOUND — Loading your result!',
+      ja:'✓ RESULT FOUND — 結果を表示します!',
+      zh:'✓ RESULT FOUND — 正在加载结果!',
+    };
+
+    const phase1Prefix = {
+      ko:'📟 분석 요청이 접수되었습니다...',
+      en:'📟 Analysis request received...',
+      ja:'📟 分析リクエストを受信しました...',
+      zh:'📟 已收到分析请求...',
+    };
+
+    const phase1Suffix = {
+      ko:'🖥️  컴퓨터실 도착. PC를 켭니다...',
+      en:'🖥️  Arrived at PC room. Booting up...',
+      ja:'🖥️  コンピュータ室に到着。PCを起動します...',
+      zh:'🖥️  到达机房，正在开机...',
     };
 
     // 랜덤 선택
-    const adminMsgs = adminPools[lang] || adminPools.ko;
-    const adminScript = adminMsgs[Math.floor(Math.random() * adminMsgs.length)];
+    const adminPool = adminPools[lang] || adminPools.ko;
+    const adminScript = adminPool[Math.floor(Math.random() * adminPool.length)];
     const boot = bootScreens[Math.floor(Math.random() * bootScreens.length)];
-    const analyzeLog = analyzeLogs[lang] || analyzeLogs.ko;
+    const logLines = analyzeLogs[lang] || analyzeLogs.ko;
+    const pLabels = progressLabels[lang] || progressLabels.ko;
 
-    // 터미널 HTML 렌더링
+    // 터미널 렌더링
     app.innerHTML = `
       <div class="terminal-screen">
         <div class="terminal-header">
@@ -1051,160 +1024,122 @@
         <div class="terminal-body" id="terminalBody"></div>
       </div>
     `;
+    const tbody = document.getElementById('terminalBody');
 
-    const body = document.getElementById('terminalBody');
-
-    // 줄 추가 헬퍼
-    function addLine(txt, cls, cb){
-      const line = document.createElement('div');
-      line.className = 'terminal-line' + (cls ? ' '+cls : '');
-      body.appendChild(line);
-      body.scrollTop = body.scrollHeight;
-      if(!txt){ if(cb) cb(); return; }
-      let ci = 0;
-      const speed = txt.startsWith('[') ? 8 : 22; // 리눅스 로그는 빠르게
-      const type = ()=>{
-        if(ci <= txt.length){
-          line.innerHTML = txt.slice(0,ci) + '<span class="terminal-cursor">█</span>';
-          ci++;
-          setTimeout(type, speed);
-        } else {
-          line.innerHTML = txt;
-          if(cb) cb();
-        }
-      };
-      type();
+    // 줄 추가 (타이핑 효과)
+    function addLine(txt, cls){
+      return new Promise(r=>{
+        const line = document.createElement('div');
+        line.className = 'terminal-line' + (cls ? ' '+cls : '');
+        tbody.appendChild(line);
+        tbody.scrollTop = tbody.scrollHeight;
+        if(!txt){ r(); return; }
+        let ci = 0;
+        const spd = txt.startsWith('[') ? 10 : 24;
+        const type = ()=>{
+          if(ci <= txt.length){
+            line.innerHTML = txt.slice(0,ci) + '<span class="terminal-cursor">█</span>';
+            ci++; setTimeout(type, spd);
+          } else { line.innerHTML = txt; r(); }
+        };
+        type();
+      });
     }
-
-    // 커서 깜빡임
-    function blinkCursor(el, times, interval, cb){
-      let n = 0;
-      const blink = ()=>{
-        el.style.opacity = el.style.opacity === '0' ? '1' : '0';
-        n++;
-        if(n < times*2) setTimeout(blink, interval);
-        else { el.style.opacity = '1'; if(cb) cb(); }
-      };
-      setTimeout(blink, interval);
-    }
-
-    // 프로그레스 바
-    function progressBar(label, cb){
-      const line = document.createElement('div');
-      line.className = 'terminal-line terminal-progress';
-      body.appendChild(line);
-      body.scrollTop = body.scrollHeight;
-      let pct = 0;
-      const fill = ()=>{
-        const bar = '█'.repeat(Math.floor(pct/5)) + '░'.repeat(20-Math.floor(pct/5));
-        line.innerHTML = label + ' [' + bar + '] ' + pct + '%';
-        if(pct < 100){ pct = Math.min(100, pct + Math.floor(Math.random()*8)+3); setTimeout(fill, 60); }
-        else { line.innerHTML = label + ' [████████████████████] 100% <span class="terminal-ok">OK</span>'; if(cb) cb(); }
-      };
-      fill();
-    }
-
-    // ---- 시퀀스 실행 ----
-    let seq = Promise.resolve();
 
     function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
-    function queueLine(txt, cls, delay){
-      seq = seq.then(()=>new Promise(r=>{
-        setTimeout(()=>addLine(txt,cls,r), delay||0);
-      }));
+    // 커서 깜빡임
+    function blinkCursor(times){
+      return new Promise(r=>{
+        const last = tbody.lastElementChild;
+        if(!last){ r(); return; }
+        let n=0;
+        const b=()=>{ last.style.opacity = last.style.opacity==='0'?'1':'0'; n++; if(n<times*2) setTimeout(b,280); else{ last.style.opacity='1'; r(); } };
+        b();
+      });
     }
 
-    function queueWait(ms){
-      seq = seq.then(()=>wait(ms));
+    // 프로그레스 바
+    function progressBar(label){
+      return new Promise(r=>{
+        const line = document.createElement('div');
+        line.className = 'terminal-line terminal-progress';
+        tbody.appendChild(line);
+        tbody.scrollTop = tbody.scrollHeight;
+        let pct=0;
+        const fill=()=>{
+          const filled = Math.floor(pct/5);
+          const bar = '█'.repeat(filled) + '░'.repeat(20-filled);
+          line.innerHTML = label+'['+bar+'] '+pct+'%';
+          if(pct<100){ pct=Math.min(100,pct+Math.floor(Math.random()*7)+4); setTimeout(fill,55); }
+          else{ line.innerHTML = label+'[████████████████████] 100% <span class="terminal-ok">OK</span>'; r(); }
+        };
+        fill();
+      });
     }
 
-    // Phase 1: 관리자 출동
-    queueLine('📟 분석 요청이 접수되었습니다...', 'terminal-fun', 0);
-    queueWait(700);
-    for(const msg of adminScript){
-      queueLine(msg, 'terminal-fun', 300);
-      queueWait(600);
-    }
-    queueLine('🖥️  컴퓨터실 도착. PC를 켭니다...', 'terminal-fun', 300);
-    queueWait(800);
-
-    // Phase 2: 부팅 화면
-    seq = seq.then(()=>new Promise(r=>{
-      // 화면 클리어 효과
-      setTimeout(()=>{
-        body.innerHTML = '';
-        r();
-      }, 300);
-    }));
-
-    for(const bl of boot.lines){
-      if(bl === ''){
-        queueLine('', '', 0);
-        queueWait(200);
-      } else {
-        queueLine(bl, 'terminal-boot', 0);
-        queueWait(bl.startsWith('[') ? 80 : 180);
+    // ---- 시퀀스 실행 ----
+    (async ()=>{
+      // Phase 1: 관리자 출동
+      await addLine(phase1Prefix[lang]||phase1Prefix.ko, 'terminal-fun');
+      await wait(800);
+      for(const msg of adminScript){
+        await wait(400);
+        await addLine(msg, 'terminal-fun');
+        await wait(700);
       }
-    }
+      await wait(400);
+      await addLine(phase1Suffix[lang]||phase1Suffix.ko, 'terminal-fun');
 
-    // 커서 깜빡임 후 명령어 입력
-    seq = seq.then(()=>new Promise(r=>{
+      // Phase 사이 텀
+      await wait(1200);
+
+      // Phase 2: 부팅 화면 (클리어 후)
+      tbody.innerHTML = '';
+      for(const bl of boot.lines){
+        if(bl==='') { await addLine('',''); await wait(150); }
+        else { await addLine(bl,'terminal-boot'); await wait(bl.startsWith('[') ? 70 : 160); }
+      }
+
+      // 커서 깜빡임
+      await blinkCursor(5);
+
+      // Phase 사이 텀
+      await wait(800);
+
+      // Phase 3: 분석 로그
+      tbody.innerHTML = '';
+      for(const log of logLines){
+        await addLine(log, log.startsWith('>') ? 'terminal-cmd' : '');
+        await wait(log.includes('경고')||log.includes('Warning')||log.includes('警告') ? 1000 : 450);
+      }
+
+      await wait(400);
+
+      // 프로그레스 바
+      await progressBar(pLabels[0]);
+      await wait(300);
+      await progressBar(pLabels[1]);
+      await wait(300);
+      await progressBar(pLabels[2]);
+
+      await wait(300);
+      await addLine('', '');
+      await addLine(resultMsgs[lang]||resultMsgs.ko, 'terminal-highlight');
+
+      // 결과 페이지 전환
+      await wait(1400);
+      app.style.transition = 'opacity .4s ease';
+      app.style.opacity = '0';
       setTimeout(()=>{
-        const lastLine = body.lastElementChild;
-        if(lastLine) blinkCursor(lastLine, 5, 300, r);
-        else r();
-      }, 200);
-    }));
-
-    // Phase 3: 분석 명령어 및 로그
-    for(const log of analyzeLog){
-      queueLine(log, log.startsWith('>') ? 'terminal-cmd' : '', 0);
-      queueWait(log.includes('경고') || log.includes('Warning') || log.includes('警告') ? 900 : 400);
-    }
-
-    // 프로그레스 바 3개
-    const progressItems = {
-      ko: ['성격 스캔', '유형 매칭', '결과 생성'],
-      en: ['Personality Scan', 'Type Matching', 'Result Build'],
-      ja: ['性格スキャン', 'タイプマッチ', '結果生成'],
-      zh: ['性格扫描', '类型匹配', '生成结果'],
-    };
-    const pItems = progressItems[lang] || progressItems.ko;
-
-    seq = seq.then(()=>new Promise(r=>{
-      setTimeout(()=>{
-        progressBar(pItems[0], ()=>{
-          setTimeout(()=>{
-            progressBar(pItems[1], ()=>{
-              setTimeout(()=>{
-                progressBar(pItems[2], ()=>{
-                  setTimeout(()=>{
-                    addLine('', '', null);
-                    const hl = {ko:'✓ RESULT FOUND — 결과를 불러옵니다!', en:'✓ RESULT FOUND — Loading your result!', ja:'✓ RESULT FOUND — 結果を表示します!', zh:'✓ RESULT FOUND — 正在加载结果!'};
-                    addLine(hl[lang]||hl.ko, 'terminal-highlight', ()=>{
-                      setTimeout(()=>{
-                        app.style.transition = 'opacity .4s ease';
-                        app.style.opacity = '0';
-                        setTimeout(()=>{
-                          app.style.transition = '';
-                          app.style.opacity = '1';
-                          location.hash = 'result/'+curId+'/'+resultType;
-                        }, 400);
-                      }, 1200);
-                    });
-                    r();
-                  }, 200);
-                });
-              }, 300);
-            });
-          }, 300);
-        });
-      }, 0);
-    }));
+        app.style.transition = '';
+        app.style.opacity = '1';
+        location.hash = 'result/'+curId+'/'+resultType;
+      }, 400);
+    })();
   }
 
-    // ---- 결과 카드 뒤집기 ----    // ---- 결과 카드 뒤집기 ----
+    // ---- 결과 카드 뒤집기 ----    // ---- 결과 카드 뒤집기 ----    // ---- 결과 카드 뒤집기 ----
   function initCardFlip(fromLink){
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const inner = document.getElementById('flipInner');
