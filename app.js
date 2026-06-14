@@ -1021,7 +1021,7 @@
         const line = document.createElement('div');
         line.className = 'terminal-line' + (cls ? ' '+cls : '');
         tb.appendChild(line);
-        tb.scrollTop = tb.scrollHeight;
+        requestAnimationFrame(()=>{ tb.scrollTop = tb.scrollHeight; });
         if(!txt){ r(); return; }
         let ci = 0;
         const spd = txt.startsWith('[') ? 10 : 24;
@@ -1041,11 +1041,22 @@
     function blinkCursor(times){
       return new Promise(r=>{
         const tb = document.getElementById('terminalBody');
-        const last = tb ? tb.lastElementChild : null;
-        if(!last){ r(); return; }
+        if(!tb){ r(); return; }
+        // 빈 커서 줄 추가
+        const cursorLine = document.createElement('div');
+        cursorLine.className = 'terminal-line';
+        cursorLine.innerHTML = '<span class="terminal-cursor-blink">█</span>';
+        tb.appendChild(cursorLine);
+        requestAnimationFrame(()=>{ tb.scrollTop = tb.scrollHeight; });
         let n=0;
-        const b=()=>{ last.style.opacity=last.style.opacity==='0'?'1':'0'; n++; if(n<times*2) setTimeout(b,280); else{ last.style.opacity='1'; r(); } };
-        b();
+        const b=()=>{
+          const cur = cursorLine.querySelector('.terminal-cursor-blink');
+          if(cur) cur.style.opacity = cur.style.opacity==='0'?'1':'0';
+          n++;
+          if(n<times*2) setTimeout(b,300);
+          else{ cursorLine.remove(); r(); }
+        };
+        setTimeout(b,300);
       });
     }
 
@@ -1057,14 +1068,15 @@
         const line = document.createElement('div');
         line.className = 'terminal-line terminal-progress';
         tb.appendChild(line);
-        tb.scrollTop = tb.scrollHeight;
+        requestAnimationFrame(()=>{ tb.scrollTop = tb.scrollHeight; });
         let pct=0;
         const fill=()=>{
           const filled=Math.floor(pct/5);
           const bar='█'.repeat(filled)+'░'.repeat(20-filled);
           line.innerHTML=label+'['+bar+'] '+pct+'%';
+          requestAnimationFrame(()=>{ tb.scrollTop = tb.scrollHeight; });
           if(pct<100){ pct=Math.min(100,pct+Math.floor(Math.random()*7)+4); setTimeout(fill,55); }
-          else{ line.innerHTML=label+'[████████████████████] 100% <span class="terminal-ok">OK</span>'; r(); }
+          else{ line.innerHTML=label+'[████████████████████] 100% <span class="terminal-ok">OK</span>'; requestAnimationFrame(()=>{ tb.scrollTop = tb.scrollHeight; }); r(); }
         };
         fill();
       });
