@@ -314,7 +314,7 @@
             setTimeout(scrollToTests, 50);
           }
         };
-        setTimeout(scrollToTests, 50);
+        setTimeout(scrollToTests, 500);
       });
     }
   }
@@ -545,7 +545,7 @@
             setTimeout(scrollToTests, 50);
           }
         };
-        setTimeout(scrollToTests, 50);
+        setTimeout(scrollToTests, 500);
       });
     }
     document.getElementById('shareBtn').onclick=()=>{track('result_share',{test_id:curId,result_type:ty});shareSocial(ty,d);};
@@ -821,6 +821,7 @@
         { txt: '> 답변 데이터 로드 중...', delay: 600 },
         { txt: '> 성격 매트릭스 초기화........... [OK]', delay: 700 },
         { txt: '> 응답 패턴 분석 중...', delay: 500 },
+        { txt: '> 경고: 결과가 너무 정확할 수 있음 ⚠️', delay: 600, fun: true },
         { txt: '> 유형 데이터베이스 검색 중......... [OK]', delay: 800 },
         { txt: '> 심층 성격 스캔 실행 중...', delay: 600 },
         { txt: '> 교차 검증 완료................... [OK]', delay: 700 },
@@ -832,6 +833,7 @@
         { txt: '> Loading answer data...', delay: 600 },
         { txt: '> Initializing personality matrix.... [OK]', delay: 700 },
         { txt: '> Analyzing response patterns...', delay: 500 },
+        { txt: '> Warning: result may be uncomfortably accurate ⚠️', delay: 600, fun: true },
         { txt: '> Searching type database.......... [OK]', delay: 800 },
         { txt: '> Running deep personality scan...', delay: 600 },
         { txt: '> Cross-validation complete......... [OK]', delay: 700 },
@@ -843,6 +845,7 @@
         { txt: '> 回答データをロード中...', delay: 600 },
         { txt: '> 性格マトリクスを初期化........ [OK]', delay: 700 },
         { txt: '> 回答パターンを分析中...', delay: 500 },
+        { txt: '> 警告: 結果が正確すぎる可能性あり ⚠️', delay: 600, fun: true },
         { txt: '> タイプデータベースを検索中.... [OK]', delay: 800 },
         { txt: '> 深層性格スキャンを実行中...', delay: 600 },
         { txt: '> クロス検証完了............... [OK]', delay: 700 },
@@ -854,6 +857,7 @@
         { txt: '> 加载答案数据...', delay: 600 },
         { txt: '> 初始化性格矩阵.............. [OK]', delay: 700 },
         { txt: '> 分析回答模式...', delay: 500 },
+        { txt: '> 警告：结果可能过于准确 ⚠️', delay: 600, fun: true },
         { txt: '> 搜索类型数据库.............. [OK]', delay: 800 },
         { txt: '> 运行深度性格扫描...', delay: 600 },
         { txt: '> 交叉验证完成................ [OK]', delay: 700 },
@@ -885,7 +889,7 @@
       elapsed += (i === 0 ? 300 : msgList[i-1].delay + 600);
       setTimeout(() => {
         const line = document.createElement('div');
-        line.className = 'terminal-line' + (msg.highlight ? ' terminal-highlight' : '');
+        line.className = 'terminal-line' + (msg.highlight ? ' terminal-highlight' : msg.fun ? ' terminal-fun' : '');
 
         // 타이핑 효과
         let ci = 0;
