@@ -69,7 +69,7 @@
     if(h==='quiz' && TEST){ renderQuiz(); return; }
     if(h.startsWith('test/')){
       const id=h.split('/')[1];
-      if(loadTest(id)){ renderIntro(); return; }
+      if(loadTest(id)){ window.scrollTo(0,0); renderIntro(); return; }
     }
     renderHub();
   }
