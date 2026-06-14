@@ -75,8 +75,9 @@ body{
 .test-go{flex:0 0 auto;font-size:.82rem;font-weight:700;color:var(--accent-deep);align-self:flex-end}
 
 /* ---- 뒤로가기 ---- */
-.back-link{display:inline-block;color:var(--ink-soft);text-decoration:none;font-size:.9rem;font-weight:700;margin-bottom:14px}
-.back-link:hover{color:var(--ink)}
+.back-link{display:none}
+.back-to-home{display:inline-block;margin-top:20px;color:var(--ink-soft);text-decoration:none;font-size:.95rem;font-weight:600}
+.back-to-home:hover{color:var(--ink)}
 
 /* ---- 히어로 ---- */
 .hero{text-align:center}
