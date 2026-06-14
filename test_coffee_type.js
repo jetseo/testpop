@@ -20,52 +20,52 @@ const TEST_COFFEE_TYPE = {
   },
   types: {
     espresso: {
-      ko: { name:'에스프레소', tag:'#직설적 #강렬함 #임팩트', desc:'당신은 말이 적지만 한마디 한마디에 무게가 있습니다. 불필요한 것은 걷어내고 핵심만 남기는 스타일. 처음엔 강렬해서 가까이하기 어려울 수 있지만, 한번 빠지면 헤어나오기 힘든 매력이 있어요. 짧고 굵게, 여운이 오래 남는 사람입니다.', best:'coldbrew', worst:'decaf' },
-      en: { name:'Espresso', tag:'#Direct #Intense #Impactful', desc:'You say little, but every word carries weight. You strip away the unnecessary and leave only the essence. You might seem intimidating at first, but once people get close, they can\'t get enough. Short, bold, and unforgettable.', best:'coldbrew', worst:'decaf' },
-      ja: { name:'エスプレッソ', tag:'#直球 #強烈 #インパクト', desc:'言葉は少ないけれど、一言一言に重みがあります。余分なものを削ぎ落とし、本質だけを残すスタイル。最初は近づきにくく感じるかもしれませんが、一度ハマると抜け出せない魅力があります。短くて濃い、余韻が長く続く人です。', best:'coldbrew', worst:'decaf' },
-      zh: { name:'浓缩咖啡', tag:'#直接 #强烈 #有冲击力', desc:'你话不多，但每句话都有分量。去除不必要的，只留下本质。一开始可能让人难以接近，但一旦沉迷就难以自拔。简短而浓烈，余韵悠长。', best:'coldbrew', worst:'decaf' }
+      ko: { name:'🖤 에스프레소', tag:'#직설적 #강렬함 #임팩트', desc:'당신은 말이 적지만 한마디 한마디에 무게가 있습니다. 불필요한 것은 걷어내고 핵심만 남기는 스타일. 처음엔 강렬해서 가까이하기 어려울 수 있지만, 한번 빠지면 헤어나오기 힘든 매력이 있어요. 짧고 굵게, 여운이 오래 남는 사람입니다.', best:'coldbrew', worst:'decaf' },
+      en: { name:'🖤 Espresso', tag:'#Direct #Intense #Impactful', desc:'You say little, but every word carries weight. You strip away the unnecessary and leave only the essence. You might seem intimidating at first, but once people get close, they can\'t get enough. Short, bold, and unforgettable.', best:'coldbrew', worst:'decaf' },
+      ja: { name:'🖤 エスプレッソ', tag:'#直球 #強烈 #インパクト', desc:'言葉は少ないけれど、一言一言に重みがあります。余分なものを削ぎ落とし、本質だけを残すスタイル。最初は近づきにくく感じるかもしれませんが、一度ハマると抜け出せない魅力があります。短くて濃い、余韻が長く続く人です。', best:'coldbrew', worst:'decaf' },
+      zh: { name:'🖤 浓缩咖啡', tag:'#直接 #强烈 #有冲击力', desc:'你话不多，但每句话都有分量。去除不必要的，只留下本质。一开始可能让人难以接近，但一旦沉迷就难以自拔。简短而浓烈，余韵悠长。', best:'coldbrew', worst:'decaf' }
     },
     americano: {
-      ko: { name:'아이스 아메리카노', tag:'#쿨함 #무던함 #사계절아아', desc:'당신은 사계절 내내 흔들리지 않는 쿨한 사람입니다. 유행을 타지 않고 자기 스타일을 고수하며, 어떤 상황에서도 덤덤하게 중심을 잡습니다. 겉으로는 차갑게 보여도 속은 의외로 따뜻해요. 믿음직하고 한결같은 존재입니다.', best:'espresso', worst:'vanillalatte' },
-      en: { name:'Iced Americano', tag:'#Cool #Steady #AllSeasonsIced', desc:'You\'re unfazed year-round — cool through and through. You stick to your own style without chasing trends, and stay calm no matter what the situation. You might seem cold on the outside, but you\'re surprisingly warm inside. Reliable and consistent.', best:'espresso', worst:'vanillalatte' },
-      ja: { name:'アイスアメリカーノ', tag:'#クール #淡々 #四季通じてアイス', desc:'あなたは一年中ブレないクールな人です。流行に流されず自分のスタイルを貫き、どんな状況でも落ち着いて中心を保ちます。外見は冷たく見えても、内面は意外と温かいです。頼りがいがあって一貫した存在です。', best:'espresso', worst:'vanillalatte' },
-      zh: { name:'冰美式咖啡', tag:'#冷静 #淡然 #四季冰饮', desc:'你是一年四季都不动摇的冷静之人。不追赶潮流，坚持自己的风格，任何情况下都能沉着保持重心。表面看起来冷漠，内心却出乎意料地温暖。可靠而始终如一的存在。', best:'espresso', worst:'vanillalatte' }
+      ko: { name:'🧊 아이스 아메리카노', tag:'#쿨함 #무던함 #사계절아아', desc:'당신은 사계절 내내 흔들리지 않는 쿨한 사람입니다. 유행을 타지 않고 자기 스타일을 고수하며, 어떤 상황에서도 덤덤하게 중심을 잡습니다. 겉으로는 차갑게 보여도 속은 의외로 따뜻해요. 믿음직하고 한결같은 존재입니다.', best:'espresso', worst:'vanillalatte' },
+      en: { name:'🧊 Iced Americano', tag:'#Cool #Steady #AllSeasonsIced', desc:'You\'re unfazed year-round — cool through and through. You stick to your own style without chasing trends, and stay calm no matter what the situation. You might seem cold on the outside, but you\'re surprisingly warm inside. Reliable and consistent.', best:'espresso', worst:'vanillalatte' },
+      ja: { name:'🧊 アイスアメリカーノ', tag:'#クール #淡々 #四季通じてアイス', desc:'あなたは一年中ブレないクールな人です。流行に流されず自分のスタイルを貫き、どんな状況でも落ち着いて中心を保ちます。外見は冷たく見えても、内面は意外と温かいです。頼りがいがあって一貫した存在です。', best:'espresso', worst:'vanillalatte' },
+      zh: { name:'🧊 冰美式咖啡', tag:'#冷静 #淡然 #四季冰饮', desc:'你是一年四季都不动摇的冷静之人。不追赶潮流，坚持自己的风格，任何情况下都能沉着保持重心。表面看起来冷漠，内心却出乎意料地温暖。可靠而始终如一的存在。', best:'espresso', worst:'vanillalatte' }
     },
     latte: {
-      ko: { name:'카페 라떼', tag:'#다정함 #평화주의 #포근한', desc:'당신은 어디서나 분위기를 부드럽게 만드는 사람입니다. 갈등을 싫어하고 모두가 편안하길 바라는 진정한 평화주의자. 따뜻하고 포근해서 곁에 있으면 마음이 녹아버려요. 자극적인 것보다 은은하게 오래가는 매력이 있습니다.', best:'cappuccino', worst:'espresso' },
-      en: { name:'Café Latte', tag:'#Warm #Peacemaker #Cozy', desc:'You have a gift for softening the atmosphere wherever you go. A true peacemaker who dislikes conflict and wants everyone to feel comfortable. Warm and cozy — being near you makes people\'s hearts melt. Your appeal isn\'t flashy; it lingers gently and lasts.', best:'cappuccino', worst:'espresso' },
-      ja: { name:'カフェラテ', tag:'#優しさ #平和主義 #温かみ', desc:'あなたはどこでも雰囲気を柔らかくする人です。対立を嫌い、みんなが快適でいられることを望む本物の平和主義者。温かくて包み込むような雰囲気で、そばにいると心がほぐれます。刺激的というより、じんわりと長く続く魅力があります。', best:'cappuccino', worst:'espresso' },
-      zh: { name:'拿铁咖啡', tag:'#温柔 #和平主义 #温暖', desc:'你是一个能让任何地方的氛围都变得柔和的人。真正的和平主义者，不喜欢冲突，希望每个人都感到舒适。温暖而有包容感，在你身边会让人心融化。不是刺激性的，而是有着淡淡持久的魅力。', best:'cappuccino', worst:'espresso' }
+      ko: { name:'🥛 카페 라떼', tag:'#다정함 #평화주의 #포근한', desc:'당신은 어디서나 분위기를 부드럽게 만드는 사람입니다. 갈등을 싫어하고 모두가 편안하길 바라는 진정한 평화주의자. 따뜻하고 포근해서 곁에 있으면 마음이 녹아버려요. 자극적인 것보다 은은하게 오래가는 매력이 있습니다.', best:'cappuccino', worst:'espresso' },
+      en: { name:'🥛 Café Latte', tag:'#Warm #Peacemaker #Cozy', desc:'You have a gift for softening the atmosphere wherever you go. A true peacemaker who dislikes conflict and wants everyone to feel comfortable. Warm and cozy — being near you makes people\'s hearts melt. Your appeal isn\'t flashy; it lingers gently and lasts.', best:'cappuccino', worst:'espresso' },
+      ja: { name:'🥛 カフェラテ', tag:'#優しさ #平和主義 #温かみ', desc:'あなたはどこでも雰囲気を柔らかくする人です。対立を嫌い、みんなが快適でいられることを望む本物の平和主義者。温かくて包み込むような雰囲気で、そばにいると心がほぐれます。刺激的というより、じんわりと長く続く魅力があります。', best:'cappuccino', worst:'espresso' },
+      zh: { name:'🥛 拿铁咖啡', tag:'#温柔 #和平主义 #温暖', desc:'你是一个能让任何地方的氛围都变得柔和的人。真正的和平主义者，不喜欢冲突，希望每个人都感到舒适。温暖而有包容感，在你身边会让人心融化。不是刺激性的，而是有着淡淡持久的魅力。', best:'cappuccino', worst:'espresso' }
     },
     cappuccino: {
-      ko: { name:'카푸치노', tag:'#폼나는외모 #따뜻한속 #반전매력', desc:'당신은 겉으로는 세련되고 폼나 보이지만, 실은 누구보다 따뜻하고 감성적인 사람입니다. 처음엔 도도해 보여서 거리감이 생길 수 있지만, 친해지면 의외로 수줍고 귀여운 면이 있어요. 폼은 있지만 거품처럼 가볍지 않은 진짜 깊이가 있습니다.', best:'latte', worst:'coldbrew' },
-      en: { name:'Cappuccino', tag:'#StyleishOutside #WarmInside #HiddenCharm', desc:'You look sophisticated and put-together on the outside, but you\'re actually warmer and more emotional than anyone. You might seem standoffish at first, but get close and you\'ll find a surprisingly shy and cute side. You have style — but unlike foam, you have real depth beneath it.', best:'latte', worst:'coldbrew' },
-      ja: { name:'カプチーノ', tag:'#見た目はお洒落 #中身は温かい #ギャップ萌え', desc:'外見はスタイリッシュでカッコよく見えますが、実は誰よりも温かく感受性豊かな人です。最初はよそよそしく見えて距離感が生まれるかもしれませんが、仲良くなると意外と恥ずかしがり屋でかわいい一面があります。スタイルはあるけれど、泡のように軽くない本物の深みがあります。', best:'latte', worst:'coldbrew' },
-      zh: { name:'卡布奇诺', tag:'#外表精致 #内心温暖 #反差魅力', desc:'你外表看起来精致有型，但实际上是比任何人都更温暖、更感性的人。一开始可能显得冷漠疏远，但熟悉后会发现意外羞涩可爱的一面。有风格，但不像泡沫那样轻浮，有真正的深度。', best:'latte', worst:'coldbrew' }
+      ko: { name:'☁️ 카푸치노', tag:'#폼나는외모 #따뜻한속 #반전매력', desc:'당신은 겉으로는 세련되고 폼나 보이지만, 실은 누구보다 따뜻하고 감성적인 사람입니다. 처음엔 도도해 보여서 거리감이 생길 수 있지만, 친해지면 의외로 수줍고 귀여운 면이 있어요. 폼은 있지만 거품처럼 가볍지 않은 진짜 깊이가 있습니다.', best:'latte', worst:'coldbrew' },
+      en: { name:'☁️ Cappuccino', tag:'#StyleishOutside #WarmInside #HiddenCharm', desc:'You look sophisticated and put-together on the outside, but you\'re actually warmer and more emotional than anyone. You might seem standoffish at first, but get close and you\'ll find a surprisingly shy and cute side. You have style — but unlike foam, you have real depth beneath it.', best:'latte', worst:'coldbrew' },
+      ja: { name:'☁️ カプチーノ', tag:'#見た目はお洒落 #中身は温かい #ギャップ萌え', desc:'外見はスタイリッシュでカッコよく見えますが、実は誰よりも温かく感受性豊かな人です。最初はよそよそしく見えて距離感が生まれるかもしれませんが、仲良くなると意外と恥ずかしがり屋でかわいい一面があります。スタイルはあるけれど、泡のように軽くない本物の深みがあります。', best:'latte', worst:'coldbrew' },
+      zh: { name:'☁️ 卡布奇诺', tag:'#外表精致 #内心温暖 #反差魅力', desc:'你外表看起来精致有型，但实际上是比任何人都更温暖、更感性的人。一开始可能显得冷漠疏远，但熟悉后会发现意外羞涩可爱的一面。有风格，但不像泡沫那样轻浮，有真正的深度。', best:'latte', worst:'coldbrew' }
     },
     vanillalatte: {
-      ko: { name:'바닐라 라떼', tag:'#낭만적 #감성충만 #분위기장인', desc:'당신은 일상 속 작은 것에서 아름다움을 발견하는 낭만주의자입니다. 카페 창가 자리, 빗소리, 노을 같은 것들이 당신의 감성을 자극해요. 달콤하고 부드러운 매력으로 주변 사람들을 행복하게 만들고, 있는 것만으로 분위기가 바뀌는 사람입니다.', best:'latte', worst:'espresso' },
-      en: { name:'Vanilla Latte', tag:'#Romantic #Emotional #MoodSetter', desc:'You\'re a romanticist who finds beauty in the small things of everyday life. Window seats at cafés, the sound of rain, a glowing sunset — these are what stir your soul. Your sweet, gentle charm makes the people around you happy, and your very presence shifts the whole atmosphere.', best:'latte', worst:'espresso' },
-      ja: { name:'バニララテ', tag:'#ロマンチスト #感性豊か #雰囲気メーカー', desc:'あなたは日常の小さなことに美しさを見つけるロマンチストです。カフェの窓際席、雨音、夕焼けといったものがあなたの感性を刺激します。甘くて柔らかい魅力で周りの人を幸せにし、いるだけで雰囲気が変わる人です。', best:'latte', worst:'espresso' },
-      zh: { name:'香草拿铁', tag:'#浪漫 #感性十足 #氛围大师', desc:'你是一个能从日常小事中发现美的浪漫主义者。咖啡馆靠窗的座位、雨声、夕阳，这些东西会触动你的感性。甜蜜柔和的魅力让周围的人感到幸福，你的存在本身就能改变整个氛围。', best:'latte', worst:'espresso' }
+      ko: { name:'🍦 바닐라 라떼', tag:'#낭만적 #감성충만 #분위기장인', desc:'당신은 일상 속 작은 것에서 아름다움을 발견하는 낭만주의자입니다. 카페 창가 자리, 빗소리, 노을 같은 것들이 당신의 감성을 자극해요. 달콤하고 부드러운 매력으로 주변 사람들을 행복하게 만들고, 있는 것만으로 분위기가 바뀌는 사람입니다.', best:'latte', worst:'espresso' },
+      en: { name:'🍦 Vanilla Latte', tag:'#Romantic #Emotional #MoodSetter', desc:'You\'re a romanticist who finds beauty in the small things of everyday life. Window seats at cafés, the sound of rain, a glowing sunset — these are what stir your soul. Your sweet, gentle charm makes the people around you happy, and your very presence shifts the whole atmosphere.', best:'latte', worst:'espresso' },
+      ja: { name:'🍦 バニララテ', tag:'#ロマンチスト #感性豊か #雰囲気メーカー', desc:'あなたは日常の小さなことに美しさを見つけるロマンチストです。カフェの窓際席、雨音、夕焼けといったものがあなたの感性を刺激します。甘くて柔らかい魅力で周りの人を幸せにし、いるだけで雰囲気が変わる人です。', best:'latte', worst:'espresso' },
+      zh: { name:'🍦 香草拿铁', tag:'#浪漫 #感性十足 #氛围大师', desc:'你是一个能从日常小事中发现美的浪漫主义者。咖啡馆靠窗的座位、雨声、夕阳，这些东西会触动你的感性。甜蜜柔和的魅力让周围的人感到幸福，你的存在本身就能改变整个氛围。', best:'latte', worst:'espresso' }
     },
     coldbrew: {
-      ko: { name:'콜드브루', tag:'#깊이있는 #느긋한완벽주의 #시간이답', desc:'당신은 시간이 걸려도 반드시 좋은 결과를 만들어내는 사람입니다. 빠름보다 깊이를 선택하고, 천천히 우려낸 것처럼 갈수록 진해지는 매력이 있어요. 급하게 판단하지 않고 오래 관찰하며, 한번 믿으면 끝까지 가는 타입입니다.', best:'espresso', worst:'cappuccino' },
-      en: { name:'Cold Brew', tag:'#Depth #EasygoingPerfectionist #TimeIsTheAnswer', desc:'You\'re someone who always produces great results, even if it takes time. You choose depth over speed, and your appeal deepens the more time passes — like coffee slowly steeping. You don\'t rush to judgment; you observe patiently, and once you trust someone, you go all the way.', best:'espresso', worst:'cappuccino' },
-      ja: { name:'コールドブリュー', tag:'#深み #ゆったり完璧主義 #時間が答え', desc:'あなたは時間がかかっても必ず良い結果を生み出す人です。速さより深さを選び、ゆっくり抽出されたコーヒーのように時間とともに濃くなる魅力があります。急いで判断せず長く観察し、一度信じたら最後まで付き合うタイプです。', best:'espresso', worst:'cappuccino' },
-      zh: { name:'冷萃咖啡', tag:'#有深度 #从容完美主义 #时间是答案', desc:'你是一个即使花时间也一定能创造出好结果的人。选择深度而非速度，像慢慢萃取的咖啡一样，越到后来越有魅力。不轻易下判断，长时间观察，一旦信任就会坚持到底。', best:'espresso', worst:'cappuccino' }
+      ko: { name:'🌙 콜드브루', tag:'#깊이있는 #느긋한완벽주의 #시간이답', desc:'당신은 시간이 걸려도 반드시 좋은 결과를 만들어내는 사람입니다. 빠름보다 깊이를 선택하고, 천천히 우려낸 것처럼 갈수록 진해지는 매력이 있어요. 급하게 판단하지 않고 오래 관찰하며, 한번 믿으면 끝까지 가는 타입입니다.', best:'espresso', worst:'cappuccino' },
+      en: { name:'🌙 Cold Brew', tag:'#Depth #EasygoingPerfectionist #TimeIsTheAnswer', desc:'You\'re someone who always produces great results, even if it takes time. You choose depth over speed, and your appeal deepens the more time passes — like coffee slowly steeping. You don\'t rush to judgment; you observe patiently, and once you trust someone, you go all the way.', best:'espresso', worst:'cappuccino' },
+      ja: { name:'🌙 コールドブリュー', tag:'#深み #ゆったり完璧主義 #時間が答え', desc:'あなたは時間がかかっても必ず良い結果を生み出す人です。速さより深さを選び、ゆっくり抽出されたコーヒーのように時間とともに濃くなる魅力があります。急いで判断せず長く観察し、一度信じたら最後まで付き合うタイプです。', best:'espresso', worst:'cappuccino' },
+      zh: { name:'🌙 冷萃咖啡', tag:'#有深度 #从容完美主义 #时间是答案', desc:'你是一个即使花时间也一定能创造出好结果的人。选择深度而非速度，像慢慢萃取的咖啡一样，越到后来越有魅力。不轻易下判断，长时间观察，一旦信任就会坚持到底。', best:'espresso', worst:'cappuccino' }
     },
     affogato: {
-      ko: { name:'아포가토', tag:'#반전매력 #겉과속이달라 #의외의조합', desc:'당신은 처음 보는 것만으로는 절대 알 수 없는 사람입니다. 차가운 것 같지만 뜨겁고, 달콤한 것 같지만 쌉싸름한 반전의 연속. 예상을 깨는 매력이 있고, 알아갈수록 새로운 면이 나와서 절대 질리지 않는 타입입니다.', best:'vanillalatte', worst:'americano' },
-      en: { name:'Affogato', tag:'#SurpriseFactor #OppositeInside #UnexpectedCombo', desc:'You\'re someone who can\'t be figured out at first glance. You seem cold but you\'re hot; you seem sweet but you\'re bitter — a constant series of plot twists. You have an attraction that defies expectations, and new sides of you keep emerging the more people get to know you. You never get boring.', best:'vanillalatte', worst:'americano' },
-      ja: { name:'アフォガート', tag:'#ギャップ萌え #外と中が違う #意外な組み合わせ', desc:'あなたは見た目だけでは絶対にわからない人です。冷たそうで熱く、甘そうで苦い、意外性の連続。予想を裏切る魅力があり、知れば知るほど新しい面が出てきて絶対に飽きないタイプです。', best:'vanillalatte', worst:'americano' },
-      zh: { name:'阿芙佳朵', tag:'#反转魅力 #表里不一 #意外组合', desc:'你是一个仅凭第一眼绝对无法了解的人。看似冷漠却炽热，看似甜蜜却苦涩，充满意外。有打破预期的魅力，越了解越能发现新的一面，是永远不会令人厌倦的类型。', best:'vanillalatte', worst:'americano' }
+      ko: { name:'🍨 아포가토', tag:'#반전매력 #겉과속이달라 #의외의조합', desc:'당신은 처음 보는 것만으로는 절대 알 수 없는 사람입니다. 차가운 것 같지만 뜨겁고, 달콤한 것 같지만 쌉싸름한 반전의 연속. 예상을 깨는 매력이 있고, 알아갈수록 새로운 면이 나와서 절대 질리지 않는 타입입니다.', best:'vanillalatte', worst:'americano' },
+      en: { name:'🍨 Affogato', tag:'#SurpriseFactor #OppositeInside #UnexpectedCombo', desc:'You\'re someone who can\'t be figured out at first glance. You seem cold but you\'re hot; you seem sweet but you\'re bitter — a constant series of plot twists. You have an attraction that defies expectations, and new sides of you keep emerging the more people get to know you. You never get boring.', best:'vanillalatte', worst:'americano' },
+      ja: { name:'🍨 アフォガート', tag:'#ギャップ萌え #外と中が違う #意外な組み合わせ', desc:'あなたは見た目だけでは絶対にわからない人です。冷たそうで熱く、甘そうで苦い、意外性の連続。予想を裏切る魅力があり、知れば知るほど新しい面が出てきて絶対に飽きないタイプです。', best:'vanillalatte', worst:'americano' },
+      zh: { name:'🍨 阿芙佳朵', tag:'#反转魅力 #表里不一 #意外组合', desc:'你是一个仅凭第一眼绝对无法了解的人。看似冷漠却炽热，看似甜蜜却苦涩，充满意外。有打破预期的魅力，越了解越能发现新的一面，是永远不会令人厌倦的类型。', best:'vanillalatte', worst:'americano' }
     },
     decaf: {
-      ko: { name:'디카페인', tag:'#섬세한감수성 #자극싫어 #나만의페이스', desc:'당신은 커피의 향과 분위기는 좋아하지만 자극은 최소화하고 싶은 섬세한 사람입니다. 나만의 속도로, 나만의 방식으로 살아가는 것을 중요하게 생각해요. 겉으로는 조용해 보여도 내면 세계가 풍부하고, 적은 자극에도 깊이 감동받는 감수성을 가졌습니다.', best:'latte', worst:'espresso' },
-      en: { name:'Decaf', tag:'#SensitiveSoul #NoOverstimulation #MyOwnPace', desc:'You love the aroma and atmosphere of coffee, but you want to keep stimulation to a minimum. Living at your own pace, in your own way — that\'s what matters to you. You might seem quiet on the outside, but your inner world is rich, and you\'re moved deeply by even the smallest things.', best:'latte', worst:'espresso' },
-      ja: { name:'デカフェ', tag:'#繊細な感受性 #刺激は最小限 #マイペース', desc:'あなたはコーヒーの香りと雰囲気は好きだけど、刺激は最小限にしたい繊細な人です。自分のペースで、自分のやり方で生きることを大切にしています。外見は静かに見えても内面の世界は豊かで、小さな刺激にも深く感動する感受性を持っています。', best:'latte', worst:'espresso' },
-      zh: { name:'低因咖啡', tag:'#细腻感性 #不喜刺激 #我的节奏', desc:'你喜欢咖啡的香气和氛围，但想把刺激降到最低，是一个细腻的人。按照自己的节奏，以自己的方式生活，这对你来说很重要。外表看起来安静，但内心世界丰富，即使是微小的刺激也能深深感动的感性之人。', best:'latte', worst:'espresso' }
+      ko: { name:'🌿 디카페인', tag:'#섬세한감수성 #자극싫어 #나만의페이스', desc:'당신은 커피의 향과 분위기는 좋아하지만 자극은 최소화하고 싶은 섬세한 사람입니다. 나만의 속도로, 나만의 방식으로 살아가는 것을 중요하게 생각해요. 겉으로는 조용해 보여도 내면 세계가 풍부하고, 적은 자극에도 깊이 감동받는 감수성을 가졌습니다.', best:'latte', worst:'espresso' },
+      en: { name:'🌿 Decaf', tag:'#SensitiveSoul #NoOverstimulation #MyOwnPace', desc:'You love the aroma and atmosphere of coffee, but you want to keep stimulation to a minimum. Living at your own pace, in your own way — that\'s what matters to you. You might seem quiet on the outside, but your inner world is rich, and you\'re moved deeply by even the smallest things.', best:'latte', worst:'espresso' },
+      ja: { name:'🌿 デカフェ', tag:'#繊細な感受性 #刺激は最小限 #マイペース', desc:'あなたはコーヒーの香りと雰囲気は好きだけど、刺激は最小限にしたい繊細な人です。自分のペースで、自分のやり方で生きることを大切にしています。外見は静かに見えても内面の世界は豊かで、小さな刺激にも深く感動する感受性を持っています。', best:'latte', worst:'espresso' },
+      zh: { name:'🌿 低因咖啡', tag:'#细腻感性 #不喜刺激 #我的节奏', desc:'你喜欢咖啡的香气和氛围，但想把刺激降到最低，是一个细腻的人。按照自己的节奏，以自己的方式生活，这对你来说很重要。外表看起来安静，但内心世界丰富，即使是微小的刺激也能深深感动的感性之人。', best:'latte', worst:'espresso' }
     }
   },
   questions: {
