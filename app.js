@@ -506,7 +506,7 @@
         </div>
         <canvas id="cardCanvas" width="720" height="1500" style="display:none"></canvas>
         <div class="share-row">
-          <button class="btn-share save" id="saveBtn">${t('save_image')}</button>
+          <button class="btn-share save" id="saveBtn" style="display:none">${t('save_image')}</button>
           <button class="btn-share retry" id="retryBtn">${t('retry')}</button>
           <button class="btn-share share" id="shareBtn">${t('share')}</button>
         </div>
@@ -708,6 +708,10 @@
       preview.src = dataUrl;
       preview.style.cssText = 'width:100%;border-radius:20px;display:block;box-shadow:0 4px 20px rgba(0,0,0,.12)';
       cv.parentNode.insertBefore(preview, cv);
+
+      // 카드 생성 완료 → 이미지 저장 버튼 표시
+      const saveBtn = document.getElementById('saveBtn');
+      if(saveBtn) saveBtn.style.display = '';
 
       // 생성된 이미지 상단이 topbar 바로 아래에 딱 맞게 스크롤
       setTimeout(()=>{
