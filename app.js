@@ -154,7 +154,7 @@
       </section>
 
       <!-- 전체 테스트 리스트 -->
-      <p class="list-title">${t('all_tests')||'전체 테스트'}</p>
+      <p class="list-title" id="all-tests-section">${t('all_tests')||'전체 테스트'}</p>
       <section class="test-list">
         ${shuffled.map(m=>`
           <a class="test-card" href="#test/${m.id}" aria-label="${L(m.title)}">
@@ -271,7 +271,7 @@
       </section>
       <div class="share-intro-wrap">
         <button class="btn-share-intro" id="shareIntroBtn">🔗 ${t('share_intro')}</button>
-        <a class="back-to-home" href="#home">← ${t('back_to_tests')}</a>
+        <a class="back-to-home" href="#home" id="backToHomeBtn">← ${t('back_to_tests')}</a>
       </div>
     `;
 
@@ -311,6 +311,19 @@
         }
         track('result_share',{test_id:curId,share_type:'intro'});
       };
+    }
+
+    // 다른 테스트 보기 — 홈 이동 후 전체 테스트 섹션으로 스크롤
+    const backToHomeBtn = document.getElementById('backToHomeBtn');
+    if(backToHomeBtn){
+      backToHomeBtn.addEventListener('click', (e)=>{
+        e.preventDefault();
+        location.hash = 'home';
+        setTimeout(()=>{
+          const sec = document.getElementById('all-tests-section');
+          if(sec) sec.scrollIntoView({ behavior:'smooth', block:'start' });
+        }, 100);
+      });
     }
   }
 
