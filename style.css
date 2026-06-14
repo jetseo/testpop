@@ -829,6 +829,22 @@ body{
   color: #ffaa55;
   font-style: italic;
 }
+.terminal-boot {
+  color: #cccccc;
+  font-size: .85rem;
+}
+.terminal-cmd {
+  color: #66ff66;
+  font-weight: 700;
+}
+.terminal-progress {
+  color: #aaddff;
+  letter-spacing: .02em;
+}
+.terminal-ok {
+  color: #28c840;
+  font-weight: 700;
+}
 .terminal-cursor {
   color: #a8d8a8;
   animation: cursor-blink .6s step-end infinite;
