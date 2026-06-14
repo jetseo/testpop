@@ -303,15 +303,18 @@
       backToHomeBtn.addEventListener('click', (e)=>{
         e.preventDefault();
         location.hash = 'home';
-        setTimeout(()=>{
+        let attempts = 0;
+        const scrollToTests = () => {
           const sec = document.getElementById('all-tests-section');
           if(sec){
             const topbar = document.querySelector('.topbar');
             const offset = topbar ? topbar.offsetHeight : 0;
-            const top = sec.getBoundingClientRect().top + window.scrollY - offset;
-            window.scrollTo({ top, behavior:'smooth' });
+            window.scrollTo({top: sec.getBoundingClientRect().top + window.scrollY - offset, behavior:'smooth'});
+          } else if(attempts++ < 20){
+            setTimeout(scrollToTests, 50);
           }
-        }, 100);
+        };
+        setTimeout(scrollToTests, 50);
       });
     }
   }
@@ -530,14 +533,19 @@
       resultBackBtn.addEventListener('click',(e)=>{
         e.preventDefault();
         location.hash='home';
-        setTimeout(()=>{
-          const sec=document.getElementById('all-tests-section');
+        // 렌더링 완료 후 스크롤 — 요소가 생길 때까지 폴링
+        let attempts = 0;
+        const scrollToTests = () => {
+          const sec = document.getElementById('all-tests-section');
           if(sec){
-            const topbar=document.querySelector('.topbar');
-            const offset=topbar?topbar.offsetHeight:0;
-            window.scrollTo({top:sec.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'});
+            const topbar = document.querySelector('.topbar');
+            const offset = topbar ? topbar.offsetHeight : 0;
+            window.scrollTo({top: sec.getBoundingClientRect().top + window.scrollY - offset, behavior:'smooth'});
+          } else if(attempts++ < 20){
+            setTimeout(scrollToTests, 50);
           }
-        },100);
+        };
+        setTimeout(scrollToTests, 50);
       });
     }
     document.getElementById('shareBtn').onclick=()=>{track('result_share',{test_id:curId,result_type:ty});shareSocial(ty,d);};
