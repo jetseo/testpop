@@ -263,7 +263,6 @@
 
     app.innerHTML=`
       <section class="hero">
-        <a class="back-link" href="#home">← testpop</a>
         <div class="hero-art"><img src="${m.thumb}" alt="" loading="eager"></div>
         <h1 class="hero-title">${m.emoji} ${L(m.title)}</h1>
         <p class="hero-sub hero-desc">${L(m.desc)}</p>
@@ -272,6 +271,7 @@
       </section>
       <div class="share-intro-wrap">
         <button class="btn-share-intro" id="shareIntroBtn">🔗 ${t('share_intro')}</button>
+        <a class="back-to-home" href="#home">← ${t('back_to_tests')}</a>
       </div>
     `;
 
