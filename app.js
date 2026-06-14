@@ -268,10 +268,8 @@
         <p class="hero-sub hero-desc">${L(m.desc)}</p>
         <p class="hero-sub hero-10sec">${t('ten_sec_prefix')}</p>
         <button class="btn-primary" id="startBtn">${t('start')}</button>
-      </section>
-      <div class="share-intro-wrap">
         <a class="back-to-home" href="#home" id="backToHomeBtn">← ${t('back_to_tests')}</a>
-      </div>
+      </section>
     `;
 
     // 등장 애니메이션
