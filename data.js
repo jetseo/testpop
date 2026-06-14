@@ -15,7 +15,7 @@ const TESTS = [
     thumb: 'images/hero.jpg',
     title: { ko:'나는 어떤 카톡 유형?', en:'What\'s Your Chat Reply Type?',
              ja:'私のトーク返信タイプは？', zh:'我是哪种聊天回复类型？' },
-    desc:  { ko:'내 메신저 답장 스타일은?', en:'What kind of texter are you?',
+    desc:  { ko:'내 메신저 답장 스타일을 알아봐요', en:'What kind of texter are you?',
              ja:'あなたの返信スタイルは？', zh:'你的回复风格是哪种？' }
   },
   {
@@ -35,7 +35,7 @@ const TESTS = [
     thumb: 'images/alter_hero.jpg',
     title: { ko:'나를 닮은 동물은?', en:'Which Animal Resembles You?',
              ja:'私に似ている動物は？', zh:'哪种动物最像你？' },
-    desc:  { ko:'나를 꼭 닮은 동물은 무엇일까?', en:'Find the animal that matches your soul',
+    desc:  { ko:'나를 꼭 닮은 동물을 찾아봐요', en:'Find the animal that matches your soul',
              ja:'あなたにそっくりな動物は？', zh:'找到与你最相似的动物' }
   },
   {
@@ -45,7 +45,7 @@ const TESTS = [
     thumb: 'images/love_hero.jpg',
     title: { ko:'내 연애 세포 유형은?', en:'What\'s Your Love Cell Type?',
              ja:'私の恋愛細胞タイプは？', zh:'我的恋爱细胞是哪种？' },
-    desc:  { ko:'연애할 때 나는 어떤 하트일까?', en:'What kind of heart are you in love?',
+    desc:  { ko:'연애할 때 나는 어떤 하트인지 알아봐요', en:'What kind of heart are you in love?',
              ja:'恋する時、私はどんなハート？', zh:'恋爱时我是哪种心？' }
   },
   {
@@ -55,7 +55,7 @@ const TESTS = [
     thumb: 'images/fantasy_hero.jpg',
     title: { ko:'판타지 세계의 내 직업은?', en:'What\'s Your Fantasy World Job?',
              ja:'ファンタジー世界での私の職業は？', zh:'我在奇幻世界的职业是？' },
-    desc:  { ko:'판타지 세계에서 나의 직업은?', en:'What would your job be in a fantasy world?',
+    desc:  { ko:'판타지 세계에서 나의 직업을 찾아봐요', en:'What would your job be in a fantasy world?',
              ja:'ファンタジー世界での私の職業は？', zh:'在奇幻世界里你会是什么职业？' }
   },
   {
@@ -65,7 +65,7 @@ const TESTS = [
     thumb: 'images/tarot_hero.jpg',
     title: { ko:'내 운명의 타로 카드는?', en:'Which Tarot Card Is Your Destiny?',
              ja:'私の運命のタロットカードは？', zh:'哪张塔罗牌是我的命运？' },
-    desc:  { ko:'내 운명을 담은 타로 카드는?', en:'Which tarot card holds your destiny?',
+    desc:  { ko:'내 운명을 담은 타로 카드를 찾아봐요', en:'Which tarot card holds your destiny?',
              ja:'私の運命を宿すタロットカードは？', zh:'承载我命运的塔罗牌是？' }
   }
   ,{
@@ -85,7 +85,7 @@ const TESTS = [
     thumb: 'images/travel_hero.jpg',
     title: { ko:'나에게 어울리는 여행지는?', en:'Which Destination Suits You?',
              ja:'私にぴったりの旅行先は？', zh:'最适合我的旅行目的地是？' },
-    desc:  { ko:'내 성격에 꼭 맞는 여행지는?', en:'Which destination matches your soul?',
+    desc:  { ko:'내 성격에 꼭 맞는 여행지를 찾아봐요', en:'Which destination matches your soul?',
              ja:'私の性格にぴったりの旅行先は？', zh:'最符合我性格的旅行目的地是？' }
   }
   ,{
@@ -95,7 +95,7 @@ const TESTS = [
     thumb: 'images/gem_hero.jpg',
     title: { ko:'나를 닮은 보석은?', en:'Which Gem Resembles You?',
              ja:'私に似ている宝石は？', zh:'哪种宝石最像你？' },
-    desc:  { ko:'나를 꼭 닮은 보석은 무엇일까?', en:'Find the gem that matches your soul',
+    desc:  { ko:'나를 꼭 닮은 보석을 찾아봐요', en:'Find the gem that matches your soul',
              ja:'あなたにそっくりな宝石は？', zh:'找到与你最相似的宝石' }
   }
   ,{
@@ -105,7 +105,7 @@ const TESTS = [
     thumb: 'images/egenteto_hero.jpg',
     title: { ko:'나는 에겐일까 테토일까?', en:'Am I Egen or Teto?',
              ja:'私はエゲン？テト？', zh:'我是埃根还是泰托？' },
-    desc:  { ko:'나의 에겐·테토 에너지 유형은?', en:'Find your Egen·Teto energy type',
+    desc:  { ko:'나의 에겐·테토 에너지 유형을 알아봐요', en:'Find your Egen·Teto energy type',
              ja:'私のエゲン・テトエネルギータイプは？', zh:'找到我的埃根泰托能量类型' }
   }
   ,{
@@ -135,7 +135,7 @@ const TESTS = [
     thumb: 'images/work_hero.jpg',
     title: { ko:'나의 직장 생존 유형은?', en:'My Work Survival Type',
              ja:'私の職場生存タイプは？', zh:'我的职场生存类型是？' },
-    desc:  { ko:'직장에서 나는 어떤 캐릭터?', en:'Which office character are you?',
+    desc:  { ko:'직장에서 나는 어떤 캐릭터인지 알아봐요', en:'Which office character are you?',
              ja:'職場での私はどんなキャラ？', zh:'你是哪种职场角色？' }
   }
   ,{
@@ -155,7 +155,7 @@ const TESTS = [
     thumb: 'images/drink_hero.jpg',
     title: { ko:'나는 어떤 술자리 유형?', en:"What's My Drinking Party Type?",
              ja:'私はどんな飲み会タイプ？', zh:'我是哪种聚餐类型？' },
-    desc:  { ko:'술자리에서 나는 어떤 캐릭터?', en:'Which party character are you?',
+    desc:  { ko:'술자리에서 나는 어떤 캐릭터인지 알아봐요', en:'Which party character are you?',
              ja:'飲み会での私はどんなキャラ？', zh:'聚餐时你是哪种角色？' }
   }
 ];
