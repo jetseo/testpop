@@ -1014,13 +1014,15 @@
 
 
 
-    // 줄 추가 (타이핑 효과)
+    // 줄 추가 (타이핑 효과) — tbody를 동적으로 참조
     function addLine(txt, cls){
       return new Promise(r=>{
+        const tb = document.getElementById('terminalBody');
+        if(!tb){ r(); return; }
         const line = document.createElement('div');
         line.className = 'terminal-line' + (cls ? ' '+cls : '');
-        tbody.appendChild(line);
-        tbody.scrollTop = tbody.scrollHeight;
+        tb.appendChild(line);
+        tb.scrollTop = tb.scrollHeight;
         if(!txt){ r(); return; }
         let ci = 0;
         const spd = txt.startsWith('[') ? 10 : 24;
@@ -1039,10 +1041,11 @@
     // 커서 깜빡임
     function blinkCursor(times){
       return new Promise(r=>{
-        const last = tbody.lastElementChild;
+        const tb = document.getElementById('terminalBody');
+        const last = tb ? tb.lastElementChild : null;
         if(!last){ r(); return; }
         let n=0;
-        const b=()=>{ last.style.opacity = last.style.opacity==='0'?'1':'0'; n++; if(n<times*2) setTimeout(b,280); else{ last.style.opacity='1'; r(); } };
+        const b=()=>{ last.style.opacity=last.style.opacity==='0'?'1':'0'; n++; if(n<times*2) setTimeout(b,280); else{ last.style.opacity='1'; r(); } };
         b();
       });
     }
@@ -1050,43 +1053,61 @@
     // 프로그레스 바
     function progressBar(label){
       return new Promise(r=>{
+        const tb = document.getElementById('terminalBody');
+        if(!tb){ r(); return; }
         const line = document.createElement('div');
         line.className = 'terminal-line terminal-progress';
-        tbody.appendChild(line);
-        tbody.scrollTop = tbody.scrollHeight;
+        tb.appendChild(line);
+        tb.scrollTop = tb.scrollHeight;
         let pct=0;
         const fill=()=>{
-          const filled = Math.floor(pct/5);
-          const bar = '█'.repeat(filled) + '░'.repeat(20-filled);
-          line.innerHTML = label+'['+bar+'] '+pct+'%';
+          const filled=Math.floor(pct/5);
+          const bar='█'.repeat(filled)+'░'.repeat(20-filled);
+          line.innerHTML=label+'['+bar+'] '+pct+'%';
           if(pct<100){ pct=Math.min(100,pct+Math.floor(Math.random()*7)+4); setTimeout(fill,55); }
-          else{ line.innerHTML = label+'[████████████████████] 100% <span class="terminal-ok">OK</span>'; r(); }
+          else{ line.innerHTML=label+'[████████████████████] 100% <span class="terminal-ok">OK</span>'; r(); }
         };
         fill();
       });
     }
 
+    // Phase1 타이핑 효과
+    function typeMsg(txt, el){
+      return new Promise(r=>{
+        el.textContent = '';
+        let ci = 0;
+        const type = ()=>{
+          if(ci <= txt.length){
+            el.textContent = txt.slice(0,ci);
+            ci++; setTimeout(type, 38);
+          } else r();
+        };
+        type();
+      });
+    }
+
     // ---- 시퀀스 실행 ----
     (async ()=>{
-      // Phase 1: 관리자 출동 — 터미널 창 없이 전면 텍스트로 표시
-      app.innerHTML = '<div class="admin-dispatch" id="adminDispatch"></div>';
-      const dispatch = document.getElementById('adminDispatch');
+      // Phase 1: 관리자 출동 — 전면 텍스트 + 타이핑 효과
+      app.innerHTML = '<div class="admin-dispatch"><div class="admin-text" id="adminText"></div></div>';
+      const el = document.getElementById('adminText');
 
-      function showMsg(txt){
-        return new Promise(r=>{
-          dispatch.style.transition = 'opacity .2s';
-          dispatch.style.opacity = '0';
-          setTimeout(()=>{ dispatch.textContent = txt; dispatch.style.opacity = '1'; r(); }, 220);
-        });
-      }
-
-      await showMsg(phase1Prefix[lang]||phase1Prefix.ko);
+      await typeMsg(phase1Prefix[lang]||phase1Prefix.ko, el);
       await wait(1000);
       for(const msg of adminScript){
-        await showMsg(msg);
-        await wait(1100);
+        // 페이드아웃 → 새 텍스트 타이핑
+        el.style.transition = 'opacity .2s';
+        el.style.opacity = '0';
+        await wait(220);
+        el.style.opacity = '1';
+        await typeMsg(msg, el);
+        await wait(900);
       }
-      await showMsg(phase1Suffix[lang]||phase1Suffix.ko);
+      el.style.transition = 'opacity .2s';
+      el.style.opacity = '0';
+      await wait(220);
+      el.style.opacity = '1';
+      await typeMsg(phase1Suffix[lang]||phase1Suffix.ko, el);
       await wait(1300);
 
       // Phase 2: 터미널 창으로 전환
@@ -1101,13 +1122,8 @@
           <div class="terminal-body" id="terminalBody"></div>
         </div>
       `;
-      const tbody = document.getElementById('terminalBody');
 
-      // Phase 2: 부팅 화면
-      for(const bl of boot.lines){
-        if(bl==='') { await addLine('',''); await wait(150); }
-        else { await addLine(bl,'terminal-boot'); await wait(bl.startsWith('[') ? 70 : 160); }
-      }
+      // 부팅 화면
       for(const bl of boot.lines){
         if(bl==='') { await addLine('',''); await wait(150); }
         else { await addLine(bl,'terminal-boot'); await wait(bl.startsWith('[') ? 70 : 160); }
@@ -1120,7 +1136,7 @@
       await wait(800);
 
       // Phase 3: 분석 로그
-      tbody.innerHTML = '';
+      document.getElementById('terminalBody').innerHTML = '';
       for(const log of logLines){
         await addLine(log, log.startsWith('>') ? 'terminal-cmd' : '');
         await wait(log.includes('경고')||log.includes('Warning')||log.includes('警告') ? 1000 : 450);
@@ -1151,7 +1167,7 @@
     })();
   }
 
-    // ---- 결과 카드 뒤집기 ----    // ---- 결과 카드 뒤집기 ----    // ---- 결과 카드 뒤집기 ----
+        // ---- 결과 카드 뒤집기 ----    // ---- 결과 카드 뒤집기 ----    // ---- 결과 카드 뒤집기 ----
   function initCardFlip(fromLink){
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const inner = document.getElementById('flipInner');
