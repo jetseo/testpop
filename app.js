@@ -99,6 +99,7 @@
 
   // ---- 화면: 허브(홈) ----
   function renderHub(){
+    clearCompleted();
     curId=null; TEST=null; setTitle(null);
     const app=document.getElementById('app');
 
@@ -317,6 +318,7 @@
 
   // ---- 화면: 퀴즈 ----
   function renderQuiz(slideOut){
+    if(!slideOut) clearCompleted();
     const qs=TEST.questions[lang]||TEST.questions.ko;
     if(qIndex>=qs.length){
       const rt=calcType();
@@ -476,7 +478,7 @@
     const bestD=TEST.types[d.best][lang], worstD=TEST.types[d.worst][lang];
     const meta=getTestMeta(curId);
     const fromLink = !checkCompleted(curId, ty);
-    clearCompleted(); // 소비 후 초기화 (다른 테스트로 이동 시 오염 방지)
+    // clearCompleted는 다른 페이지 이동 시 호출 (새로고침해도 내 결과 유지)
     const app=document.getElementById('app');
     app.innerHTML=`
       <section class="result">
