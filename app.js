@@ -270,7 +270,6 @@
         <button class="btn-primary" id="startBtn">${t('start')}</button>
       </section>
       <div class="share-intro-wrap">
-        <button class="btn-share-intro" id="shareIntroBtn">🔗 ${t('share_intro')}</button>
         <a class="back-to-home" href="#home" id="backToHomeBtn">← ${t('back_to_tests')}</a>
       </div>
     `;
@@ -296,22 +295,6 @@
       location.hash='quiz';
     };
 
-    // 인트로 공유 버튼
-    const shareIntroBtn = document.getElementById('shareIntroBtn');
-    if(shareIntroBtn){
-      shareIntroBtn.onclick=()=>{
-        const url = location.origin + location.pathname + '#test/' + curId;
-        if(navigator.share){
-          navigator.share({ title: document.title, url });
-        } else {
-          navigator.clipboard.writeText(url).then(()=>{
-            shareIntroBtn.textContent = '✓ ' + t('copied');
-            setTimeout(()=>{ shareIntroBtn.innerHTML = '🔗 ' + t('share_intro'); }, 2000);
-          });
-        }
-        track('result_share',{test_id:curId,share_type:'intro'});
-      };
-    }
 
     // 다른 테스트 보기 — 홈 이동 후 전체 테스트 섹션으로 스크롤
     const backToHomeBtn = document.getElementById('backToHomeBtn');
