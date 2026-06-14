@@ -268,8 +268,10 @@
         <p class="hero-sub hero-desc">${L(m.desc)}</p>
         <p class="hero-sub hero-10sec">${t('ten_sec_prefix')}</p>
         <button class="btn-primary" id="startBtn">${t('start')}</button>
-        <a class="back-to-home" href="#home" id="backToHomeBtn">← ${t('back_to_tests')}</a>
       </section>
+      <div class="back-home-wrap">
+        <a class="back-to-home" href="#home" id="backToHomeBtn">← ${t('back_to_tests')}</a>
+      </div>
     `;
 
     // 등장 애니메이션
@@ -503,23 +505,39 @@
           <button class="btn-make" id="cardBtn">${t('make_card')}</button>
         </div>
         <canvas id="cardCanvas" width="720" height="1500" style="display:none"></canvas>
+        <button class="btn-share retry" id="retryBtn">${t('retry')}</button>
         <div class="share-row">
           <button class="btn-share save" id="saveBtn">${t('save_image')}</button>
           <button class="btn-share share" id="shareBtn">${t('share')}</button>
         </div>
         ` : `
+        <button class="btn-share retry" id="retryBtn">${t('retry')}</button>
         <div class="share-row">
           <button class="btn-share share" id="shareBtn">${t('share')}</button>
         </div>
         `}
         <div class="result-actions">
-          <button class="btn-ghost" id="retryBtn">${t('retry')}</button>
-          <a class="btn-ghost" href="#home" style="text-decoration:none">${t('other_tests')}</a>
+          <a class="back-to-home" href="#home" id="resultBackBtn">← ${t('back_to_tests')}</a>
         </div>
         <div class="ad-slot" data-slot="result-bottom" aria-hidden="true"></div>
       </section>
     `;
     document.getElementById('retryBtn').onclick=()=>{answers=[];qIndex=0;location.hash='quiz';};
+    const resultBackBtn = document.getElementById('resultBackBtn');
+    if(resultBackBtn){
+      resultBackBtn.addEventListener('click',(e)=>{
+        e.preventDefault();
+        location.hash='home';
+        setTimeout(()=>{
+          const sec=document.getElementById('all-tests-section');
+          if(sec){
+            const topbar=document.querySelector('.topbar');
+            const offset=topbar?topbar.offsetHeight:0;
+            window.scrollTo({top:sec.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'});
+          }
+        },100);
+      });
+    }
     document.getElementById('shareBtn').onclick=()=>{track('result_share',{test_id:curId,result_type:ty});shareSocial(ty,d);};
     if(!fromLink){
       document.getElementById('cardBtn').onclick=()=>drawCard(ty,d,false);
